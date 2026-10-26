@@ -28,6 +28,22 @@
       <linearGradient id="g3-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d6b2f"/><stop offset=".45" stop-color="#ffe7a3"/><stop offset="1" stop-color="#a87d34"/></linearGradient>
       <linearGradient id="g3-whip" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0d0f11"/><stop offset=".4" stop-color="#555d65"/><stop offset="1" stop-color="#0d0f11"/></linearGradient>
 
+      <linearGradient id="g3-cloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#dfeef7"/><stop offset="1" stop-color="#9fbfd3"/></linearGradient>
+      <linearGradient id="g3-cloudside" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fb0c4"/><stop offset="1" stop-color="#5d8099"/></linearGradient>
+      <symbol id="i-cloud" viewBox="0 0 220 150">
+        <!-- extruded underside for depth -->
+        <path d="M52 112h120a32 32 0 0 0 2-64 46 46 0 0 0-88-10 34 34 0 0 0-36 44 22 22 0 0 0 2 30z" transform="translate(0 12)" fill="url(#g3-cloudside)"/>
+        <!-- cloud face -->
+        <path d="M52 112h120a32 32 0 0 0 2-64 46 46 0 0 0-88-10 34 34 0 0 0-36 44 22 22 0 0 0 2 30z" fill="url(#g3-cloud)"/>
+        <ellipse cx="104" cy="44" rx="30" ry="12" fill="#fff" opacity=".7"/>
+        <!-- circuit traces running into the cloud -->
+        <g fill="none" stroke="#d8a547" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M80 124v14h-26"/><path d="M112 124v22"/><path d="M144 124v14h26"/>
+        </g>
+        <g fill="#04170f" stroke="#d8a547" stroke-width="2.6"><circle cx="50" cy="138" r="5"/><circle cx="112" cy="148" r="5"/><circle cx="174" cy="138" r="5"/></g>
+        <!-- upload arrow -->
+        <path d="M112 98V66m-14 14 14-14 14 14" fill="none" stroke="#1f6fb2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      </symbol>
       <symbol id="i-resistor" viewBox="0 0 220 70">
         <rect x="0" y="31" width="220" height="8" rx="4" fill="url(#g3-lead)"/>
         <rect x="48" y="11" width="124" height="48" rx="24" fill="url(#g3-res)"/>
@@ -268,7 +284,7 @@
           </article>
           <article class="tile tile-copper reveal">
             <span class="tile-num">05</span>
-            <svg class="tile-3d" aria-hidden="true"><use href="#i-resistor"/></svg>
+            <svg class="tile-3d" aria-hidden="true"><use href="#i-cloud"/></svg>
             <h3>Cloud that pays for itself</h3>
             <p>An AWS backend for META-HUB that cut over US$2,000 a year in cloud costs.</p>
           </article>
@@ -650,9 +666,10 @@
 
         <article class="job reveal">
           <div class="job-media">
-            <!-- ADD INTERNSHIP PHOTO: replace the placeholder div below with
-                 <img src="images/ssmc.jpg" alt="At SSMC" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()"> -->
-            <div class="photo-slot"><span>Photo coming soon</span></div>
+            <figure class="shot job-shot job-shot-slide">
+              <img src="images/ssmc-yield-analysis.jpg" alt="SSMC yield analysis slide: bin pareto, PCM correlation graph, wafer yield trend and wafer map signatures" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>Yield analysis</span>Bin pareto, PCM correlation, yield trend and wafer maps</figcaption>
+            </figure>
           </div>
           <div class="job-body">
             <p class="when">04/2025 – 08/2025</p>
@@ -669,10 +686,15 @@
         </article>
 
         <article class="job reveal">
-          <div class="job-media">
-            <!-- ADD INTERNSHIP PHOTO: replace the placeholder div below with
-                 <img src="images/sick.jpg" alt="At SICK Sensor Intelligence" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()"> -->
-            <div class="photo-slot"><span>Photo coming soon</span></div>
+          <div class="job-media job-media-pair">
+            <figure class="shot job-shot">
+              <img src="images/sick-oscilloscope.jpg" alt="Gue Yi Peng probing a sensor signal on a Keysight InfiniiVision oscilloscope" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>Test bench</span>Checking a sensor's output on the oscilloscope</figcaption>
+            </figure>
+            <figure class="shot job-shot">
+              <img src="images/sick-team.jpg" alt="Gue Yi Peng with colleagues under the SICK logo" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>SICK Singapore</span>With the test engineering team</figcaption>
+            </figure>
           </div>
           <div class="job-body">
             <p class="when">12/2022 – 03/2023</p>

@@ -797,7 +797,7 @@ body.lb-open { overflow: hidden; }
 .tile-photo  { grid-area: photo;  padding: 0; min-height: 556px; }
 .tile-cyan   { grid-area: cyan;   background: #0f5f55; }
 .tile-dark   { grid-area: dark;   background: var(--edge); }
-.tile-copper { grid-area: copper; background: #9c4f22; }
+.tile-copper { grid-area: copper; background: linear-gradient(160deg, #2a76c4 0%, #174f8f 100%); }
 .tile-cyan p, .tile-dark p, .tile-copper p { color: #e6ece4; }
 .tile-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 30%; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
 .tile-photo:hover img { transform: scale(1.04); }
@@ -858,3 +858,15 @@ body.lb-open { overflow: hidden; }
   .trace-ul i { transform: translate(60%, -50%); }
   .tx-stamp { animation: none; }
 }
+
+/* cloud on tile 05 */
+.tile-copper .tile-3d { width: 140px; height: 96px; top: 20px; --r: 0deg; }
+
+/* internship photos */
+.job { align-items: start; }
+.job-media { display: grid; gap: 12px; align-content: start; }
+.job-shot img { aspect-ratio: 4 / 3; object-fit: cover; }
+.job-shot figcaption { padding-top: 28px; font-size: .85rem; }
+.job-media-pair .job-shot:first-child img { object-position: 50% 45%; }
+.job-shot-slide img { aspect-ratio: 16 / 9; object-fit: contain; background: #e6ecea; }
+.job-shot-slide figcaption { position: static; background: var(--edge); padding: 12px 14px; }
