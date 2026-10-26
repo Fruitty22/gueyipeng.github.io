@@ -151,20 +151,21 @@
         <figure class="board">
           <span class="ref">U1</span>
           <div class="board-media">
-            <img src="https://drive.google.com/thumbnail?id=1QJZ7JyTC2B1rm_hKp6Vq4sYHvstq-YfO&amp;sz=w1200" alt="TrackSafe poster for the Singapore RailTech Grand Challenge" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <img src="images/u1-tracksafe-scenario.jpg" alt="TrackSafe scenario 1: two personnel helmets transmitting to RX1 at the OCC, relayed through the cloud to the monitoring dashboard" loading="lazy">
             <div class="board-fallback"><span>TrackSafe</span></div>
           </div>
-          <figcaption>SG RailTech Grand Challenge 2024 poster</figcaption>
+          <figcaption>Scenario 1 · multiple personnel tracked live at the OCC</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge badge-bronze">Bronze · Singapore RailTech Grand Challenge 2024 (IHL)</p>
           <h3>TrackSafe</h3>
           <p class="tagline">Real-time LoRa tracking of maintenance crews on MRT tracks.</p>
           <p>
-            Night maintenance crews work on live track sections where the Operations Control Centre (OCC) needs to know
-            exactly who is where. I led the design of helmet-mounted ESP32 + LoRa transmitters that send a helmet ID and
-            battery level every 6 seconds to receivers along the work zone. The receivers read RSSI and SNR to work out which
-            zone each person is in, raise out-of-bounds alerts, and forward everything over Wi-Fi to Firestore and a Flutter dashboard at the OCC.
+            Every crew member wears a helmet fitted with an ESP32 LoRa transmitter that broadcasts its helmet ID and battery
+            level every 6 seconds. Receivers along the work zone pick up each packet, read its RSSI and SNR, and relay it over
+            Wi-Fi through the cloud to the dashboard at the Operations Control Centre (OCC). With several people on the same
+            stretch of track, the OCC sees every helmet live, and an out-of-bounds alert fires the moment a helmet is picked up
+            by a receiver outside its assigned zone. I led the hardware design and the multi-node network architecture.
           </p>
           <ul class="specs">
             <li><span>Range</span>1–3 km</li>
@@ -178,6 +179,7 @@
           <div class="links">
             <a href="https://drive.google.com/file/d/18ch8W0NlGt5Ii8DxrJTiI1titcYPBIg6/view" target="_blank" rel="noopener">Final presentation ↗</a>
             <a href="https://drive.google.com/file/d/1QJZ7JyTC2B1rm_hKp6Vq4sYHvstq-YfO/view" target="_blank" rel="noopener">Poster ↗</a>
+            <a href="https://www.instagram.com/p/DDbupkISFvy/?img_index=3" target="_blank" rel="noopener">TP Engineering on Instagram ↗</a>
           </div>
         </div>
       </article>
@@ -203,20 +205,21 @@
         <figure class="board">
           <span class="ref">U2</span>
           <div class="board-media">
-            <img src="https://drive.google.com/thumbnail?id=1P_s8ywJEmtCxjrJgBagQ3S3yQkk6D-U_&amp;sz=w1200" alt="META-HUB project poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <img src="images/u2-metahub-portal.jpg" alt="META-HUB home screen showing Metabots cleaning and service robots, document search, admin view and chatbot button" loading="lazy">
             <div class="board-fallback"><span>META-HUB</span></div>
           </div>
-          <figcaption>META-HUB poster · Metabots Singapore</figcaption>
+          <figcaption>META-HUB home screen · admin view</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge">Featured · Interclean Amsterdam &amp; Engineering Tech Show</p>
           <h3>META-HUB Knowledge Platform</h3>
           <p class="tagline">An AI-powered resource portal for Metabots Singapore.</p>
           <p>
-            Metabots' product knowledge was scattered across outdated document versions, which slowed down support and
-            made permissions hard to manage. I architected the AWS backend from scratch and designed the UI/UX: a portal with
-            product and asset management, admin-only editing, a search engine and an AI chatbot assistant built on Bedrock and Lex,
-            with Pinecone for retrieval and Glue for the data pipeline.
+            META-HUB is the resource portal for Metabots' range of cleaning and service robots. Staff and clients browse products
+            and solutions, search every document from one bar, or ask the built-in AI chatbot. Admins manage users and assets and can
+            switch to "View as User" to check what clients see. I designed the UI/UX and architected the AWS backend from scratch:
+            Bedrock and Lex power the chatbot, Pinecone handles retrieval, and Lambda, EC2, RDS and Glue run the services and data
+            pipeline. It replaced scattered, outdated document versions with one secure source of truth.
           </p>
           <ul class="specs">
             <li><span>Cloud savings</span>US$2,000+/yr</li>
@@ -239,20 +242,21 @@
         <figure class="board">
           <span class="ref">U3</span>
           <div class="board-media">
-            <img src="https://drive.google.com/thumbnail?id=1dIg9bKL-Tff9zmUQe8TJTp-CUFw0IgdH&amp;sz=w1200" alt="GearCharge pitch deck title slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <img src="images/u3-gearcharge-station.jpg" alt="GearCharge receiver station: ESP32-WROOM-32E receives Bluetooth bike data and links to the Blynk IoT app over Wi-Fi" loading="lazy">
             <div class="board-fallback"><span>GearCharge</span></div>
           </div>
-          <figcaption>IdeateCOMM 2025 pitch deck</figcaption>
+          <figcaption>Receiver station · ESP32-WROOM-32E → Blynk → phone</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge badge-silver">Silver &amp; Best Prototype · IdeateCOMM Challenge 2025</p>
           <h3>GearCharge · Ageless Bicycle Singapore</h3>
           <p class="tagline">BLE + RFID bike tracking that alerts volunteers before a bike goes missing.</p>
           <p>
-            Ageless Bicyclists runs community rides for seniors and needed a way to keep track of bikes inside an event zone.
-            Each bike carries a BLE transmitter with RFID login and logout. A station receives the BLE signals, uses RSSI to tell
-            whether a bike is in the zone, and pushes Blynk notifications when a bike leaves the area or is moved without a login.
-            No SIM card, no data plan.
+            Ageless Bicyclists runs community rides for seniors and needed to keep track of every bike inside an event zone.
+            Each bike carries a BLE transmitter, and riders log in and out with an RFID tag. The receiver station, built on an
+            ESP32-WROOM-32E, captures every bike's Bluetooth signal and uses its RSSI to tell whether the bike is still in the zone.
+            Over Wi-Fi it links to the Blynk IoT app, which updates volunteers' phones when a rider takes a bike out of the zone or
+            a bike is moved without a login. One station serves many bikes, with no SIM card and no data plan.
           </p>
           <ul class="specs">
             <li><span>Cost per bike</span>under S$20</li>
@@ -276,13 +280,13 @@
           <article class="card reveal">
             <div class="card-media">
               <span class="ref">U4</span>
-              <img src="https://drive.google.com/thumbnail?id=1eDYNb2dMNOxw6xl6ZVSkBtFZXwnqlDa7&amp;sz=w800" alt="Take Me Home smart trolley slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <img src="images/u4-trolley-lora-gps.jpg" alt="TTGO LoRa GPS board beside a phone showing received coordinates, and the abandoned trolley's location pinned on Google Maps" loading="lazy">
               <div class="board-fallback"><span>Smart Trolley</span></div>
             </div>
             <div class="card-body">
               <p class="badge badge-gold">Lee Kuan Yew Technology Award</p>
               <h4>Take Me Home · Smart Trolley</h4>
-              <p>A GPS + LoRa tracker for supermarket trolleys. When a trolley leaves the geofence, a buzzer prompts the shopper to return it and its coordinates are logged to Google Sheets with a one-click Google Maps link. A linear-regression model on the data predicts where trolleys get abandoned.</p>
+              <p>Each trolley hides a TTGO LoRa board with a GPS module. When it leaves the supermarket's geofence, a buzzer prompts the shopper to return it, and its coordinates are sent over LoRa to the retailer and logged in Google Sheets automatically. One click on a row opens the exact spot in Google Maps, and the growing dataset feeds a linear-regression model that predicts where trolleys get abandoned. No SIM card or data plan needed.</p>
               <ul class="chips"><li>TTGO LoRa</li><li>GPS</li><li>Google Sheets</li><li>Regression</li></ul>
               <a class="card-link" href="https://drive.google.com/file/d/1eDYNb2dMNOxw6xl6ZVSkBtFZXwnqlDa7/view" target="_blank" rel="noopener">Open deck ↗</a>
             </div>
@@ -306,13 +310,13 @@
           <article class="card reveal">
             <div class="card-media">
               <span class="ref">U6</span>
-              <img src="https://drive.google.com/thumbnail?id=1vlKcqe73FRuVwveDurLox9RvAYov2hdh&amp;sz=w800" alt="Digital Lanyard title slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <img src="images/u6-lanyard-esp32cam.jpg" alt="Digital Lanyard social-distancing diagram showing LED flash under 1 m, next to the ESP32-CAM board" loading="lazy">
               <div class="board-fallback"><span>Digital Lanyard</span></div>
             </div>
             <div class="card-body">
               <p class="badge badge-silver">Silver · The Sixth Sense Competition 2022 (SICK)</p>
               <h4>COVID-19 Digital Lanyard</h4>
-              <p>A wearable that checks safe distancing with an ESP32-CAM and skin temperature with an Omron D6T thermal sensor. It vibrates above 34 °C and uploads timestamped photos to Google Photos for contact tracing.</p>
+              <p>A hands-free lanyard that keeps safe distancing without a supervisor. Its ESP32-CAM uses on-board AI to measure the distance to the person in front and flashes its LED when two people are closer than 1 m. An Omron D6T thermal sensor reads skin temperature and vibrates above 34 °C, and photos of close contacts go to Google Photos, timestamped for contact tracing.</p>
               <ul class="chips"><li>ESP32-CAM</li><li>D6T thermal</li><li>Face detection</li></ul>
               <a class="card-link" href="https://drive.google.com/file/d/1vlKcqe73FRuVwveDurLox9RvAYov2hdh/view" target="_blank" rel="noopener">Open deck ↗</a>
             </div>
@@ -321,13 +325,13 @@
           <article class="card reveal">
             <div class="card-media">
               <span class="ref">U7</span>
-              <img src="https://drive.google.com/thumbnail?id=1RmP0Qv39amJkfnw4PnxGMVfpcc5DXPHR&amp;sz=w800" alt="Team Gravity energy storage slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <img src="images/u7-team-gravity-siew.jpg" alt="Team Gravity receiving 1st Runner-Up certificates on stage at Singapore International Energy Week, organised by the Energy Market Authority" loading="lazy">
               <div class="board-fallback"><span>Gravity Storage</span></div>
             </div>
             <div class="card-body">
               <p class="badge badge-silver">1st Runner-Up · SG Energy Grand Challenge 2023</p>
               <h4>Team Gravity · Smart Grid Storage</h4>
-              <p>A gravity energy storage concept for Singapore's land-scarce grid: surplus power lifts weights, and lowering them through a planetary gearbox (over 90% efficient) returns it, with 80%+ round-trip efficiency. Blockchain records renewable energy flows.</p>
+              <p>Surplus solar and wind power drives a motor that lifts heavy weights, storing the energy as gravitational potential energy. At peak demand the weights descend and turn the motor as a generator, giving 2–18 hours of clean storage at over 80% round-trip efficiency. A blockchain layer records production, distribution and consumption straight from smart meters, so power can be routed automatically between plants, homes and factories.</p>
               <ul class="chips"><li>Energy storage</li><li>Gearbox design</li><li>Blockchain</li></ul>
               <a class="card-link" href="https://drive.google.com/file/d/1RmP0Qv39amJkfnw4PnxGMVfpcc5DXPHR/view" target="_blank" rel="noopener">Open deck ↗</a>
             </div>
@@ -426,6 +430,10 @@
               <li>Coached 30 Tampines Secondary students to build a prototype from scratch: soldering, 3D printing and coding.</li>
               <li>Set up an exhibition at Bedok Green Secondary to promote TP Electronics to the Sec 4 cohort.</li>
             </ul>
+            <div class="links">
+              <a href="https://www.instagram.com/p/DA-ihzsyfP5/" target="_blank" rel="noopener">Tampines Sec STEM programme ↗</a>
+              <a href="https://www.instagram.com/p/DA96B-6TZr9/" target="_blank" rel="noopener">TP Electronics Interest Group post ↗</a>
+            </div>
           </div>
         </article>
 
@@ -532,5 +540,108 @@
     </div>
   </footer>
 
+  <!-- ================= LIGHTBOX (click any project photo to zoom) ================= -->
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <div class="lb-bar">
+      <span class="lb-count" id="lb-count"></span>
+      <div class="lb-tools">
+        <button type="button" class="lb-btn" id="lb-zoom" aria-label="Zoom in or out">Zoom +</button>
+        <button type="button" class="lb-btn" id="lb-close" aria-label="Close photo">Close ✕</button>
+      </div>
+    </div>
+    <div class="lb-stage" id="lb-stage">
+      <img id="lb-img" src="" alt="">
+    </div>
+    <p class="lb-caption" id="lb-caption"></p>
+    <button type="button" class="lb-nav lb-prev" id="lb-prev" aria-label="Previous photo">‹</button>
+    <button type="button" class="lb-nav lb-next" id="lb-next" aria-label="Next photo">›</button>
+  </dialog>
+
+  <script>
+    (function () {
+      var selector = '.board-media img, .card-media img, .shot img, .job-media img';
+      var box = document.getElementById('lightbox');
+      var stage = document.getElementById('lb-stage');
+      var big = document.getElementById('lb-img');
+      var cap = document.getElementById('lb-caption');
+      var count = document.getElementById('lb-count');
+      var zoomBtn = document.getElementById('lb-zoom');
+      var list = [], index = 0;
+
+      function collect() {
+        list = Array.prototype.slice.call(document.querySelectorAll(selector));
+      }
+      function setZoom(on, x, y) {
+        stage.classList.toggle('zoomed', on);
+        zoomBtn.textContent = on ? 'Zoom −' : 'Zoom +';
+        if (on && x !== undefined) {
+          // keep the clicked point under the cursor
+          requestAnimationFrame(function () {
+            stage.scrollLeft = x * stage.scrollWidth - stage.clientWidth / 2;
+            stage.scrollTop = y * stage.scrollHeight - stage.clientHeight / 2;
+          });
+        }
+      }
+      function show(i) {
+        index = (i + list.length) % list.length;
+        var src = list[index];
+        big.src = src.currentSrc || src.src;
+        big.alt = src.alt;
+        var fig = src.closest('figure');
+        var c = fig && fig.querySelector('figcaption');
+        cap.textContent = c ? c.innerText.trim().replace(/\s*\n+\s*/g, ' · ') : src.alt;
+        count.textContent = (index + 1) + ' / ' + list.length;
+        setZoom(false);
+      }
+      function open(img) {
+        collect();
+        show(list.indexOf(img));
+        if (typeof box.showModal === 'function') box.showModal(); else box.setAttribute('open', '');
+        document.body.classList.add('lb-open');
+      }
+      function close() {
+        if (box.open) box.close();
+      }
+
+      document.addEventListener('click', function (e) {
+        var img = e.target.closest && e.target.closest(selector);
+        if (img && !box.contains(img)) { e.preventDefault(); open(img); }
+      });
+      document.querySelectorAll(selector).forEach(function (img) {
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('role', 'button');
+        img.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+        });
+      });
+
+      big.addEventListener('click', function (e) {
+        var r = big.getBoundingClientRect();
+        var on = !stage.classList.contains('zoomed');
+        setZoom(on, (e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height);
+      });
+      zoomBtn.addEventListener('click', function () { setZoom(!stage.classList.contains('zoomed'), 0.5, 0.5); });
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function () { show(index - 1); });
+      document.getElementById('lb-next').addEventListener('click', function () { show(index + 1); });
+      box.addEventListener('click', function (e) { if (e.target === box) close(); });   // click the dark backdrop
+      box.addEventListener('close', function () { document.body.classList.remove('lb-open'); setZoom(false); });
+      document.addEventListener('keydown', function (e) {
+        if (!box.open) return;
+        if (e.key === 'ArrowLeft') show(index - 1);
+        if (e.key === 'ArrowRight') show(index + 1);
+      });
+
+      // swipe left/right on phones (only when not zoomed)
+      var sx = null;
+      stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        if (sx === null || stage.classList.contains('zoomed')) return;
+        var dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+        sx = null;
+      });
+    })();
+  </script>
 </body>
 </html>
