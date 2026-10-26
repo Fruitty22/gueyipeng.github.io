@@ -155,7 +155,7 @@
       <div class="hero-inner">
         <p class="eyebrow"><span class="led"></span> Electronics · Embedded · LoRa · Cloud</p>
 
-        <h1 class="hero-title">
+        <h1 class="hero-title split">
           <span class="line">Make the circuit <em>sense.</em></span>
           <span class="line">Make the signal <em>travel.</em></span>
           <span class="line">Make the data <em>matter.</em></span>
@@ -168,7 +168,7 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">See the projects</a>
+          <a href="#projects" class="btn btn-primary"><span class="tx-stamp" aria-hidden="true">TX</span>See the projects</a>
           <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
 
@@ -216,7 +216,7 @@
       <svg class="f3d f-about" aria-hidden="true" style="--r:-4deg;--d:-2s;--drift:-80px"><use href="#i-pcb"/></svg>
       <div class="about-text reveal">
         <p class="silk">U0 · ABOUT</p>
-        <h2>From soldering iron to <em>serverless.</em></h2>
+        <h2 class="split">From soldering iron to <em>serverless.</em></h2>
         <p>
           Diploma in Electronics from Temasek Polytechnic (2023–2026) and Higher Nitec in Electronics Engineering from ITE (2020–2022).
           My work sits where hardware meets data: LoRa and BLE sensor networks in the field, yield analysis on a semiconductor fab floor,
@@ -232,12 +232,56 @@
       </dl>
     </section>
 
+    <!-- ================= HOW I BUILD (bento) ================= -->
+    <section class="how">
+      <div class="wrap">
+        <div class="bento">
+          <div class="tile tile-title reveal">
+            <p class="silk">U0 · HOW I BUILD</p>
+            <h2 class="split">Hardware that works <em>off the bench.</em></h2>
+          </div>
+          <article class="tile tile-gold reveal">
+            <span class="tile-num">01</span>
+            <svg class="tile-3d" aria-hidden="true"><use href="#i-chip"/></svg>
+            <h3>Prototype on real boards</h3>
+            <p>ESP32, Arduino, Raspberry Pi and PIC, soldered by hand and housed in 3D-printed cases, so every idea is tested as a working device.</p>
+          </article>
+          <article class="tile tile-photo reveal">
+            <img src="images/tracksafe-helmet.jpg" alt="Gue Yi Peng holding the TrackSafe helmet and receiver" loading="lazy" onerror="this.closest('.tile').classList.add('is-missing')">
+            <div class="tile-over">
+              <span class="tile-num">02</span>
+              <h3>Wireless by default</h3>
+              <p>LoRa for kilometres, BLE for zones, Wi-Fi to reach the cloud.</p>
+            </div>
+          </article>
+          <article class="tile tile-cyan reveal">
+            <span class="tile-num">03</span>
+            <svg class="tile-3d" aria-hidden="true"><use href="#i-cap"/></svg>
+            <h3>Test until it breaks</h3>
+            <p>Stress, heat and reliability testing on sensors at SICK, and 125 °C heat tests on automotive chips at SSMC.</p>
+          </article>
+          <article class="tile tile-dark reveal">
+            <span class="tile-num">04</span>
+            <svg class="tile-3d" aria-hidden="true"><use href="#i-pcb"/></svg>
+            <h3>Data you can act on</h3>
+            <p>Yield analysis on 100+ wafer lots a day, regression on tracking data, live dashboards at the control room.</p>
+          </article>
+          <article class="tile tile-copper reveal">
+            <span class="tile-num">05</span>
+            <svg class="tile-3d" aria-hidden="true"><use href="#i-resistor"/></svg>
+            <h3>Cloud that pays for itself</h3>
+            <p>An AWS backend for META-HUB that cut over US$2,000 a year in cloud costs.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ================= FEATURED PROJECTS ================= -->
     <section id="projects" class="projects">
       <div class="wrap section-head reveal">
         <p class="silk">J1 · PROJECTS</p>
         <svg class="f3d head-3d h-res" aria-hidden="true" style="--r:14deg;--d:-3s;--drift:-70px"><use href="#i-resistor"/></svg>
-        <h2>Boards I've <em>brought up.</em></h2>
+        <h2 class="split">Boards I've <em>brought up.</em></h2>
         <p class="lede">Each project below is a real build with a working prototype. Open the deck to see the full slides on Google Drive.</p>
       </div>
 
@@ -246,10 +290,10 @@
         <figure class="board">
           <span class="ref">U1</span>
           <div class="board-media">
-            <img src="images/u1-tracksafe-scenario.jpg" alt="TrackSafe scenario 1: two personnel helmets transmitting to RX1 at the OCC, relayed through the cloud to the monitoring dashboard" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+            <img src="images/u1-tracksafe-helmet-node.jpg" alt="TrackSafe helmet node: 3D-printed case holding an ESP32 LoRa board with OLED showing ping, helmet ID TAN and 99% battery, with SMA antenna" loading="lazy" onerror="this.remove()">
             <div class="board-fallback"><span>TrackSafe</span></div>
           </div>
-          <figcaption>Scenario 1 · multiple personnel tracked live at the OCC</figcaption>
+          <figcaption>Helmet node · OLED shows ping, helmet ID and battery</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge badge-bronze">Bronze · Singapore RailTech Grand Challenge 2024 (IHL)</p>
@@ -491,12 +535,115 @@
       </div>
     </section>
 
+    <!-- ================= SCHEMATIC → BOARD (before/after slider) ================= -->
+    <section class="compare-sec">
+      <div class="wrap compare-wrap">
+        <div class="compare-text reveal">
+          <p class="silk">U10 · BRING-UP</p>
+          <h2 class="split">From schematic to a <em>soldered board.</em></h2>
+          <p>Drag the slider to compare a LoRa sensor node on paper with the board that ships. ESP32, SX1276 radio, OLED, battery and antenna: the same building blocks inside the TrackSafe helmet.</p>
+        </div>
+        <div class="compare reveal" id="compare" style="--pos:50%">
+          <!-- BEFORE: schematic -->
+          <svg class="cmp cmp-sch" viewBox="0 0 800 450" role="img" aria-label="Schematic of a LoRa sensor node">
+            <defs>
+              <pattern id="bp-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#2c5c8f" stroke-width=".6"/></pattern>
+            </defs>
+            <rect width="800" height="450" fill="#0d2f57"/>
+            <rect width="800" height="450" fill="url(#bp-grid)"/>
+            <g fill="none" stroke="#e8f1ff" stroke-width="2">
+              <rect x="110" y="120" width="220" height="180"/>
+              <rect x="440" y="140" width="140" height="120"/>
+              <rect x="130" y="335" width="180" height="60"/>
+              <!-- pins U1 right -->
+              <path d="M330 160h20M330 185h20M330 210h20M330 235h20M330 270h20"/>
+              <!-- pins U2 left -->
+              <path d="M420 160h20M420 185h20M420 210h20M420 235h20"/>
+              <!-- SPI nets -->
+              <path d="M350 160h70M350 185h70M350 210h70M350 235h70"/>
+              <!-- RF out to antenna -->
+              <path d="M580 170h60V95"/>
+              <path d="M640 95l-22-35h44z"/>
+              <path d="M640 60V40"/>
+              <!-- I2C to OLED -->
+              <path d="M180 300v35M240 300v35"/>
+              <!-- battery -->
+              <path d="M650 300v20M620 320h60M635 332h30M620 344h60M635 356h30M650 356v24"/>
+              <path d="M650 300V270H350M650 380v20H90V250h20"/>
+              <path d="M580 230h40v40"/>
+            </g>
+            <g fill="#e8f1ff" font-family="JetBrains Mono, monospace" font-size="14">
+              <text x="122" y="142">U1  ESP32-WROOM</text>
+              <text x="452" y="162">U2  SX1276</text>
+              <text x="142" y="357">U3  OLED 0.96"</text>
+              <text x="690" y="342">BT1</text>
+              <text x="652" y="54">ANT1 923 MHz</text>
+              <text x="357" y="154" font-size="11">SCK</text><text x="357" y="179" font-size="11">MOSI</text><text x="357" y="204" font-size="11">MISO</text><text x="357" y="229" font-size="11">NSS</text>
+              <text x="188" y="322" font-size="11">SDA</text><text x="248" y="322" font-size="11">SCL</text>
+              <text x="590" y="164" font-size="11">RF</text>
+              <text x="40" y="430" font-size="12" fill="#9fc2ea">TRACKSAFE-NODE · SHEET 1/1 · REV A</text>
+            </g>
+            <g fill="#e8f1ff"><circle cx="350" cy="270" r="4"/><circle cx="650" cy="270" r="4"/><circle cx="110" cy="250" r="4"/></g>
+          </svg>
+          <!-- AFTER: assembled PCB -->
+          <svg class="cmp cmp-pcb" viewBox="0 0 800 450" role="img" aria-label="Assembled LoRa sensor node circuit board">
+            <rect width="800" height="450" fill="#04170f"/>
+            <rect x="40" y="30" width="720" height="390" rx="22" fill="url(#g3-pcb)"/>
+            <g fill="none" stroke="#e7c06a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+              <path d="M330 160h90M330 185h90M330 210h90M330 235h90"/>
+              <path d="M580 170h40l20-20V110"/>
+              <path d="M180 300v35M240 300v35"/>
+              <path d="M650 300V280l-10-10H340M650 380v10l-20 20H110l-20-20V260l10-10h10"/>
+              <path d="M580 230h30l10 10v30"/>
+            </g>
+            <g fill="#ffe08a"><circle cx="420" cy="160" r="6"/><circle cx="420" cy="235" r="6"/><circle cx="640" cy="110" r="7"/><circle cx="90" cy="300" r="6"/></g>
+            <!-- U1 ESP32 module: shield can -->
+            <rect x="110" y="120" width="220" height="180" rx="6" fill="#1b1e21"/>
+            <rect x="122" y="150" width="196" height="138" rx="4" fill="#c9ced3"/>
+            <rect x="122" y="150" width="196" height="138" rx="4" fill="url(#g3-shade)" opacity=".5"/>
+            <path d="M126 128h40v14h20v-14h20v14h20v-14h20v14h20v-14h40" fill="none" stroke="#d8a547" stroke-width="3"/>
+            <text x="140" y="210" font-family="JetBrains Mono, monospace" font-size="15" font-weight="600" fill="#4a5056">ESP32-WROOM-32E</text>
+            <text x="140" y="232" font-family="JetBrains Mono, monospace" font-size="11" fill="#6b737b">Wi-Fi · BLE · 240 MHz</text>
+            <!-- U2 SX1276 -->
+            <rect x="440" y="140" width="140" height="120" rx="4" fill="url(#g3-ictop)"/>
+            <circle cx="456" cy="156" r="5" fill="#0b0d0f"/>
+            <text x="470" y="205" font-family="JetBrains Mono, monospace" font-size="17" font-weight="600" fill="#9aa2aa">SX1276</text>
+            <text x="470" y="225" font-family="JetBrains Mono, monospace" font-size="11" fill="#6d757d">LoRa 923</text>
+            <g fill="#c9ced3"><rect x="430" y="150" width="10" height="5"/><rect x="430" y="170" width="10" height="5"/><rect x="430" y="190" width="10" height="5"/><rect x="430" y="210" width="10" height="5"/><rect x="430" y="230" width="10" height="5"/><rect x="580" y="150" width="10" height="5"/><rect x="580" y="170" width="10" height="5"/><rect x="580" y="190" width="10" height="5"/><rect x="580" y="210" width="10" height="5"/><rect x="580" y="230" width="10" height="5"/></g>
+            <!-- U3 OLED -->
+            <rect x="130" y="335" width="180" height="60" rx="4" fill="#05080a"/>
+            <text x="144" y="358" font-family="JetBrains Mono, monospace" font-size="12" fill="#5ee6cf">Ping: 19.0  ID: TAN</text>
+            <rect x="144" y="368" width="150" height="12" rx="6" fill="none" stroke="#5ee6cf" stroke-width="2"/>
+            <rect x="147" y="371" width="140" height="6" rx="3" fill="#5ee6cf"/>
+            <!-- antenna SMA + whip -->
+            <rect x="624" y="60" width="32" height="40" rx="3" fill="url(#g3-gold)"/>
+            <rect x="633" y="-10" width="14" height="72" rx="7" fill="url(#g3-whip)"/>
+            <!-- battery JST -->
+            <rect x="615" y="300" width="70" height="80" rx="6" fill="#f2f2f2"/>
+            <rect x="625" y="312" width="50" height="22" rx="2" fill="#d4d4d4"/>
+            <path d="M635 345h30M635 355h30" stroke="#c62828" stroke-width="4"/>
+            <!-- silkscreen -->
+            <g fill="#eef1e4" font-family="JetBrains Mono, monospace" font-size="13">
+              <text x="110" y="112">U1</text><text x="440" y="132">U2</text><text x="130" y="415">U3</text><text x="692" y="300">BT1</text><text x="662" y="90">ANT1</text>
+              <text x="470" y="400" font-size="12">TRACKSAFE-NODE REV A</text>
+            </g>
+            <g fill="#04170f" stroke="#e7c06a" stroke-width="4"><circle cx="70" cy="60" r="10"/><circle cx="730" cy="60" r="10"/><circle cx="70" cy="390" r="10"/><circle cx="730" cy="390" r="10"/></g>
+          </svg>
+          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">⟷</span></div>
+          <span class="cmp-label cmp-l">SCHEMATIC</span>
+          <span class="cmp-label cmp-r">BOARD</span>
+          <label class="sr-only" for="cmp-range">Compare schematic and board</label>
+          <input type="range" id="cmp-range" class="cmp-range" min="0" max="100" value="50">
+        </div>
+      </div>
+    </section>
+
     <!-- ================= EXPERIENCE ================= -->
     <section id="experience" class="experience">
       <div class="wrap section-head reveal">
         <p class="silk">J2 · EXPERIENCE</p>
         <svg class="f3d head-3d h-cap" aria-hidden="true" style="--r:-8deg;--d:-0s;--drift:-70px"><use href="#i-cap"/></svg>
-        <h2>On the <em>fab floor</em> and in the test lab.</h2>
+        <h2 class="split">On the <em>fab floor</em> and in the test lab.</h2>
       </div>
 
       <div class="wrap timeline">
@@ -566,7 +713,7 @@
       <div class="wrap section-head reveal">
         <p class="silk">J3 · SKILLS</p>
         <svg class="f3d head-3d h-chip" aria-hidden="true" style="--r:-6deg;--d:-1s;--drift:-70px"><use href="#i-chip"/></svg>
-        <h2>The <em>pin-out.</em></h2>
+        <h2 class="split">The <em>pin-out.</em></h2>
       </div>
       <div class="wrap header-grid">
         <div class="header-block reveal">
@@ -601,7 +748,7 @@
       <div class="wrap section-head reveal">
         <p class="silk">J4 · AWARDS</p>
         <svg class="f3d head-3d h-led glow" aria-hidden="true" style="--r:10deg;--d:-1s;--drift:-70px"><use href="#i-led"/></svg>
-        <h2>Signal <em>log.</em></h2>
+        <h2 class="split">Signal <em>log.</em></h2>
         <p class="lede">Every packet received, newest first. Tap a row for details.</p>
       </div>
       <div class="wrap log">
@@ -648,11 +795,11 @@
           <svg class="f3d f-ant" style="--r:6deg;--d:0s"><use href="#i-antenna"/></svg>
         </div>
         <p class="silk">TX · CONTACT</p>
-        <h2>Open a <em>channel.</em></h2>
+        <h2 class="split">Open a <em>channel.</em></h2>
         <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data.</p>
         <a class="contact-mail" href="mailto:gueyipeng123456@gmail.com">gueyipeng123456@gmail.com</a>
         <div class="hero-actions">
-          <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener"><span class="tx-stamp" aria-hidden="true">TX</span>LinkedIn ↗</a>
           <a href="https://drive.google.com/drive/folders/1Z_107ApZiYflD4bVxDYTsywjPEqOQm-Q" class="btn btn-ghost" target="_blank" rel="noopener">Full portfolio on Drive ↗</a>
         </div>
       </div>
@@ -768,6 +915,101 @@
         if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
         sx = null;
       });
+    })();
+  </script>
+
+  <script>
+    /* Word drop, trace underline, count-up and the schematic/board slider */
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.documentElement.classList.add('js');
+
+      // 1) split headings into words that drop in one after another
+      function splitNode(node, state) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+          if (child.nodeType === 3) {
+            var parts = child.textContent.split(/(\s+)/);
+            var frag = document.createDocumentFragment();
+            parts.forEach(function (p) {
+              if (!p) return;
+              if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); return; }
+              var outer = document.createElement('span'); outer.className = 'w';
+              var inner = document.createElement('span'); inner.className = 'wi';
+              inner.style.setProperty('--i', state.i++);
+              inner.textContent = p;
+              outer.appendChild(inner); frag.appendChild(outer);
+            });
+            child.parentNode.replaceChild(frag, child);
+          } else if (child.nodeType === 1 && child.tagName !== 'svg') {
+            splitNode(child, state);
+          }
+        });
+      }
+      var heads = document.querySelectorAll('.split');
+      heads.forEach(function (h) {
+        h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+        var state = { i: 0 };
+        splitNode(h, state);
+        h.style.setProperty('--n', state.i);
+        // PCB-trace underline drawn under the accent word, ending in a via
+        h.querySelectorAll('em').forEach(function (em) {
+          var ul = document.createElement('span');
+          ul.className = 'trace-ul'; ul.setAttribute('aria-hidden', 'true');
+          ul.appendChild(document.createElement('i'));
+          em.appendChild(ul);
+        });
+      });
+
+      // 2) count-up for the stat numbers
+      function countUp(dd) {
+        var raw = dd.getAttribute('data-final') || dd.textContent;
+        dd.setAttribute('data-final', raw);
+        var m = raw.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
+        if (!m || reduce) return;
+        var target = parseFloat(m[2]), start = null, dur = 1400;
+        function step(t) {
+          if (!start) start = t;
+          var k = Math.min(1, (t - start) / dur), e = 1 - Math.pow(1 - k, 3);
+          dd.textContent = m[1] + Math.round(target * e) + m[3];
+          if (k < 1) requestAnimationFrame(step); else dd.textContent = raw;
+        }
+        requestAnimationFrame(step);
+      }
+
+      // 3) trigger when things scroll into view
+      var targets = Array.prototype.slice.call(document.querySelectorAll('.split, .stats'));
+      function fire(el) {
+        el.classList.add('in');
+        if (el.classList.contains('stats')) el.querySelectorAll('dd').forEach(countUp);
+      }
+      if ('IntersectionObserver' in window && !reduce) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting) { fire(en.target); io.unobserve(en.target); } });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+        targets.forEach(function (t) { io.observe(t); });
+      } else {
+        targets.forEach(fire);
+      }
+
+      // 4) schematic / board slider
+      var cmp = document.getElementById('compare'), range = document.getElementById('cmp-range');
+      if (cmp && range) {
+        var set = function () { cmp.style.setProperty('--pos', range.value + '%'); };
+        range.addEventListener('input', set); set();
+        // gentle one-time sweep so visitors see it moves
+        if (!reduce && 'IntersectionObserver' in window) {
+          var swept = false;
+          new IntersectionObserver(function (en, ob) {
+            if (swept || !en[0].isIntersecting) return; swept = true; ob.disconnect();
+            var t0 = null;
+            (function sweep(t) {
+              if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1600);
+              range.value = 50 + Math.sin(k * Math.PI * 2) * 22; set();
+              if (k < 1) requestAnimationFrame(sweep); else { range.value = 50; set(); }
+            })(performance.now());
+          }, { threshold: 0.5 }).observe(cmp);
+        }
+      }
     })();
   </script>
 </body>
