@@ -700,3 +700,8 @@ body.lb-open { overflow: hidden; }
 }
 
 .contact { overflow: hidden; }
+
+/* a photo file that isn't uploaded yet: show a tidy placeholder, not a broken image */
+.shot.is-missing { min-height: 220px; display: grid; place-items: center; }
+.shot.is-missing img { display: none; }
+.shot.is-missing figcaption { position: static; background: none; padding: 16px; text-align: center; }
