@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gue Yi Peng · Electronics Portfolio</title>
+  <meta name="description" content="Gue Yi Peng — electronics engineer building LoRa, IoT, embedded and cloud systems. Award-winning projects from Temasek Polytechnic and ITE.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;1,500;1,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Scroll progress: a copper trace that fills as you scroll -->
+  <div class="progress" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <a href="#top" class="logo" aria-label="Back to top">
+      <span class="logo-chip">GYP</span>
+      <span class="logo-text">Gue Yi Peng</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#projects"><span>J1</span>Projects</a>
+      <a href="#experience"><span>J2</span>Experience</a>
+      <a href="#skills"><span>J3</span>Skills</a>
+      <a href="#awards"><span>J4</span>Awards</a>
+      <a href="#contact" class="nav-cta"><span>TX</span>Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <!-- Animated PCB traces with signal pulses -->
+      <svg class="hero-traces" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g class="trace">
+          <path d="M-20 120 H260 L320 180 H620 L680 120 H1220"/>
+          <path d="M-20 560 H180 L260 480 H520 L580 540 H900 L960 480 H1220"/>
+          <path d="M980 -20 V140 L1040 200 V420 L980 480 V720"/>
+          <path d="M140 -20 V60 L200 120"/>
+          <path d="M760 720 V620 L820 560 H1220"/>
+          <path d="M-20 340 H90 L150 400 H300"/>
+        </g>
+        <g class="pulse">
+          <path d="M-20 120 H260 L320 180 H620 L680 120 H1220"/>
+          <path d="M-20 560 H180 L260 480 H520 L580 540 H900 L960 480 H1220" style="animation-delay:-2s"/>
+          <path d="M980 -20 V140 L1040 200 V420 L980 480 V720" style="animation-delay:-4s"/>
+          <path d="M760 720 V620 L820 560 H1220" style="animation-delay:-1s"/>
+        </g>
+        <g class="pads">
+          <circle cx="260" cy="120" r="6"/><circle cx="620" cy="180" r="6"/>
+          <circle cx="520" cy="480" r="6"/><circle cx="900" cy="540" r="6"/>
+          <circle cx="1040" cy="200" r="6"/><circle cx="1040" cy="420" r="6"/>
+          <circle cx="200" cy="120" r="6"/><circle cx="300" cy="400" r="6"/>
+          <circle cx="820" cy="560" r="6"/>
+        </g>
+      </svg>
+
+      <div class="hero-inner">
+        <p class="eyebrow"><span class="led"></span> Electronics · Embedded · LoRa · Cloud</p>
+
+        <h1 class="hero-title">
+          <span class="line">Make the circuit <em>sense.</em></span>
+          <span class="line">Make the signal <em>travel.</em></span>
+          <span class="line">Make the data <em>matter.</em></span>
+        </h1>
+
+        <p class="hero-sub">
+          I'm <strong>Gue Yi Peng</strong>, an electronics engineer from Singapore.
+          I build sensor nodes, long-range radio networks and the cloud backends that read them,
+          and I've taken six of them to competition podiums along the way.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">See the projects</a>
+          <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+
+        <!-- LoRa chirp, like Kigo's vertical tagline but in radio -->
+        <div class="chirp" aria-hidden="true">
+          <svg viewBox="0 0 600 60" preserveAspectRatio="none">
+            <defs>
+              <path id="sym" d="M0,30 L2,24.4 L4,18.9 L6,14.1 L8,10.3 L10,8.3 L12,8.3 L14,10.7 L16,15.3 L18,22 L20,30 L22,38.2 L24,45.5 L26,50.4 L28,52 L30,49.6 L32,43.4 L34,34.3 L36,24 L38,14.8 L40,9.1 L42,8.4 L44,13.4 L46,23.1 L48,34.9 L50,45.6 L52,51.5 L54,50.5 L56,42.5 L58,29.9 L60,17.1 L62,9 L64,9.3 L66,18.1 L68,32.2 L70,45.6 L72,51.9 L74,47.9 L76,34.9 L78,19.3 L80,9.1 L82,10.2 L84,22.4 L86,39.2 L88,50.7 L90,49.6 L92,36 L94,18.3 L96,8.3 L98,13.1 L100,30 L102,47 L104,51.5 L106,39.5 L108,19.9 L110,8.3 L112,14.5 L114,34 L116,50.1 L118,48.5 L120,30 L122,11.4 L124,10.3 L126,28.5 L128,48.3 L130,49.6 L132,30.6 L134,10.8 L136,11.7 L138,32.9 L140,50.9 L142,45 L144,21.4 L146,8 L148,21.4 L150,45.6 L152,50.1 L154,28.8 L156,8.9 L158,17.2 L160,42.9 L162,50.9 L164,29.4 L166,8.7 L168,18.9 L170,45.6 L172,48.9 L174,23.3 L176,8.1 L178,27.4 L180,50.9 L182,40.5 L184,12.7 L186,13.9 L188,42.5 L190,49.6 L192,22.4 L194,8.7 L196,33.3 L198,51.9 L200,30"/>
+            </defs>
+            <use href="#sym"/>
+            <use href="#sym" x="200"/>
+            <use href="#sym" x="400"/>
+          </svg>
+          <span class="chirp-label">AS923 · SF7 · BW 125 kHz · up-chirp</span>
+        </div>
+      </div>
+
+      <!-- Kigo-style vertical tag -->
+      <p class="vertical-tag" aria-hidden="true">RX ◂ OCC ◂ 1–3 km ◂ TX</p>
+    </section>
+
+    <!-- ================= AWARD MARQUEE ================= -->
+    <section class="marquee" aria-label="Awards">
+      <div class="marquee-track">
+        <span>Lee Kuan Yew Technology Award</span><i>◆</i>
+        <span>SG RailTech Grand Challenge · Bronze</span><i>◆</i>
+        <span>IdeateCOMM 2025 · Silver &amp; Best Prototype</span><i>◆</i>
+        <span>SHEC Poster · 2nd Place</span><i>◆</i>
+        <span>SG Energy Grand Challenge · 1st Runner-Up</span><i>◆</i>
+        <span>Sixth Sense Competition · Silver</span><i>◆</i>
+        <span>Interclean Amsterdam · Featured</span><i>◆</i>
+        <!-- duplicate set for seamless loop -->
+        <span aria-hidden="true">Lee Kuan Yew Technology Award</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">SG RailTech Grand Challenge · Bronze</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">IdeateCOMM 2025 · Silver &amp; Best Prototype</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">SHEC Poster · 2nd Place</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">SG Energy Grand Challenge · 1st Runner-Up</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">Sixth Sense Competition · Silver</span><i aria-hidden="true">◆</i>
+        <span aria-hidden="true">Interclean Amsterdam · Featured</span><i aria-hidden="true">◆</i>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT / STATS ================= -->
+    <section class="about wrap">
+      <div class="about-text reveal">
+        <p class="silk">U0 · ABOUT</p>
+        <h2>From soldering iron to <em>serverless.</em></h2>
+        <p>
+          Diploma in Electronics from Temasek Polytechnic (2023–2026) and Higher Nitec in Electronics Engineering from ITE (2020–2022).
+          My work sits where hardware meets data: LoRa and BLE sensor networks in the field, yield analysis on a semiconductor fab floor,
+          and AWS machine-learning pipelines in the cloud. Next stop: NTU EEE, focusing on Communication &amp; Network,
+          Data Analysis &amp; ML, and Micro &amp; Nano Electronics.
+        </p>
+      </div>
+      <dl class="stats reveal">
+        <div><dt>Competition awards</dt><dd>6</dd></div>
+        <div><dt>Wafer lots analysed daily at SSMC</dt><dd>100+</dd></div>
+        <div><dt>Annual cloud cost cut (USD)</dt><dd>2k+</dd></div>
+        <div><dt>LoRa link range tested</dt><dd>3 km</dd></div>
+      </dl>
+    </section>
+
+    <!-- ================= FEATURED PROJECTS ================= -->
+    <section id="projects" class="projects">
+      <div class="wrap section-head reveal">
+        <p class="silk">J1 · PROJECTS</p>
+        <h2>Boards I've <em>brought up.</em></h2>
+        <p class="lede">Each project below is a real build with a working prototype. Open the deck to see the full slides on Google Drive.</p>
+      </div>
+
+      <!-- ---------- U1 TrackSafe ---------- -->
+      <article class="feature has-gallery wrap reveal">
+        <figure class="board">
+          <span class="ref">U1</span>
+          <div class="board-media">
+            <img src="https://drive.google.com/thumbnail?id=1QJZ7JyTC2B1rm_hKp6Vq4sYHvstq-YfO&amp;sz=w1200" alt="TrackSafe poster for the Singapore RailTech Grand Challenge" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <div class="board-fallback"><span>TrackSafe</span></div>
+          </div>
+          <figcaption>SG RailTech Grand Challenge 2024 poster</figcaption>
+        </figure>
+        <div class="feature-body">
+          <p class="badge badge-bronze">Bronze · Singapore RailTech Grand Challenge 2024 (IHL)</p>
+          <h3>TrackSafe</h3>
+          <p class="tagline">Real-time LoRa tracking of maintenance crews on MRT tracks.</p>
+          <p>
+            Night maintenance crews work on live track sections where the Operations Control Centre (OCC) needs to know
+            exactly who is where. I led the design of helmet-mounted ESP32 + LoRa transmitters that send a helmet ID and
+            battery level every 6 seconds to receivers along the work zone. The receivers read RSSI and SNR to work out which
+            zone each person is in, raise out-of-bounds alerts, and forward everything over Wi-Fi to Firestore and a Flutter dashboard at the OCC.
+          </p>
+          <ul class="specs">
+            <li><span>Range</span>1–3 km</li>
+            <li><span>Battery</span>20–40 h</li>
+            <li><span>Unit cost</span>S$30 (S$10 at volume)</li>
+            <li><span>Update rate</span>every 6 s</li>
+          </ul>
+          <ul class="chips">
+            <li>ESP32</li><li>LoRaWAN</li><li>RSSI / SNR</li><li>Firestore</li><li>Flutter</li><li>3D printing</li>
+          </ul>
+          <div class="links">
+            <a href="https://drive.google.com/file/d/18ch8W0NlGt5Ii8DxrJTiI1titcYPBIg6/view" target="_blank" rel="noopener">Final presentation ↗</a>
+            <a href="https://drive.google.com/file/d/1QJZ7JyTC2B1rm_hKp6Vq4sYHvstq-YfO/view" target="_blank" rel="noopener">Poster ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- U1 TrackSafe photo gallery ---------- -->
+      <div class="gallery wrap reveal">
+        <figure class="shot shot-tall">
+          <img src="images/tracksafe-helmet.jpg" alt="Gue Yi Peng holding the TrackSafe helmet transmitter and OCC receiver beside the Singapore RailTech Grand Challenge banner" loading="lazy">
+          <figcaption><span>TX + RX</span>Helmet transmitter and OCC receiver prototypes</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/tracksafe-award.jpg" alt="Team TP-MAGFY on stage with the trophy as Open Innovation Challenge 2nd Runner-Up" loading="lazy">
+          <figcaption><span>30 Nov 2024</span>Open Innovation Challenge, 2nd Runner-Up (Bronze)</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/tracksafe-booth.jpg" alt="Team TP-MAGFY at the exhibition booth with the TrackSafe helmet, receivers and live web dashboard" loading="lazy">
+          <figcaption><span>Live demo</span>Helmet, receivers and web dashboard at the exhibition</figcaption>
+        </figure>
+      </div>
+
+      <!-- ---------- U2 META-HUB ---------- -->
+      <article class="feature feature-flip wrap reveal">
+        <figure class="board">
+          <span class="ref">U2</span>
+          <div class="board-media">
+            <img src="https://drive.google.com/thumbnail?id=1P_s8ywJEmtCxjrJgBagQ3S3yQkk6D-U_&amp;sz=w1200" alt="META-HUB project poster" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <div class="board-fallback"><span>META-HUB</span></div>
+          </div>
+          <figcaption>META-HUB poster · Metabots Singapore</figcaption>
+        </figure>
+        <div class="feature-body">
+          <p class="badge">Featured · Interclean Amsterdam &amp; Engineering Tech Show</p>
+          <h3>META-HUB Knowledge Platform</h3>
+          <p class="tagline">An AI-powered resource portal for Metabots Singapore.</p>
+          <p>
+            Metabots' product knowledge was scattered across outdated document versions, which slowed down support and
+            made permissions hard to manage. I architected the AWS backend from scratch and designed the UI/UX: a portal with
+            product and asset management, admin-only editing, a search engine and an AI chatbot assistant built on Bedrock and Lex,
+            with Pinecone for retrieval and Glue for the data pipeline.
+          </p>
+          <ul class="specs">
+            <li><span>Cloud savings</span>US$2,000+/yr</li>
+            <li><span>My role</span>Architecture, UI/UX</li>
+            <li><span>Industry partner</span>Metabots SG</li>
+          </ul>
+          <ul class="chips">
+            <li>AWS Bedrock</li><li>Lex</li><li>Lambda</li><li>EC2</li><li>RDS</li><li>Glue</li><li>Pinecone</li>
+          </ul>
+          <div class="links">
+            <a href="https://drive.google.com/file/d/1vHCuCHZET40blPxHr3c_2C9g0gm91uaQ/view" target="_blank" rel="noopener">Demo video ↗</a>
+            <a href="https://drive.google.com/file/d/113aExQeTuk7tr5bbTb5ABAINJwPpzvG7/view" target="_blank" rel="noopener">Project deck ↗</a>
+            <a href="https://drive.google.com/drive/folders/1B_rWKvztZiroD1FpAUbGmhfp1dmD0goZ" target="_blank" rel="noopener">Amsterdam RAI photos ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- U3 GearCharge ---------- -->
+      <article class="feature wrap reveal">
+        <figure class="board">
+          <span class="ref">U3</span>
+          <div class="board-media">
+            <img src="https://drive.google.com/thumbnail?id=1dIg9bKL-Tff9zmUQe8TJTp-CUFw0IgdH&amp;sz=w1200" alt="GearCharge pitch deck title slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+            <div class="board-fallback"><span>GearCharge</span></div>
+          </div>
+          <figcaption>IdeateCOMM 2025 pitch deck</figcaption>
+        </figure>
+        <div class="feature-body">
+          <p class="badge badge-silver">Silver &amp; Best Prototype · IdeateCOMM Challenge 2025</p>
+          <h3>GearCharge · Ageless Bicycle Singapore</h3>
+          <p class="tagline">BLE + RFID bike tracking that alerts volunteers before a bike goes missing.</p>
+          <p>
+            Ageless Bicyclists runs community rides for seniors and needed a way to keep track of bikes inside an event zone.
+            Each bike carries a BLE transmitter with RFID login and logout. A station receives the BLE signals, uses RSSI to tell
+            whether a bike is in the zone, and pushes Blynk notifications when a bike leaves the area or is moved without a login.
+            No SIM card, no data plan.
+          </p>
+          <ul class="specs">
+            <li><span>Cost per bike</span>under S$20</li>
+            <li><span>Topology</span>many bikes → one station</li>
+            <li><span>Next</span>LoRa, solar station</li>
+          </ul>
+          <ul class="chips">
+            <li>BLE</li><li>RFID</li><li>RSSI</li><li>Wi-Fi</li><li>Blynk IoT</li>
+          </ul>
+          <div class="links">
+            <a href="https://drive.google.com/file/d/1dIg9bKL-Tff9zmUQe8TJTp-CUFw0IgdH/view" target="_blank" rel="noopener">Pitch deck ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- More projects grid ---------- -->
+      <div class="wrap">
+        <h3 class="sub-head reveal"><span class="silk">U4–U9</span> More builds</h3>
+        <div class="grid">
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U4</span>
+              <img src="https://drive.google.com/thumbnail?id=1eDYNb2dMNOxw6xl6ZVSkBtFZXwnqlDa7&amp;sz=w800" alt="Take Me Home smart trolley slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <div class="board-fallback"><span>Smart Trolley</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge badge-gold">Lee Kuan Yew Technology Award</p>
+              <h4>Take Me Home · Smart Trolley</h4>
+              <p>A GPS + LoRa tracker for supermarket trolleys. When a trolley leaves the geofence, a buzzer prompts the shopper to return it and its coordinates are logged to Google Sheets with a one-click Google Maps link. A linear-regression model on the data predicts where trolleys get abandoned.</p>
+              <ul class="chips"><li>TTGO LoRa</li><li>GPS</li><li>Google Sheets</li><li>Regression</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1eDYNb2dMNOxw6xl6ZVSkBtFZXwnqlDa7/view" target="_blank" rel="noopener">Open deck ↗</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U5</span>
+              <img src="https://drive.google.com/thumbnail?id=1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD&amp;sz=w800" alt="Smart walking frame poster for SHEC" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <div class="board-fallback"><span>Walking Frame</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge badge-silver">2nd Place · SHEC Student Poster 2024</p>
+              <h4>Smart Walking Frame</h4>
+              <p>A sensor-equipped walking frame for gait rehabilitation, developed for St. Andrew's Community Hospital. Standard frames give support but no feedback; this one helps patients build consistent walking patterns and longer strides.</p>
+              <ul class="chips"><li>Biomedical</li><li>Sensors</li><li>Rehab tech</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD/view" target="_blank" rel="noopener">Open poster ↗</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U6</span>
+              <img src="https://drive.google.com/thumbnail?id=1vlKcqe73FRuVwveDurLox9RvAYov2hdh&amp;sz=w800" alt="Digital Lanyard title slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <div class="board-fallback"><span>Digital Lanyard</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge badge-silver">Silver · The Sixth Sense Competition 2022 (SICK)</p>
+              <h4>COVID-19 Digital Lanyard</h4>
+              <p>A wearable that checks safe distancing with an ESP32-CAM and skin temperature with an Omron D6T thermal sensor. It vibrates above 34 °C and uploads timestamped photos to Google Photos for contact tracing.</p>
+              <ul class="chips"><li>ESP32-CAM</li><li>D6T thermal</li><li>Face detection</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1vlKcqe73FRuVwveDurLox9RvAYov2hdh/view" target="_blank" rel="noopener">Open deck ↗</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U7</span>
+              <img src="https://drive.google.com/thumbnail?id=1RmP0Qv39amJkfnw4PnxGMVfpcc5DXPHR&amp;sz=w800" alt="Team Gravity energy storage slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <div class="board-fallback"><span>Gravity Storage</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge badge-silver">1st Runner-Up · SG Energy Grand Challenge 2023</p>
+              <h4>Team Gravity · Smart Grid Storage</h4>
+              <p>A gravity energy storage concept for Singapore's land-scarce grid: surplus power lifts weights, and lowering them through a planetary gearbox (over 90% efficient) returns it, with 80%+ round-trip efficiency. Blockchain records renewable energy flows.</p>
+              <ul class="chips"><li>Energy storage</li><li>Gearbox design</li><li>Blockchain</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1RmP0Qv39amJkfnw4PnxGMVfpcc5DXPHR/view" target="_blank" rel="noopener">Open deck ↗</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U8</span>
+              <img src="https://drive.google.com/thumbnail?id=1lFhbmyEnAQqVq5IQsZ_1edF6SeVcgWF4&amp;sz=w800" alt="Automated home cooling system slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <div class="board-fallback"><span>Smart Home</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge">Control &amp; Automation</p>
+              <h4>Automated Home Cooling System</h4>
+              <p>A Raspberry Pi and WISE-module smart home that reads temperature, humidity, light and motion, then closes windows, lowers shutters and switches the aircon through relays. Data logs to ThingSpeak, with Twitter alerts for remote monitoring.</p>
+              <ul class="chips"><li>Raspberry Pi</li><li>Zigbee</li><li>DHT11 · LDR · PIR</li><li>ThingSpeak</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1lFhbmyEnAQqVq5IQsZ_1edF6SeVcgWF4/view" target="_blank" rel="noopener">Open deck ↗</a>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <div class="card-media">
+              <span class="ref">U9</span>
+              <!-- No preview image yet: add one with an <img> tag here -->
+              <div class="board-fallback"><span>Fleet Tracker</span></div>
+            </div>
+            <div class="card-body">
+              <p class="badge">Software · Data</p>
+              <h4>Fleet Serviceability Tracker</h4>
+              <p>A VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting.</p>
+              <ul class="chips"><li>Excel VBA</li><li>Power BI</li><li>Dashboards</li></ul>
+              <a class="card-link" href="https://drive.google.com/drive/folders/1S0AtXFNbGoCteNqMzQKSWnCVvyeL7euz" target="_blank" rel="noopener">Open files ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience" class="experience">
+      <div class="wrap section-head reveal">
+        <p class="silk">J2 · EXPERIENCE</p>
+        <h2>On the <em>fab floor</em> and in the test lab.</h2>
+      </div>
+
+      <div class="wrap timeline">
+
+        <article class="job reveal">
+          <div class="job-media">
+            <!-- ADD INTERNSHIP PHOTO: replace the placeholder div below with
+                 <img src="images/ssmc.jpg" alt="At SSMC"> -->
+            <div class="photo-slot"><span>Photo coming soon</span></div>
+          </div>
+          <div class="job-body">
+            <p class="when">04/2025 – 08/2025</p>
+            <h3>SSMC <small>Systems on Silicon Manufacturing Co.</small></h3>
+            <p class="role">Product &amp; Testing Engineer (Intern)</p>
+            <ul class="bullets">
+              <li>Ran reliability and process-control tests on NXP automotive chips, including 125 °C heat-stress tests, to verify they met automotive quality standards.</li>
+              <li>Performed yield analysis and spot-fail diagnosis on 100+ wafer lots a day, reading wafer maps, split-lot history and PCM correlations to find root causes of yield loss.</li>
+              <li>Standardised and validated yield data with a VBA-based Excel tool for accurate, consistent records.</li>
+              <li>Handled RMA wafers through collection and scrapping for traceable disposal.</li>
+            </ul>
+            <a class="card-link" href="https://drive.google.com/file/d/18bRRqZS6hvFue2QEymJacBbT_Cx4cT_q/view" target="_blank" rel="noopener">Internship presentation ↗</a>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-media">
+            <!-- ADD INTERNSHIP PHOTO: replace the placeholder div below with
+                 <img src="images/sick.jpg" alt="At SICK Sensor Intelligence"> -->
+            <div class="photo-slot"><span>Photo coming soon</span></div>
+          </div>
+          <div class="job-body">
+            <p class="when">12/2022 – 03/2023</p>
+            <h3>SICK <small>Sensor Intelligence</small></h3>
+            <p class="role">Test Engineer (Intern)</p>
+            <ul class="bullets">
+              <li>Characterised photoelectric and inductive proximity sensors through stress, heat and reliability testing before production.</li>
+              <li>Assembled and soldered prototypes for new photoelectric sensor designs to support R&amp;D iterations.</li>
+              <li>Evaluated refractive index and false-trigger performance under extreme conditions to find failure limits.</li>
+              <li>Ran temperature tests on reed switches across their rated range.</li>
+            </ul>
+            <a class="card-link" href="https://drive.google.com/file/d/1J9aeTSNML0Wk7gTSQNfmhNrlLcpZxmaV/view" target="_blank" rel="noopener">Internship presentation ↗</a>
+          </div>
+        </article>
+
+        <article class="job job-small reveal">
+          <div class="job-body">
+            <p class="when">10/2023 – 06/2024</p>
+            <h3>Electronic Interest Group <small>Temasek Polytechnic</small></h3>
+            <p class="role">Outreach Leader</p>
+            <ul class="bullets">
+              <li>Coordinated Electronics orientation for 50+ Year 1 students.</li>
+              <li>Coached 30 Tampines Secondary students to build a prototype from scratch: soldering, 3D printing and coding.</li>
+              <li>Set up an exhibition at Bedok Green Secondary to promote TP Electronics to the Sec 4 cohort.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills" class="skills">
+      <div class="wrap section-head reveal">
+        <p class="silk">J3 · SKILLS</p>
+        <h2>The <em>pin-out.</em></h2>
+      </div>
+      <div class="wrap header-grid">
+        <div class="header-block reveal">
+          <p class="hb-title">Programming</p>
+          <ul class="pins"><li>Python</li><li>C</li><li>C++</li><li>JSON</li></ul>
+        </div>
+        <div class="header-block reveal">
+          <p class="hb-title">Embedded &amp; Circuit Design</p>
+          <ul class="pins"><li>Arduino</li><li>ESP32</li><li>Raspberry Pi</li><li>PIC</li><li>LTspice</li><li>EAGLE</li><li>MPLAB</li></ul>
+        </div>
+        <div class="header-block reveal">
+          <p class="hb-title">Wireless</p>
+          <ul class="pins"><li>LoRa / LoRaWAN</li><li>BLE</li><li>RFID</li><li>Zigbee</li><li>Wi-Fi</li><li>GPS</li></ul>
+        </div>
+        <div class="header-block reveal">
+          <p class="hb-title">Data &amp; Cloud</p>
+          <ul class="pins"><li>AWS</li><li>Bedrock</li><li>Lex</li><li>Pinecone</li><li>MySQL</li><li>Tableau</li><li>KNIME</li></ul>
+        </div>
+        <div class="header-block reveal">
+          <p class="hb-title">Platforms</p>
+          <ul class="pins"><li>MATLAB</li><li>Ubuntu</li><li>Blynk</li><li>ThingSpeak</li><li>SketchUp</li><li>Excel VBA</li></ul>
+        </div>
+        <div class="header-block reveal">
+          <p class="hb-title">Certifications</p>
+          <ul class="pins"><li>National EV Specialist Safety (2025)</li><li>TP Sustainability Skills (2025)</li><li>CompTIA IT Fundamentals (2022)</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= AWARDS (FAQ-style accordion like Kigo) ================= -->
+    <section id="awards" class="awards">
+      <div class="wrap section-head reveal">
+        <p class="silk">J4 · AWARDS</p>
+        <h2>Signal <em>log.</em></h2>
+        <p class="lede">Every packet received, newest first. Tap a row for details.</p>
+      </div>
+      <div class="wrap log">
+        <details class="reveal" open>
+          <summary><time>04 Oct 2025</time><span>IdeateCOMM Challenge 2025</span><b>Silver &amp; Best Prototype</b></summary>
+          <p>GearCharge, a BLE + RFID bicycle tracking system for Ageless Bicycle Singapore with Blynk alerts.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>30 Nov 2024</time><span>Singapore RailTech Grand Challenge 2024</span><b>Bronze (IHL)</b></summary>
+          <p>TrackSafe, a LoRa personnel-tracking network for MRT maintenance reporting to the OCC.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>03 Oct 2024</time><span>SHEC Student Poster Competition</span><b>2nd Place</b></summary>
+          <p>Smart Walking Frame for gait rehabilitation, Singapore Healthcare Engineering Conference.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>28 Oct 2023</time><span>Singapore Energy Grand Challenge (Youth)</span><b>1st Runner-Up</b></summary>
+          <p>Team Gravity's gravitational energy storage concept for a resilient smart grid.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>25 May 2023</time><span>Lee Kuan Yew Technology Award (ITE)</span><b>Winner</b></summary>
+          <p>Take Me Home smart trolley, LoRa + GPS tracking with regression-based analysis.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>09 May 2023</time><span>Outstanding Graduate Award (ITE)</span><b>Electronics Eng.</b></summary>
+          <p>Awarded on graduation from the Higher Nitec in Electronics Engineering.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>24 Jan 2022</time><span>The Sixth Sense Competition, 6th edition</span><b>Silver</b></summary>
+          <p>COVID-19 Digital Lanyard, organised by SICK Sensor Intelligence.</p>
+        </details>
+        <details class="reveal">
+          <summary><time>2021 – 2025</time><span>Academic honours</span><b>Multiple</b></summary>
+          <p>Director's List (AY2021/22, AY2022/23) · Edusave Skills Award (2023, 2025) · Edusave EAGLES Award (2022) · Edusave Academic Achievement (2022, 2023) · Service Star Award (Gold), ITE.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact" class="contact">
+      <div class="wrap contact-inner reveal">
+        <p class="silk">TX · CONTACT</p>
+        <h2>Open a <em>channel.</em></h2>
+        <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data.</p>
+        <a class="contact-mail" href="mailto:gueyipeng123456@gmail.com">gueyipeng123456@gmail.com</a>
+        <div class="hero-actions">
+          <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://drive.google.com/drive/folders/1Z_107ApZiYflD4bVxDYTsywjPEqOQm-Q" class="btn btn-ghost" target="_blank" rel="noopener">Full portfolio on Drive ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 Gue Yi Peng · Singapore</span>
+      <span class="silk">REV A · 2-LAYER · ENIG · DESIGNED &amp; ROUTED BY HAND</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+</body>
+</html>
