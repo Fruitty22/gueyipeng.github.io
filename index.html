@@ -11,6 +11,90 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- 3D electronic components, drawn once and reused with <use href="#i-..."> -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g3-res" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7e6c4"/><stop offset=".45" stop-color="#ddb985"/><stop offset="1" stop-color="#93693c"/></linearGradient>
+      <linearGradient id="g3-shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".28" stop-color="#fff" stop-opacity="0"/><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>
+      <linearGradient id="g3-lead" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafafa"/><stop offset=".5" stop-color="#a3a9af"/><stop offset="1" stop-color="#555b61"/></linearGradient>
+      <linearGradient id="g3-leadv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5d6368"/><stop offset=".45" stop-color="#f2f2f2"/><stop offset="1" stop-color="#6b7177"/></linearGradient>
+      <linearGradient id="g3-cap" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#081a3a"/><stop offset=".32" stop-color="#3566c4"/><stop offset=".62" stop-color="#1a3f82"/><stop offset="1" stop-color="#06142e"/></linearGradient>
+      <linearGradient id="g3-capstripe" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fb4dc"/><stop offset=".5" stop-color="#e3ecfd"/><stop offset="1" stop-color="#7189b8"/></linearGradient>
+      <radialGradient id="g3-captop" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#8f98a4"/></radialGradient>
+      <radialGradient id="g3-led" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#d9fff8"/><stop offset=".35" stop-color="#5ee6cf"/><stop offset="1" stop-color="#0b7d6c"/></radialGradient>
+      <linearGradient id="g3-ictop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3f45"/><stop offset="1" stop-color="#16191c"/></linearGradient>
+      <linearGradient id="g3-pin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef1f3"/><stop offset="1" stop-color="#7d858d"/></linearGradient>
+      <linearGradient id="g3-pcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#23a06a"/><stop offset="1" stop-color="#0c5535"/></linearGradient>
+      <linearGradient id="g3-gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d6b2f"/><stop offset=".45" stop-color="#ffe7a3"/><stop offset="1" stop-color="#a87d34"/></linearGradient>
+      <linearGradient id="g3-whip" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0d0f11"/><stop offset=".4" stop-color="#555d65"/><stop offset="1" stop-color="#0d0f11"/></linearGradient>
+
+      <symbol id="i-resistor" viewBox="0 0 220 70">
+        <rect x="0" y="31" width="220" height="8" rx="4" fill="url(#g3-lead)"/>
+        <rect x="48" y="11" width="124" height="48" rx="24" fill="url(#g3-res)"/>
+        <rect x="76" y="11" width="10" height="48" fill="#6b3b1f"/>
+        <rect x="96" y="11" width="10" height="48" fill="#141414"/>
+        <rect x="116" y="11" width="10" height="48" fill="#c62828"/>
+        <rect x="140" y="11" width="9" height="48" fill="#d8a547"/>
+        <rect x="48" y="11" width="124" height="48" rx="24" fill="url(#g3-shade)"/>
+      </symbol>
+
+      <symbol id="i-cap" viewBox="0 0 90 175">
+        <rect x="26" y="124" width="6" height="51" fill="url(#g3-leadv)"/>
+        <rect x="56" y="124" width="6" height="40" fill="url(#g3-leadv)"/>
+        <ellipse cx="45" cy="128" rx="35" ry="9" fill="#06142e"/>
+        <rect x="10" y="22" width="70" height="106" fill="url(#g3-cap)"/>
+        <rect x="58" y="22" width="15" height="106" fill="url(#g3-capstripe)"/>
+        <rect x="62" y="44" width="7" height="3" fill="#1a3f82"/><rect x="62" y="72" width="7" height="3" fill="#1a3f82"/><rect x="62" y="100" width="7" height="3" fill="#1a3f82"/>
+        <ellipse cx="45" cy="22" rx="35" ry="9" fill="url(#g3-captop)"/>
+        <path d="M45 15v14M37 18l16 8M53 18l-16 8" stroke="#77808c" stroke-width="2" fill="none"/>
+      </symbol>
+
+      <symbol id="i-led" viewBox="0 0 80 175">
+        <rect x="27" y="96" width="5" height="79" fill="url(#g3-leadv)"/>
+        <rect x="47" y="96" width="5" height="62" fill="url(#g3-leadv)"/>
+        <ellipse cx="40" cy="96" rx="30" ry="7" fill="#0a5f52"/>
+        <rect x="10" y="88" width="60" height="8" fill="#119c86"/>
+        <path d="M14 90V48a26 26 0 0 1 52 0v42z" fill="url(#g3-led)"/>
+        <ellipse cx="29" cy="44" rx="6" ry="13" fill="#fff" opacity=".6"/>
+      </symbol>
+
+      <symbol id="i-chip" viewBox="0 0 220 150">
+        <path d="M34.0 84.0 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M52.2 89.2 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M70.4 94.4 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M88.6 99.6 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M106.8 104.8 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M125.0 110.0 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M143.2 115.2 l9 2.6 v20 l-3 2 l-3 -0.9 v-17 l-3 -0.9 z" fill="url(#g3-pin)"/><path d="M168.0 110.0 l7 -8.8 v20 l-2 3 l-2 -1 v-14 z" fill="#7d858d"/><path d="M180.0 95.0 l7 -8.8 v20 l-2 3 l-2 -1 v-14 z" fill="#7d858d"/><path d="M192.0 80.0 l7 -8.8 v20 l-2 3 l-2 -1 v-14 z" fill="#7d858d"/>
+        <polygon points="20,70 160,110 160,124 20,84" fill="#0b0d0f"/>
+        <polygon points="160,110 200,60 200,74 160,124" fill="#050607"/>
+        <polygon points="60,20 200,60 160,110 20,70" fill="url(#g3-ictop)"/>
+        <ellipse cx="48" cy="56" rx="6" ry="4" fill="#0b0d0f"/>
+        <text transform="matrix(1 .2857 -.8 1 92 52)" font-family="JetBrains Mono, monospace" font-size="13" font-weight="600" fill="#9aa2aa">SX1276</text>
+        <text transform="matrix(1 .2857 -.8 1 96 70)" font-family="JetBrains Mono, monospace" font-size="9" fill="#6d757d">LoRa 923</text>
+      </symbol>
+
+      <symbol id="i-pcb" viewBox="0 0 260 170">
+        <polygon points="10,85 130,140 250,85 250,96 130,151 10,96" fill="#083a24"/>
+        <polygon points="130,30 250,85 130,140 10,85" fill="url(#g3-pcb)"/>
+        <g fill="none" stroke="url(#g3-gold)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="50,85 80,99 120,80 150,94"/>
+          <polyline points="90,62 120,76 170,53"/>
+          <polyline points="140,118 170,104 210,85"/>
+          <polyline points="70,74 100,60"/>
+        </g>
+        <g fill="#ffe08a"><ellipse cx="50" cy="85" rx="5" ry="3"/><ellipse cx="150" cy="94" rx="5" ry="3"/><ellipse cx="170" cy="53" rx="5" ry="3"/><ellipse cx="210" cy="85" rx="5" ry="3"/><ellipse cx="100" cy="60" rx="5" ry="3"/></g>
+        <polygon points="130,66 158,79 158,89 130,76" fill="#0c0e10"/>
+        <polygon points="130,66 106,77 106,87 130,76" fill="#050607"/>
+        <polygon points="130,56 158,69 130,82 106,71" fill="url(#g3-ictop)"/>
+        <polygon points="130,56 158,69 158,79 130,66" fill="none"/>
+        <circle cx="200" cy="103" r="0"/>
+      </symbol>
+
+      <symbol id="i-antenna" viewBox="0 0 80 220">
+        <rect x="32" y="12" width="16" height="152" rx="8" fill="url(#g3-whip)"/>
+        <rect x="31" y="118" width="18" height="4" fill="#6b737b"/>
+        <circle cx="40" cy="14" r="9" fill="#2a2f34"/>
+        <rect x="26" y="162" width="28" height="22" rx="2" fill="url(#g3-gold)"/>
+        <rect x="21" y="183" width="38" height="14" rx="2" fill="url(#g3-gold)"/>
+        <rect x="37" y="197" width="6" height="22" fill="url(#g3-gold)"/>
+      </symbol>
+    </defs>
+  </svg>
 
   <!-- Scroll progress: a copper trace that fills as you scroll -->
   <div class="progress" aria-hidden="true"></div>
@@ -58,6 +142,15 @@
           <circle cx="820" cy="560" r="6"/>
         </g>
       </svg>
+
+      <!-- Floating 3D components -->
+      <div class="floaters" aria-hidden="true">
+        <svg class="f3d f-chip" style="--r:-10deg;--d:0s;--drift:-60px"><use href="#i-chip"/></svg>
+        <svg class="f3d f-res" style="--r:18deg;--d:-2s;--drift:-140px"><use href="#i-resistor"/></svg>
+        <svg class="f3d f-cap" style="--r:-6deg;--d:-4s;--drift:-90px"><use href="#i-cap"/></svg>
+        <svg class="f3d f-led glow" style="--r:12deg;--d:-1s;--drift:-170px"><use href="#i-led"/></svg>
+        <svg class="f3d f-pcb" style="--r:0deg;--d:-3s;--drift:-110px"><use href="#i-pcb"/></svg>
+      </div>
 
       <div class="hero-inner">
         <p class="eyebrow"><span class="led"></span> Electronics · Embedded · LoRa · Cloud</p>
@@ -120,6 +213,7 @@
 
     <!-- ================= ABOUT / STATS ================= -->
     <section class="about wrap">
+      <svg class="f3d f-about" aria-hidden="true" style="--r:-4deg;--d:-2s;--drift:-80px"><use href="#i-pcb"/></svg>
       <div class="about-text reveal">
         <p class="silk">U0 · ABOUT</p>
         <h2>From soldering iron to <em>serverless.</em></h2>
@@ -142,6 +236,7 @@
     <section id="projects" class="projects">
       <div class="wrap section-head reveal">
         <p class="silk">J1 · PROJECTS</p>
+        <svg class="f3d head-3d h-res" aria-hidden="true" style="--r:14deg;--d:-3s;--drift:-70px"><use href="#i-resistor"/></svg>
         <h2>Boards I've <em>brought up.</em></h2>
         <p class="lede">Each project below is a real build with a working prototype. Open the deck to see the full slides on Google Drive.</p>
       </div>
@@ -201,7 +296,7 @@
       </div>
 
       <!-- ---------- U2 META-HUB ---------- -->
-      <article class="feature feature-flip wrap reveal">
+      <article class="feature feature-flip has-gallery wrap reveal">
         <figure class="board">
           <span class="ref">U2</span>
           <div class="board-media">
@@ -237,8 +332,21 @@
         </div>
       </article>
 
+      <div class="moment moment-flip wrap reveal">
+        <figure class="shot moment-shot">
+          <img src="images/u2-interclean-amsterdam.jpg" alt="The team with Metabots at the Advanced Cobotics Solutions booth at Interclean Amsterdam, beside the DRIVO and META-VAC 35 robots" loading="lazy">
+          <figcaption><span>Interclean Amsterdam · RAI</span>With the Metabots team at the Advanced Cobotics Solutions booth</figcaption>
+        </figure>
+        <div class="moment-text">
+          <p class="silk">U2 · IN THE FIELD</p>
+          <h4>Taking META-HUB to Amsterdam</h4>
+          <p>The project was featured at Interclean Amsterdam, the leading international trade show for cleaning and hygiene, on the Metabots stand alongside the DRIVO and META-VAC 35 robots the portal documents.</p>
+          <a class="card-link" href="https://drive.google.com/drive/folders/1B_rWKvztZiroD1FpAUbGmhfp1dmD0goZ" target="_blank" rel="noopener">More Amsterdam photos ↗</a>
+        </div>
+      </div>
+
       <!-- ---------- U3 GearCharge ---------- -->
-      <article class="feature wrap reveal">
+      <article class="feature has-gallery wrap reveal">
         <figure class="board">
           <span class="ref">U3</span>
           <div class="board-media">
@@ -272,6 +380,18 @@
         </div>
       </article>
 
+      <div class="moment wrap reveal">
+        <figure class="shot moment-shot">
+          <img src="images/u3-ideatecomm-award.jpg" alt="Receiving Silver and Best Prototype certificates at IdeateCOMM Challenge 2025, and the team presenting GearCharge" loading="lazy">
+          <figcaption><span>04 Oct 2025</span>Silver &amp; Best Prototype certificates, and pitching GearCharge</figcaption>
+        </figure>
+        <div class="moment-text">
+          <p class="silk">U3 · ON STAGE</p>
+          <h4>Silver &amp; Best Prototype</h4>
+          <p>We pitched GearCharge to the IdeateCOMM Challenge 2025 judges with a working prototype, and came away with Silver and the Best Prototype award.</p>
+        </div>
+      </div>
+
       <!-- ---------- More projects grid ---------- -->
       <div class="wrap">
         <h3 class="sub-head reveal"><span class="silk">U4–U9</span> More builds</h3>
@@ -295,7 +415,7 @@
           <article class="card reveal">
             <div class="card-media">
               <span class="ref">U5</span>
-              <img src="https://drive.google.com/thumbnail?id=1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD&amp;sz=w800" alt="Smart walking frame poster for SHEC" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+              <img src="images/u5-shec-award.jpg" alt="SHEC 2024 Student Poster Competition award presentation and the smart walking frame on display" loading="lazy">
               <div class="board-fallback"><span>Walking Frame</span></div>
             </div>
             <div class="card-body">
@@ -375,6 +495,7 @@
     <section id="experience" class="experience">
       <div class="wrap section-head reveal">
         <p class="silk">J2 · EXPERIENCE</p>
+        <svg class="f3d head-3d h-cap" aria-hidden="true" style="--r:-8deg;--d:-0s;--drift:-70px"><use href="#i-cap"/></svg>
         <h2>On the <em>fab floor</em> and in the test lab.</h2>
       </div>
 
@@ -444,6 +565,7 @@
     <section id="skills" class="skills">
       <div class="wrap section-head reveal">
         <p class="silk">J3 · SKILLS</p>
+        <svg class="f3d head-3d h-chip" aria-hidden="true" style="--r:-6deg;--d:-1s;--drift:-70px"><use href="#i-chip"/></svg>
         <h2>The <em>pin-out.</em></h2>
       </div>
       <div class="wrap header-grid">
@@ -478,6 +600,7 @@
     <section id="awards" class="awards">
       <div class="wrap section-head reveal">
         <p class="silk">J4 · AWARDS</p>
+        <svg class="f3d head-3d h-led glow" aria-hidden="true" style="--r:10deg;--d:-1s;--drift:-70px"><use href="#i-led"/></svg>
         <h2>Signal <em>log.</em></h2>
         <p class="lede">Every packet received, newest first. Tap a row for details.</p>
       </div>
@@ -520,6 +643,10 @@
     <!-- ================= CONTACT ================= -->
     <section id="contact" class="contact">
       <div class="wrap contact-inner reveal">
+        <div class="tx-antenna" aria-hidden="true">
+          <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          <svg class="f3d f-ant" style="--r:6deg;--d:0s"><use href="#i-antenna"/></svg>
+        </div>
         <p class="silk">TX · CONTACT</p>
         <h2>Open a <em>channel.</em></h2>
         <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data.</p>
