@@ -936,3 +936,11 @@ a.tile:hover .tile-go b { transform: translateX(6px); }
 img { height: auto; }
 .board-media img, .card-media img, .tile-photo img, .shot img { height: 100%; }
 .moment-shot img, .job-shot img { height: auto; }
+
+/* photo tile: readable number badge and a stronger shade behind the text */
+.tile-over { padding: 90px 22px 24px; background: linear-gradient(180deg, transparent 0%, rgba(3,23,15,.75) 35%, rgba(3,23,15,.97) 100%); }
+.tile-over .tile-num {
+  justify-self: start; padding: 4px 8px; border-radius: 3px;
+  background: var(--gold); color: #1c1407; opacity: 1; font-weight: 600;
+}
+.tile-over .tile-go { color: var(--gold); opacity: 1; }
