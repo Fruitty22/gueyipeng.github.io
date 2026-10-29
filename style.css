@@ -1056,3 +1056,128 @@ img { height: auto; }
 /* keep the chat above the photo viewer's backdrop only when the viewer is closed */
 body.lb-open .cb { display: none; }
 .cb-log { position: relative; }
+
+/* more breathing room between heading lines so the trace underlines never touch the next line */
+.hero-title { line-height: 1.3; }
+.hero-title .line + .line { margin-top: .04em; }
+h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2; }
+.trace-ul { bottom: -.12em; }
+@media (max-width: 640px) {
+  .hero-title { line-height: 1.45; }
+  h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.32; }
+  .trace-ul { bottom: -.08em; }
+}
+
+/* =========================================================
+   Skills: microcontroller hub
+   ========================================================= */
+.hub {
+  --stacked: 0;
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px) minmax(0, 1fr);
+  column-gap: clamp(56px, 7vw, 110px); align-items: center;
+  padding-block: 10px;
+}
+.hub-traces { position: absolute; inset: 0; pointer-events: none; overflow: visible; z-index: 0; }
+.hub-col { display: grid; gap: 22px; position: relative; z-index: 1; }
+.hub-core { position: relative; z-index: 1; display: grid; justify-items: center; gap: 10px; }
+.mcu-svg { width: 100%; max-width: 320px; height: auto; overflow: visible; }
+.hub-hint { font: 500 .72rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+
+/* MCU details */
+.mcu-svg .foot { fill: #fff2c4; opacity: .55; }
+.mcu-svg .mp { transition: filter .25s; }
+.mcu-svg .mp.used rect:first-child { fill: #f0c768; }
+.mcu-svg .mp.on rect { fill: var(--signal); }
+.mcu-svg .mp.on { filter: drop-shadow(0 0 6px var(--signal)); }
+.mcu-name { font: 700 30px var(--display); fill: #e9e6dc; letter-spacing: .06em; }
+.mcu-sub  { font: 600 11px var(--mono); fill: #c9c4b6; letter-spacing: .3em; }
+.mcu-meta { font: 500 9.5px var(--mono); fill: #8d929a; letter-spacing: .22em; }
+.mcu-meta.dimmer { fill: #646971; }
+.mcu-led { animation: mcuLed 2.4s ease-in-out infinite; filter: drop-shadow(0 0 6px #5ee6cf); }
+@keyframes mcuLed { 50% { opacity: .45; } }
+.mcu-sheen { animation: sheen 6s ease-in-out 1.5s infinite; }
+@keyframes sheen { 0%, 60% { transform: skewX(-18deg) translateX(0); } 100% { transform: skewX(-18deg) translateX(520px); } }
+
+/* traces */
+.ht-base { fill: none; stroke: var(--gold); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; opacity: .55; transition: stroke .25s, opacity .25s; }
+.ht-pulse { fill: none; stroke: var(--signal); stroke-width: 3.2; stroke-linecap: round; stroke-dasharray: 7 93; stroke-dashoffset: 100; opacity: 0; filter: drop-shadow(0 0 5px var(--signal)); }
+.ht-via { fill: var(--mask); stroke: var(--gold); stroke-width: 2.4; }
+.hub-js .hub:not(.live) .ht-base { stroke-dasharray: 100; stroke-dashoffset: 100; }
+.hub-js .hub:not(.live) .ht-via { opacity: 0; }
+.hub.live .ht-base { stroke-dasharray: 100; animation: htDraw 1s cubic-bezier(.6,0,.3,1) calc(var(--k) * 120ms) both; }
+.hub.live .ht-via { animation: htVia .35s ease-out calc(var(--k) * 120ms + .9s) both; transform-box: fill-box; transform-origin: center; }
+.hub.live .ht-pulse { opacity: 1; animation: htPulse 2.6s linear calc(var(--k) * 430ms + 1.4s) infinite; }
+@keyframes htDraw { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes htVia { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: none; } }
+@keyframes htPulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.hub.has-active .ht-base:not(.on), .hub.has-active .ht-via:not(.on) { opacity: .2; }
+.ht-base.on { stroke: var(--signal); opacity: 1; }
+.ht-via.on { stroke: var(--signal); }
+.hub.has-active .ht-pulse:not(.on) { opacity: 0; }
+.hub.has-active .ht-pulse.on { animation-duration: 1.1s; }
+
+/* ports (nodes) */
+.hub-node {
+  position: relative; padding: 18px 20px 20px; border-radius: 12px;
+  background: var(--mask-2); border: 1px solid var(--line);
+  transition: border-color .25s, box-shadow .25s, transform .25s, opacity .4s;
+  cursor: default; outline: none;
+}
+.hub-l { text-align: right; }
+.hub-node::after { /* gold edge connector where the trace lands */
+  content: ""; position: absolute; top: 28px; width: 6px; height: 14px; border-radius: 2px; background: var(--gold);
+}
+.hub-l::after { right: -4px; }
+.hub-r::after { left: -4px; }
+.hn-port { font: 600 .7rem/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.hn-title { font-size: 1.3rem; margin-top: 8px; }
+.hn-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.hub-l .hn-list { justify-content: flex-end; }
+.hn-list li {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px 5px 6px; border-radius: 6px;
+  background: rgba(216,165,71,.08); border: 1px solid rgba(216,165,71,.18);
+  font-size: .9rem; line-height: 1.3;
+  transition: background .25s, border-color .25s;
+}
+.hn-list li b { font: 600 .66rem/1 var(--mono); color: var(--dim); padding: 3px 4px; border-radius: 3px; background: var(--edge); }
+.hub-node.on, .hub-node:focus-visible { border-color: var(--signal); box-shadow: 0 0 0 1px var(--signal), 0 18px 40px -22px rgba(94,230,207,.6); transform: translateY(-3px); }
+.hub-node.on::after { background: var(--signal); box-shadow: 0 0 8px var(--signal); }
+.hub-node.on .hn-port { color: var(--signal); }
+.hub-node.on .hn-list li { background: rgba(94,230,207,.1); border-color: rgba(94,230,207,.3); }
+.hub.has-active .hub-node:not(.on) { opacity: .55; }
+
+/* entrance */
+.hub-js .hub:not(.live) .hub-node { opacity: 0; }
+.hub.live .hub-node { animation: nodeIn .5s ease-out both; }
+.hub.live .hub-col-l .hub-node:nth-child(1) { animation-delay: .7s; }
+.hub.live .hub-col-l .hub-node:nth-child(2) { animation-delay: .82s; }
+.hub.live .hub-col-l .hub-node:nth-child(3) { animation-delay: .94s; }
+.hub.live .hub-col-r .hub-node:nth-child(1) { animation-delay: 1.06s; }
+.hub.live .hub-col-r .hub-node:nth-child(2) { animation-delay: 1.18s; }
+.hub.live .hub-col-r .hub-node:nth-child(3) { animation-delay: 1.3s; }
+@keyframes nodeIn { from { opacity: 0; } to { opacity: 1; } }
+.hub.settled .hub-node { animation: none; opacity: 1; }
+.hub.settled.has-active .hub-node:not(.on) { opacity: .55; }
+
+/* stacked layout on tablets and phones: chip on top, ports below on a bus */
+@media (max-width: 980px) {
+  .hub { --stacked: 1; grid-template-columns: 1fr; row-gap: 22px; padding-left: 40px; }
+  .hub-core { order: -1; margin-left: -40px; }
+  .mcu-svg { max-width: 250px; }
+  .hub-col { gap: 16px; }
+  .hub-l { text-align: left; }
+  .hub-l .hn-list { justify-content: flex-start; }
+  .hub-l::after { right: auto; left: -4px; }
+  .hub-col-r { margin-top: -6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ht-pulse, .mcu-sheen, .mcu-led { animation: none !important; opacity: 0; }
+  .mcu-led { opacity: 1; }
+  .hub .ht-base, .hub .ht-via, .hub .hub-node { animation: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; }
+}
+@media (max-width: 980px) {
+  .hub-hint { order: -1; margin-bottom: 4px; }
+  .hub-core { margin-bottom: 40px; }
+}

@@ -746,30 +746,120 @@
         <svg class="f3d head-3d h-chip" aria-hidden="true" style="--r:-6deg;--d:-1s;--drift:-70px"><use href="#i-chip"/></svg>
         <h2 class="split">The <em>pin-out.</em></h2>
       </div>
-      <div class="wrap header-grid">
-        <div class="header-block reveal">
-          <p class="hb-title">Programming</p>
-          <ul class="pins"><li>Python</li><li>C</li><li>C++</li><li>JSON</li></ul>
-        </div>
-        <div class="header-block reveal">
-          <p class="hb-title">Embedded &amp; Circuit Design</p>
-          <ul class="pins"><li>Arduino</li><li>ESP32</li><li>Raspberry Pi</li><li>PIC</li><li>LTspice</li><li>EAGLE</li><li>MPLAB</li></ul>
-        </div>
-        <div class="header-block reveal">
-          <p class="hb-title">Wireless</p>
-          <ul class="pins"><li>LoRa / LoRaWAN</li><li>BLE</li><li>RFID</li><li>Zigbee</li><li>Wi-Fi</li><li>GPS</li></ul>
-        </div>
-        <div class="header-block reveal">
-          <p class="hb-title">Data &amp; Cloud</p>
-          <ul class="pins"><li>AWS</li><li>Bedrock</li><li>Lex</li><li>Pinecone</li><li>MySQL</li><li>Tableau</li><li>KNIME</li></ul>
-        </div>
-        <div class="header-block reveal">
-          <p class="hb-title">Platforms</p>
-          <ul class="pins"><li>MATLAB</li><li>Ubuntu</li><li>Blynk</li><li>ThingSpeak</li><li>SketchUp</li><li>Excel VBA</li></ul>
-        </div>
-        <div class="header-block reveal">
-          <p class="hb-title">Certifications</p>
-          <ul class="pins"><li>National EV Specialist Safety (2025)</li><li>TP Sustainability Skills (2025)</li><li>CompTIA IT Fundamentals (2022)</li></ul>
+      <div class="wrap">
+        <div class="hub" id="hub">
+          <svg class="hub-traces" id="hub-traces" aria-hidden="true"></svg>
+          <div class="hub-col hub-col-l">
+          <article class="hub-node hub-l" data-n="0" tabindex="0">
+            <p class="hn-port">PORT A · 4 pins</p>
+            <h3 class="hn-title">Programming</h3>
+            <ul class="hn-list"><li><b>01</b>Python</li><li><b>02</b>C</li><li><b>03</b>C++</li><li><b>04</b>JSON</li></ul>
+          </article>
+          <article class="hub-node hub-l" data-n="1" tabindex="0">
+            <p class="hn-port">PORT B · 7 pins</p>
+            <h3 class="hn-title">Embedded &amp; Circuit Design</h3>
+            <ul class="hn-list"><li><b>01</b>Arduino</li><li><b>02</b>ESP32</li><li><b>03</b>Raspberry Pi</li><li><b>04</b>PIC</li><li><b>05</b>LTspice</li><li><b>06</b>EAGLE</li><li><b>07</b>MPLAB</li></ul>
+          </article>
+          <article class="hub-node hub-l" data-n="2" tabindex="0">
+            <p class="hn-port">PORT C · 6 pins</p>
+            <h3 class="hn-title">Wireless</h3>
+            <ul class="hn-list"><li><b>01</b>LoRa / LoRaWAN</li><li><b>02</b>BLE</li><li><b>03</b>RFID</li><li><b>04</b>Zigbee</li><li><b>05</b>Wi-Fi</li><li><b>06</b>GPS</li></ul>
+          </article>
+          </div>
+          <div class="hub-core">
+            <svg class="mcu-svg" viewBox="0 0 300 300" role="img" aria-label="Microcontroller labelled GYP-32, Gue Yi Peng">
+          <defs>
+            <linearGradient id="mcu-body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3d44"/><stop offset=".55" stop-color="#1d1f23"/><stop offset="1" stop-color="#121316"/></linearGradient>
+            <linearGradient id="mcu-pin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c4"/><stop offset=".5" stop-color="#d8a547"/><stop offset="1" stop-color="#8d6b2f"/></linearGradient>
+            <linearGradient id="mcu-sheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <radialGradient id="mcu-led" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#e9fffb"/><stop offset=".4" stop-color="#5ee6cf"/><stop offset="1" stop-color="#0b7d6c"/></radialGradient>
+            <clipPath id="mcu-clip"><path d="M64 50h172a14 14 0 0 1 14 14v172a14 14 0 0 1-14 14H64a14 14 0 0 1-14-14V72z"/></clipPath>
+          </defs>
+          <rect x="34" y="34" width="232" height="232" rx="18" fill="#000" opacity=".35" transform="translate(6 10)" filter="blur(6px)"/>
+          <g class="mcu-pins" fill="url(#mcu-pin)">
+          <g class="mp" data-side="l" data-i="0"><rect x="20" y="62.0" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="62.0" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="0"><rect x="248" y="62.0" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="62.0" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="0"><rect x="62.0" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="62.0" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="0"><rect x="62.0" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="62.0" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="1"><rect x="20" y="77.3" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="77.3" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="1"><rect x="248" y="77.3" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="77.3" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="1"><rect x="77.3" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="77.3" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="1"><rect x="77.3" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="77.3" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="2"><rect x="20" y="92.5" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="92.5" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="2"><rect x="248" y="92.5" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="92.5" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="2"><rect x="92.5" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="92.5" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="2"><rect x="92.5" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="92.5" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="3"><rect x="20" y="107.8" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="107.8" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="3"><rect x="248" y="107.8" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="107.8" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="3"><rect x="107.8" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="107.8" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="3"><rect x="107.8" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="107.8" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="4"><rect x="20" y="123.1" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="123.1" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="4"><rect x="248" y="123.1" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="123.1" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="4"><rect x="123.1" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="123.1" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="4"><rect x="123.1" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="123.1" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="5"><rect x="20" y="138.4" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="138.4" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="5"><rect x="248" y="138.4" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="138.4" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="5"><rect x="138.4" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="138.4" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="5"><rect x="138.4" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="138.4" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="6"><rect x="20" y="153.6" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="153.6" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="6"><rect x="248" y="153.6" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="153.6" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="6"><rect x="153.6" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="153.6" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="6"><rect x="153.6" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="153.6" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="7"><rect x="20" y="168.9" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="168.9" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="7"><rect x="248" y="168.9" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="168.9" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="7"><rect x="168.9" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="168.9" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="7"><rect x="168.9" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="168.9" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="8"><rect x="20" y="184.2" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="184.2" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="8"><rect x="248" y="184.2" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="184.2" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="8"><rect x="184.2" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="184.2" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="8"><rect x="184.2" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="184.2" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="9"><rect x="20" y="199.5" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="199.5" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="9"><rect x="248" y="199.5" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="199.5" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="9"><rect x="199.5" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="199.5" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="9"><rect x="199.5" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="199.5" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="10"><rect x="20" y="214.7" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="214.7" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="10"><rect x="248" y="214.7" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="214.7" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="10"><rect x="214.7" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="214.7" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="10"><rect x="214.7" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="214.7" y="271" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="l" data-i="11"><rect x="20" y="230.0" width="32" height="8" rx="1.5"/><rect class="foot" x="20" y="230.0" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="r" data-i="11"><rect x="248" y="230.0" width="32" height="8" rx="1.5"/><rect class="foot" x="271" y="230.0" width="9" height="8" rx="1.5"/></g>
+          <g class="mp" data-side="t" data-i="11"><rect x="230.0" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="230.0" y="20" width="8" height="9" rx="1.5"/></g>
+          <g class="mp" data-side="b" data-i="11"><rect x="230.0" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="230.0" y="271" width="8" height="9" rx="1.5"/></g>
+          </g>
+          <!-- package body with chamfered pin-1 corner -->
+          <path d="M64 50h172a14 14 0 0 1 14 14v172a14 14 0 0 1-14 14H64a14 14 0 0 1-14-14V72z" fill="url(#mcu-body)"/>
+          <path d="M66 56h168a10 10 0 0 1 10 10v168a10 10 0 0 1-10 10H66a10 10 0 0 1-10-10V76z" fill="none" stroke="#4a4e56" stroke-width="1.2"/>
+          <g clip-path="url(#mcu-clip)"><rect class="mcu-sheen" x="-120" y="40" width="90" height="230" fill="url(#mcu-sheen)" transform="skewX(-18)"/></g>
+          <!-- laser-etched circuitry -->
+          <g fill="none" stroke="#5a5f68" stroke-width="1.1" opacity=".55"><path d="M78 96 h30 l6 6 h20"/><path d="M78 108 h36 l6 6 h17"/><path d="M78 120 h42 l6 6 h14"/><path d="M78 132 h48 l6 6 h11"/><path d="M78 144 h54 l6 6 h8"/><path d="M170 196h40l6-6v-18"/><path d="M170 206h50"/></g>
+          <circle cx="76" cy="226" r="6" fill="#0d0e10" stroke="#555a62" stroke-width="1"/>
+          <!-- LoRa chirp logo -->
+          <path d="M150 92c6-10 12-10 15 0s9 10 15 0" fill="none" stroke="#d8a547" stroke-width="3" stroke-linecap="round" transform="translate(-8 0)"/>
+          <text x="150" y="146" text-anchor="middle" class="mcu-name">GYP-32</text>
+          <text x="150" y="166" text-anchor="middle" class="mcu-sub">GUE YI PENG</text>
+          <text x="150" y="186" text-anchor="middle" class="mcu-meta">EEE · LORA · IOT</text>
+          <text x="150" y="226" text-anchor="middle" class="mcu-meta dimmer">REV 2026 · SG</text>
+          <circle class="mcu-led" cx="222" cy="78" r="6" fill="url(#mcu-led)"/>
+        </svg>
+            <p class="hub-hint">Hover or tap a port to trace it</p>
+          </div>
+          <div class="hub-col hub-col-r">
+          <article class="hub-node hub-r" data-n="3" tabindex="0">
+            <p class="hn-port">PORT D · 7 pins</p>
+            <h3 class="hn-title">Data &amp; Cloud</h3>
+            <ul class="hn-list"><li><b>01</b>AWS</li><li><b>02</b>Bedrock</li><li><b>03</b>Lex</li><li><b>04</b>Pinecone</li><li><b>05</b>MySQL</li><li><b>06</b>Tableau</li><li><b>07</b>KNIME</li></ul>
+          </article>
+          <article class="hub-node hub-r" data-n="4" tabindex="0">
+            <p class="hn-port">PORT E · 6 pins</p>
+            <h3 class="hn-title">Platforms</h3>
+            <ul class="hn-list"><li><b>01</b>MATLAB</li><li><b>02</b>Ubuntu</li><li><b>03</b>Blynk</li><li><b>04</b>ThingSpeak</li><li><b>05</b>SketchUp</li><li><b>06</b>Excel VBA</li></ul>
+          </article>
+          <article class="hub-node hub-r" data-n="5" tabindex="0">
+            <p class="hn-port">PORT F · 3 pins</p>
+            <h3 class="hn-title">Certifications</h3>
+            <ul class="hn-list"><li><b>01</b>National EV Specialist Safety (2025)</li><li><b>02</b>TP Sustainability Skills (2025)</li><li><b>03</b>CompTIA IT Fundamentals (2022)</li></ul>
+          </article>
+          </div>
         </div>
       </div>
     </section>
@@ -1044,5 +1134,115 @@
     })();
   </script>
   <script src="chatbot.js" defer></script>
+
+  <script>
+    /* Skills hub: route PCB traces from the microcontroller to each port */
+    (function () {
+      var hub = document.getElementById('hub'); if (!hub) return;
+      var svg = document.getElementById('hub-traces');
+      var mcu = hub.querySelector('.mcu-svg');
+      var nodes = Array.prototype.slice.call(hub.querySelectorAll('.hub-node'));
+      var NS = 'http://www.w3.org/2000/svg';
+      // which MCU pin each port leaves from (side, pin index 0-11)
+      var PIN = [['l',3],['l',6],['l',9],['r',3],['r',6],['r',9]];
+      var MOBILE_PIN = [11, 9, 7, 5, 3, 1]; // top port uses the rightmost pin so traces never cross
+
+      function chamfer(pts, r) {
+        var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+        for (var i = 1; i < pts.length - 1; i++) {
+          var p0 = pts[i-1], p1 = pts[i], p2 = pts[i+1];
+          var a = Math.min(r, Math.hypot(p1[0]-p0[0], p1[1]-p0[1]) / 2, Math.hypot(p2[0]-p1[0], p2[1]-p1[1]) / 2);
+          var ux = Math.sign(p1[0]-p0[0]), uy = Math.sign(p1[1]-p0[1]);
+          var vx = Math.sign(p2[0]-p1[0]), vy = Math.sign(p2[1]-p1[1]);
+          d += ' L' + (p1[0]-ux*a) + ' ' + (p1[1]-uy*a) + ' L' + (p1[0]+vx*a) + ' ' + (p1[1]+vy*a);
+        }
+        var e = pts[pts.length-1]; return d + ' L' + e[0] + ' ' + e[1];
+      }
+      function pinPoint(side, i) {
+        var g = mcu.querySelector('.mp[data-side="' + side + '"][data-i="' + i + '"] rect');
+        var r = g.getBoundingClientRect(), h = hub.getBoundingClientRect();
+        if (side === 'l') return [r.left - h.left, r.top + r.height/2 - h.top];
+        if (side === 'r') return [r.right - h.left, r.top + r.height/2 - h.top];
+        if (side === 'b') return [r.left + r.width/2 - h.left, r.bottom - h.top];
+        return [r.left + r.width/2 - h.left, r.top - h.top];
+      }
+      function draw() {
+        var h = hub.getBoundingClientRect();
+        svg.setAttribute('width', h.width); svg.setAttribute('height', h.height);
+        svg.setAttribute('viewBox', '0 0 ' + h.width + ' ' + h.height);
+        svg.innerHTML = '';
+        var stacked = getComputedStyle(hub).getPropertyValue('--stacked').trim() === '1';
+        mcu.querySelectorAll('.mp.used').forEach(function (p) { p.classList.remove('used'); });
+        nodes.forEach(function (n, k) {
+          var nr = n.getBoundingClientRect(), pts, side, idx;
+          var ny = nr.top + Math.min(34, nr.height / 2) - h.top;
+          if (!stacked) {
+            side = PIN[k][0]; idx = PIN[k][1];
+            var s = pinPoint(side, idx), ex = side === 'l' ? nr.right - h.left : nr.left - h.left;
+            var mx = (s[0] + ex) / 2 + (side === 'l' ? -1 : 1) * ((k % 3) - 1) * 10;
+            pts = [s, [mx, s[1]], [mx, ny], [ex, ny]];
+          } else {
+            side = 'b'; idx = MOBILE_PIN[k];
+            var b = pinPoint(side, idx);
+            var lane = 8 + (nodes.length - 1 - k) * 5;
+            var dy = b[1] + 14 + (nodes.length - 1 - k) * 6; pts = [b, [b[0], dy], [lane, dy], [lane, ny], [nr.left - h.left, ny]];
+          }
+          var pin = mcu.querySelector('.mp[data-side="' + side + '"][data-i="' + idx + '"]');
+          if (pin) { pin.classList.add('used'); pin.dataset.n = k; }
+          var d = chamfer(pts, 12);
+          [['ht-base', null], ['ht-pulse', null]].forEach(function (c) {
+            var p = document.createElementNS(NS, 'path');
+            p.setAttribute('d', d); p.setAttribute('pathLength', '100');
+            p.setAttribute('class', c[0]); p.dataset.n = k;
+            p.style.setProperty('--k', k);
+            svg.appendChild(p);
+          });
+          var via = document.createElementNS(NS, 'circle');
+          var last = pts[pts.length - 1];
+          via.setAttribute('cx', last[0]); via.setAttribute('cy', last[1]); via.setAttribute('r', 5);
+          via.setAttribute('class', 'ht-via'); via.dataset.n = k; via.style.setProperty('--k', k);
+          svg.appendChild(via);
+        });
+      }
+      function setActive(k) {
+        hub.classList.toggle('has-active', k !== null);
+        hub.querySelectorAll('[data-n]').forEach(function (el) {
+          el.classList.toggle('on', k !== null && String(el.dataset.n) === String(k));
+        });
+      }
+      var lastPointer = 'mouse';
+      nodes.forEach(function (n, k) {
+        n.addEventListener('pointerdown', function (e) { lastPointer = e.pointerType; });
+        // mouse: hover traces the port
+        n.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') setActive(k); });
+        n.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') setActive(null); });
+        // touch and keyboard: tap / Enter toggles it
+        n.addEventListener('click', function () {
+          if (lastPointer === 'mouse') return;
+          setActive(n.classList.contains('on') ? null : k);
+        });
+        n.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActive(n.classList.contains('on') ? null : k); }
+        });
+        n.addEventListener('focus', function () { if (lastPointer === 'mouse' && !n.matches(':hover')) setActive(k); });
+      });
+      document.addEventListener('click', function (e) { if (!e.target.closest('.hub-node')) setActive(null); });
+      var raf; function redraw() { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }
+      if ('ResizeObserver' in window) new ResizeObserver(redraw).observe(hub);
+      window.addEventListener('resize', redraw);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
+      window.addEventListener('load', redraw);
+      draw();
+      document.documentElement.classList.add('hub-js');
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (en, ob) {
+          if (en[0].isIntersecting) {
+            hub.classList.add('live'); ob.disconnect();
+            setTimeout(function () { hub.classList.add('settled'); }, 2200); // entrance done: stop replaying it
+          }
+        }, { threshold: 0.2 }).observe(hub);
+      } else hub.classList.add('live');
+    })();
+  </script>
 </body>
 </html>
