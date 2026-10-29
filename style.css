@@ -907,3 +907,32 @@ body.lb-open { overflow: hidden; }
   .card-media.has-slides .slide-2, .slide-dots { display: none; }
   .card-media.has-slides img:not(.slide-2) { opacity: 1; visibility: visible; }
 }
+
+/* ---- bento tiles link to their projects ---- */
+a.tile { color: inherit; text-decoration: none; cursor: pointer; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s; }
+.tile-gold { color: #1c1407; }
+a.tile:hover { transform: translateY(-6px); box-shadow: 0 22px 40px -22px #000; border-color: var(--silk); }
+a.tile:focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; }
+.tile-go {
+  position: relative; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px;
+  font: 600 .78rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase;
+  opacity: .75; transition: opacity .25s;
+}
+.tile-go b { display: inline-block; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+a.tile:hover .tile-go { opacity: 1; }
+a.tile:hover .tile-go b { transform: translateX(6px); }
+.tile-over .tile-go { color: var(--gold); }
+
+/* arriving at a project from a tile: a short gold "power-on" flash */
+.feature:target .board, .job:target {
+  animation: arrive 1.6s ease-out .5s both;
+}
+@keyframes arrive {
+  0%   { box-shadow: 0 0 0 0 rgba(216,165,71,.0); }
+  25%  { box-shadow: 0 0 0 4px rgba(216,165,71,.9), 0 0 40px rgba(216,165,71,.5); }
+  100% { box-shadow: 0 0 0 0 rgba(216,165,71,0); }
+}
+
+img { height: auto; }
+.board-media img, .card-media img, .tile-photo img, .shot img { height: 100%; }
+.moment-shot img, .job-shot img { height: auto; }
