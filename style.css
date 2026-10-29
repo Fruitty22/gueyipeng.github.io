@@ -220,7 +220,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-family: var(--display); font-weight: 500; font-size: 1.15rem; white-space: nowrap;
 }
 .marquee-track i { color: var(--gold); font-style: normal; font-size: .8rem; align-self: center; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
 @keyframes slide { to { transform: translateX(-50%); } }
 
 /* ---------- Section heads ---------- */
@@ -870,3 +872,38 @@ body.lb-open { overflow: hidden; }
 .job-media-pair .job-shot:first-child img { object-position: 50% 45%; }
 .job-shot-slide img { aspect-ratio: 16 / 9; object-fit: contain; background: #e6ecea; }
 .job-shot-slide figcaption { position: static; background: var(--edge); padding: 12px 14px; }
+
+
+/* keep the awards strip scrolling when tapped on phones */
+.marquee, .marquee-track { -webkit-tap-highlight-color: transparent; }
+
+/* two-photo cards (U4, U5): photos crossfade, dots show which one is up */
+.card-media.has-slides img:not(.slide-2) { animation: slideA 9s ease-in-out infinite; }
+.card-media.has-slides .slide-2 { object-fit: cover; animation: slideB 9s ease-in-out infinite; }
+@keyframes slideA {
+  0%, 44%   { opacity: 1; visibility: visible; }
+  50%, 94%  { opacity: 0; visibility: hidden; }
+  100%      { opacity: 1; visibility: visible; }
+}
+@keyframes slideB {
+  0%, 44%   { opacity: 0; visibility: hidden; }
+  50%, 94%  { opacity: 1; visibility: visible; }
+  100%      { opacity: 0; visibility: hidden; }
+}
+.card:hover .card-media.has-slides img { animation-play-state: paused; }
+.slide-dots {
+  position: absolute; z-index: 4; right: 12px; bottom: 10px;
+  display: flex; gap: 6px; padding: 5px 7px; border-radius: 999px;
+  background: rgba(3, 23, 15, .7);
+}
+.slide-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--silk); opacity: .35; }
+.slide-dots i:first-child { animation: dotA 9s ease-in-out infinite; }
+.slide-dots i:last-child  { animation: dotB 9s ease-in-out infinite; }
+.card:hover .slide-dots i { animation-play-state: paused; }
+@keyframes dotA { 0%, 44% { opacity: 1; background: var(--gold); } 50%, 94% { opacity: .35; background: var(--silk); } 100% { opacity: 1; background: var(--gold); } }
+@keyframes dotB { 0%, 44% { opacity: .35; background: var(--silk); } 50%, 94% { opacity: 1; background: var(--gold); } 100% { opacity: .35; background: var(--silk); } }
+.card-media.has-slides img:only-of-type ~ .slide-dots { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .card-media.has-slides .slide-2, .slide-dots { display: none; }
+  .card-media.has-slides img:not(.slide-2) { opacity: 1; visibility: visible; }
+}
