@@ -114,7 +114,7 @@
     {
       id: "contact", link: "#contact", label: "Contact",
       keys: ["contact", "email", "e-mail", "mail", "reach", "hire", "hiring", "recruit", "available", "availability", "opportunity", "opportunities", "linkedin", "connect", "resume", "cv", "talk"],
-      a: "He's open to internships, research and project collaborations in embedded systems, wireless networks and data.<br><br>Email: <b>gueyipeng123456@gmail.com</b><br>LinkedIn: <a href=\"https://linkedin.com/in/gue-yi-peng-0013491ba\" target=\"_blank\" rel=\"noopener\">gue-yi-peng-0013491ba</a>"
+      a: "He's open to internships, research and project collaborations in embedded systems, wireless networks and data.<br><br>Use the <b>message form</b> in the Contact section and it goes straight to his inbox, or connect on LinkedIn: <a href=\"https://linkedin.com/in/gue-yi-peng-0013491ba\" target=\"_blank\" rel=\"noopener\">gue-yi-peng-0013491ba</a>"
     },
     {
       id: "best", link: "#proj-tracksafe", label: "Highlights",
@@ -124,7 +124,7 @@
   ];
 
   var GREETING = "Hi! I'm the portfolio assistant. Ask me about Yi Peng's projects, internships, skills or awards.";
-  var FALLBACK = "I'm not sure about that one. Try asking about a project (like TrackSafe or META-HUB), his internships, skills or awards. You can also email Yi Peng at <b>gueyipeng123456@gmail.com</b>.";
+  var FALLBACK = "I'm not sure about that one. Try asking about a project (like TrackSafe or META-HUB), his internships, skills or awards. You can also send Yi Peng a message with the form in the Contact section.";
   var SUGGEST = ["What projects has he built?", "Tell me about TrackSafe", "What did he do at SSMC?", "Which projects use LoRa?", "How can I contact him?"];
 
   /* ---------- local answer engine ---------- */

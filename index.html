@@ -923,19 +923,67 @@
 
     <!-- ================= CONTACT ================= -->
     <section id="contact" class="contact">
-      <div class="wrap contact-inner reveal">
-        <div class="tx-antenna" aria-hidden="true">
-          <span class="ring"></span><span class="ring"></span><span class="ring"></span>
-          <svg class="f3d f-ant" style="--r:6deg;--d:0s"><use href="#i-antenna"/></svg>
+      <div class="wrap contact-grid">
+        <div class="contact-inner reveal">
+          <div class="tx-antenna" aria-hidden="true">
+            <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+            <svg class="f3d f-ant" style="--r:6deg;--d:0s"><use href="#i-antenna"/></svg>
+          </div>
+          <p class="silk">TX · CONTACT</p>
+          <h2 class="split">Open a <em>channel.</em></h2>
+          <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data. Send a message below and it lands straight in my inbox.</p>
+          <div class="hero-actions">
+            <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener"><span class="tx-stamp" aria-hidden="true">TX</span>LinkedIn ↗</a>
+            <a href="https://drive.google.com/drive/folders/1Z_107ApZiYflD4bVxDYTsywjPEqOQm-Q" class="btn btn-ghost" target="_blank" rel="noopener">Full portfolio on Drive ↗</a>
+          </div>
         </div>
-        <p class="silk">TX · CONTACT</p>
-        <h2 class="split">Open a <em>channel.</em></h2>
-        <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data.</p>
-        <a class="contact-mail" href="mailto:gueyipeng123456@gmail.com">gueyipeng123456@gmail.com</a>
-        <div class="hero-actions">
-          <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener"><span class="tx-stamp" aria-hidden="true">TX</span>LinkedIn ↗</a>
-          <a href="https://drive.google.com/drive/folders/1Z_107ApZiYflD4bVxDYTsywjPEqOQm-Q" class="btn btn-ghost" target="_blank" rel="noopener">Full portfolio on Drive ↗</a>
-        </div>
+
+        <form class="txm reveal" id="txm" novalidate>
+          <div class="txm-head">
+            <span class="txm-led" aria-hidden="true"></span>
+            <span class="txm-name">TX MODULE <b>· GYP-32</b></span>
+            <span class="txm-freq" id="txm-state">READY · 923 MHz</span>
+          </div>
+
+          <fieldset class="txm-topics">
+            <legend>What's it about?</legend>
+            <label><input type="radio" name="topic" value="Internship" id="t-intern" checked><span>Internship</span></label>
+            <label><input type="radio" name="topic" value="Project collaboration" id="t-collab"><span>Project collab</span></label>
+            <label><input type="radio" name="topic" value="Research" id="t-research"><span>Research</span></label>
+            <label><input type="radio" name="topic" value="Just saying hi" id="t-hi"><span>Just saying hi</span></label>
+          </fieldset>
+
+          <div class="txm-row">
+            <div class="txm-field">
+              <label for="txm-name">Your name</label>
+              <input id="txm-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="e.g. Sarah Tan">
+            </div>
+            <div class="txm-field">
+              <label for="txm-email">Your email</label>
+              <input id="txm-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="so I can reply">
+            </div>
+          </div>
+          <div class="txm-field">
+            <label for="txm-msg">Message <span class="txm-count" id="txm-count">0 / 1500</span></label>
+            <textarea id="txm-msg" name="message" required maxlength="1500" rows="5" placeholder="Tell me about the role, project or idea…"></textarea>
+          </div>
+          <!-- spam trap: real people never see or fill this -->
+          <input type="text" name="_honey" class="txm-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <p class="txm-error" id="txm-error" role="alert" hidden></p>
+
+          <div class="txm-foot">
+            <div class="txm-trace" aria-hidden="true"><span class="txm-packet"></span></div>
+            <button type="submit" class="btn btn-primary txm-send" id="txm-send"><span class="tx-stamp" aria-hidden="true">TX</span><span class="txm-send-label">Send message</span></button>
+          </div>
+
+          <div class="txm-done" id="txm-done" hidden>
+            <span class="txm-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+            <p class="txm-done-title">Packet received.</p>
+            <p class="txm-done-text">Thanks <span id="txm-done-name"></span>, your message is in my inbox. I'll reply to <span id="txm-done-mail"></span> soon.</p>
+            <button type="button" class="btn btn-ghost" id="txm-again">Send another</button>
+          </div>
+        </form>
       </div>
     </section>
   </main>
@@ -1327,13 +1375,37 @@
           if (on) shown = i;
         });
         // keep the whole stack centred as it grows
-        lift.style.transform = 'translateY(' + (topZ * Math.sin(55 * Math.PI / 180) * 0.5 * tilt).toFixed(1) + 'px)';
+        fitStack(m);
         active = pinned >= 0 && calls[pinned].classList.contains('show') ? pinned : shown;
         calls.forEach(function (c, i) { c.classList.toggle('active', i === active); });
         layers.forEach(function (L, i) { L.classList.toggle('active', i === active && p < 0.999 || (pinned === i)); });
         setDetail(m ? active : -1);
         xv.classList.toggle('started', p > 0.02);
         drawCallouts(m);
+      }
+
+      // keep the whole exploded stack inside the stage: centre it, and shrink it if it would not fit
+      var liftY = 0, fitS = 1;
+      function fitStack(m) {
+        var sr = stage.getBoundingClientRect();
+        var top = Infinity, bot = -Infinity;
+        layers.forEach(function (L) {
+          var r = L.querySelector('.xv-face').getBoundingClientRect();
+          top = Math.min(top, r.top); bot = Math.max(bot, r.bottom);
+          L.querySelectorAll('.xv-slab').forEach(function (sl) { bot = Math.max(bot, sl.getBoundingClientRect().bottom); });
+        });
+        var padTop = m ? 44 : 40, padBot = m ? 200 : 28;           // phones keep room for the detail card
+        var avail = sr.height - padTop - padBot;
+        var h = (bot - top) / fitS;                                  // unscaled height
+        var want = Math.min(1, avail / Math.max(1, h));
+        var centreNow = (top + bot) / 2 - sr.top;
+        var centreWant = padTop + avail / 2;
+        // remove the old offset, scale about the stage centre, then re-centre
+        var cy = sr.height / 2;
+        var base = cy + (centreNow - liftY - cy) / fitS;            // centre with no lift and no scale
+        fitS = want;
+        liftY = centreWant - (cy + (base - cy) * fitS);
+        lift.style.transform = 'translateY(' + liftY.toFixed(1) + 'px) scale(' + fitS.toFixed(3) + ')';
       }
 
       function corner(L, side) {
@@ -1465,6 +1537,77 @@
       document.getElementById('sv-close').addEventListener('click', function () { sv.close(); });
       sv.addEventListener('click', function (e) { if (e.target === sv) sv.close(); });
       sv.addEventListener('close', function () { document.body.classList.remove('lb-open'); });
+    })();
+  </script>
+
+  <script>
+    /* Contact form: sends to Yi Peng's inbox through FormSubmit (no backend needed on GitHub Pages) */
+    (function () {
+      // After you activate FormSubmit, paste the random form ID from its email here, e.g. 'a1b2c3d4e5...'
+      // so the address is no longer anywhere in the site's code.
+      var FORM_ID = '';
+      var ENDPOINT = 'https://formsubmit.co/ajax/' + (FORM_ID || atob('bW9jLmxpYW1nQDY1NDMyMWduZXBpeWV1Zw==').split('').reverse().join(''));
+      var form = document.getElementById('txm'); if (!form) return;
+      var send = document.getElementById('txm-send'), label = form.querySelector('.txm-send-label');
+      var err = document.getElementById('txm-error'), state = document.getElementById('txm-state');
+      var done = document.getElementById('txm-done'), msg = document.getElementById('txm-msg');
+      var count = document.getElementById('txm-count');
+      var nameI = document.getElementById('txm-name'), mailI = document.getElementById('txm-email');
+
+      msg.addEventListener('input', function () { count.textContent = msg.value.length + ' / 1500'; });
+
+      function setState(t, cls) { state.textContent = t; form.dataset.state = cls || ''; }
+      function showErr(html) { err.innerHTML = html; err.hidden = !html; }
+
+      function check() {
+        var bad = null;
+        [nameI, mailI, msg].forEach(function (f) { f.classList.remove('bad'); });
+        if (!nameI.value.trim()) bad = [nameI, 'Add your name so I know who it is from.'];
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mailI.value.trim())) bad = [mailI, 'Check your email address, I need it to reply.'];
+        else if (msg.value.trim().length < 5) bad = [msg, 'Write a short message before sending.'];
+        if (bad) { bad[0].classList.add('bad'); bad[0].focus(); showErr(bad[1]); return false; }
+        showErr(''); return true;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (form.dataset.state === 'busy' || !check()) return;
+        var topic = (form.querySelector('input[name=topic]:checked') || {}).value || 'Message';
+        var data = {
+          name: nameI.value.trim(),
+          email: mailI.value.trim(),
+          topic: topic,
+          message: msg.value.trim(),
+          _subject: 'Portfolio · ' + topic + ' from ' + nameI.value.trim(),
+          _template: 'table',
+          _captcha: 'false',
+          _honey: form.querySelector('.txm-honey').value
+        };
+        setState('TRANSMITTING…', 'busy'); label.textContent = 'Transmitting…'; send.disabled = true;
+        var started = Date.now();
+        fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); return j; }); })
+          .then(function () {
+            setTimeout(function () {
+              setState('DELIVERED', 'ok');
+              document.getElementById('txm-done-name').textContent = data.name.split(' ')[0];
+              document.getElementById('txm-done-mail').textContent = data.email;
+              done.hidden = false; form.classList.add('is-done');
+              send.disabled = false; label.textContent = 'Send message';
+            }, Math.max(0, 1200 - (Date.now() - started)));
+          })
+          .catch(function () {
+            setState('NO LINK', 'fail');
+            showErr('The message could not be sent just now. Please try again in a moment, or ' +
+              '<a href="https://linkedin.com/in/gue-yi-peng-0013491ba" target="_blank" rel="noopener">message me on LinkedIn</a>.');
+            send.disabled = false; label.textContent = 'Send message';
+          });
+      });
+
+      document.getElementById('txm-again').addEventListener('click', function () {
+        form.reset(); count.textContent = '0 / 1500'; done.hidden = true; form.classList.remove('is-done'); setState('READY · 923 MHz', ''); nameI.focus();
+      });
+
     })();
   </script>
 </body>
