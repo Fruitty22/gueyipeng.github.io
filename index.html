@@ -113,7 +113,16 @@
   </svg>
 
   <!-- Scroll progress: a copper trace that fills as you scroll -->
-  <div class="progress" aria-hidden="true"></div>
+  <!-- Section progress rail (right edge) -->
+  <nav class="rail" id="rail" aria-label="Page sections">
+    <span class="rail-track" aria-hidden="true"><span class="rail-fill" id="rail-fill"></span></span>
+    <a href="#top" data-sec="top"><i></i><span>TOP</span></a>
+    <a href="#projects" data-sec="projects"><i></i><span>J1 PROJECTS</span></a>
+    <a href="#experience" data-sec="experience"><i></i><span>J2 EXPERIENCE</span></a>
+    <a href="#skills" data-sec="skills"><i></i><span>J3 SKILLS</span></a>
+    <a href="#awards" data-sec="awards"><i></i><span>J4 AWARDS</span></a>
+    <a href="#contact" data-sec="contact"><i></i><span>TX CONTACT</span></a>
+  </nav>
 
   <!-- ================= HEADER ================= -->
   <header class="site-header">
@@ -542,17 +551,20 @@
           </article>
 
           <article id="proj-fleet" class="card reveal">
-            <div class="card-media">
+            <button type="button" class="card-media fleet-preview" data-schematic aria-label="Open the interactive Fleet Logic Schematic">
               <span class="ref">U9</span>
-              <!-- No preview image yet: add one with an <img> tag here -->
-              <div class="board-fallback"><span>Fleet Tracker</span></div>
-            </div>
+              <span class="fleet-frame" aria-hidden="true"><iframe src="fleet-logic-schematic.html" title="Fleet Logic Schematic preview" loading="lazy" tabindex="-1" scrolling="no"></iframe></span>
+              <span class="fleet-play"><b>▶</b> Try the interactive schematic</span>
+            </button>
             <div class="card-body">
               <p class="badge">Software · Data</p>
               <h4>Fleet Serviceability Tracker</h4>
-              <p>A VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting.</p>
-              <ul class="chips"><li>Excel VBA</li><li>Power BI</li><li>Dashboards</li></ul>
-              <a class="card-link" href="https://drive.google.com/drive/folders/1S0AtXFNbGoCteNqMzQKSWnCVvyeL7euz" target="_blank" rel="noopener">Open files ↗</a>
+              <p>A VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting. Its decision logic is drawn as live logic gates you can click through.</p>
+              <ul class="chips"><li>Excel VBA</li><li>Power BI</li><li>Dashboards</li><li>Logic design</li></ul>
+              <div class="links fleet-links">
+                <button type="button" class="card-link link-btn" data-schematic>Interactive schematic ⧉</button>
+                <a class="card-link" href="https://drive.google.com/drive/folders/1S0AtXFNbGoCteNqMzQKSWnCVvyeL7euz" target="_blank" rel="noopener">Open files ↗</a>
+              </div>
             </div>
           </article>
 
@@ -1385,6 +1397,74 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(onScroll);
       xv.classList.add('ready');
       frame();
+    })();
+  </script>
+  <!-- Fleet Logic Schematic viewer -->
+  <dialog class="sv" id="sv" aria-label="Fleet Logic Schematic">
+    <div class="sv-bar">
+      <span class="sv-title"><b>U9</b> Fleet Logic Schematic <em>· click any input to flip it</em></span>
+      <span class="sv-tools">
+        <a class="lb-btn" href="fleet-logic-schematic.html" target="_blank" rel="noopener">New tab ↗</a>
+        <button type="button" class="lb-btn" id="sv-close">Close ✕</button>
+      </span>
+    </div>
+    <iframe id="sv-frame" title="Fleet Logic Schematic, interactive" src="about:blank"></iframe>
+  </dialog>
+
+  <script>
+    /* Section rail + schematic viewer */
+    (function () {
+      // ----- rail
+      var rail = document.getElementById('rail'), fill = document.getElementById('rail-fill');
+      var links = Array.prototype.slice.call(rail.querySelectorAll('a'));
+      var secs = links.map(function (a) { return document.getElementById(a.dataset.sec); });
+      var hideT;
+      function update() {
+        var max = document.documentElement.scrollHeight - innerHeight;
+        var p = max > 0 ? scrollY / max : 0;
+        var mark = innerHeight * 0.4, cur = 0;
+        secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= mark) cur = i; });
+        if (scrollY < 40) cur = 0;
+        // fill reaches exactly the current dot, then creeps toward the next one
+        var dots = links.map(function (a) { return a.offsetTop + a.offsetHeight / 2; });
+        var next = Math.min(cur + 1, secs.length - 1), a0 = secs[cur], a1 = secs[next];
+        var t = 0;
+        if (next !== cur && a0 && a1) {
+          var s0 = a0.getBoundingClientRect().top + scrollY - mark, s1 = a1.getBoundingClientRect().top + scrollY - mark;
+          t = Math.max(0, Math.min(1, (scrollY - s0) / Math.max(1, s1 - s0)));
+        }
+        if (p > 0.995) { cur = secs.length - 1; t = 0; }
+        var y = dots[cur] + (dots[next] - dots[cur]) * t;
+        fill.style.height = Math.max(0, y - dots[0]) + 'px';
+        links.forEach(function (a, i) {
+          a.classList.toggle('passed', i < cur || (i === cur));
+          a.classList.toggle('current', i === cur);
+          if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+        rail.classList.add('awake'); clearTimeout(hideT);
+        hideT = setTimeout(function () { rail.classList.remove('awake'); }, 1400);
+      }
+      var tk = false;
+      window.addEventListener('scroll', function () { if (!tk) { tk = true; requestAnimationFrame(function () { tk = false; update(); }); } }, { passive: true });
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+
+      // ----- schematic viewer
+      var sv = document.getElementById('sv'), frame = document.getElementById('sv-frame');
+      function openSv() {
+        if (frame.getAttribute('src') === 'about:blank') frame.setAttribute('src', 'fleet-logic-schematic.html');
+        if (sv.showModal) sv.showModal(); else sv.setAttribute('open', '');
+        document.body.classList.add('lb-open');
+      }
+      document.querySelectorAll('[data-schematic]').forEach(function (b) { b.addEventListener('click', openSv); });
+      function fitPreview() {
+        document.querySelectorAll('.fleet-frame').forEach(function (f) { f.style.setProperty('--fs', (f.clientWidth / 1000).toFixed(4)); });
+      }
+      window.addEventListener('resize', fitPreview); fitPreview();
+      document.getElementById('sv-close').addEventListener('click', function () { sv.close(); });
+      sv.addEventListener('click', function (e) { if (e.target === sv) sv.close(); });
+      sv.addEventListener('close', function () { document.body.classList.remove('lb-open'); });
     })();
   </script>
 </body>

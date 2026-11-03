@@ -69,7 +69,7 @@
     {
       id: "fleet", link: "#proj-fleet", label: "Fleet Tracker",
       keys: ["fleet", "vehicle", "vehicles", "vba", "excel", "macro", "power bi", "powerbi", "serviceability", "dashboard"],
-      a: "The <b>Fleet Serviceability Tracker</b> is a VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting."
+      a: "The <b>Fleet Serviceability Tracker</b> is a VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting. You can click through its decision logic as live logic gates in the interactive schematic on the project card."
     },
     {
       id: "lora", link: "#proj-tracksafe", label: "LoRa projects",

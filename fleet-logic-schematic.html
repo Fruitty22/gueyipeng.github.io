@@ -1,0 +1,572 @@
+<!doctype html><html lang="en" data-theme="dark"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Fleet Logic Schematic</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow reading column; each circuit sits on its own schematic sheet that scrolls sideways on phones. */
+:root {
+  --bg: #eef2ef;
+  --panel: #fbfcfb;
+  --fg: #1c2924;
+  --muted: #5a6a62;
+  --line: #c6d1cb;
+  --grid: rgba(28, 41, 36, .055);
+  --hi: #dd5f22;
+  --lo: #a6b3ac;
+  --ok: #1d8a4b;
+  --ok-bg: #d9f0e2;
+  --bad: #bf3029;
+  --bad-bg: #f8dcd9;
+  --chip: #ffffff;
+  --code-bg: #e3e9e5;
+  --f-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1613; --panel: #131e19; --fg: #e2ebe5; --muted: #93a39a; --line: #2a3a33;
+    --grid: rgba(226, 235, 229, .05); --hi: #ff8b4d; --lo: #3b4b43; --ok: #3fcf80; --ok-bg: #12382443;
+    --bad: #ff6f62; --bad-bg: #4a1a1655; --chip: #182520; --code-bg: #1a2621; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1613; --panel: #131e19; --fg: #e2ebe5; --muted: #93a39a; --line: #2a3a33;
+  --grid: rgba(226, 235, 229, .05); --hi: #ff8b4d; --lo: #3b4b43; --ok: #3fcf80; --ok-bg: #12382443;
+  --bad: #ff6f62; --bad-bg: #4a1a1655; --chip: #182520; --code-bg: #1a2621; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.wrap { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+header { display: flex; flex-direction: column; gap: 10px; max-width: 70ch; }
+.eyebrow { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: clamp(34px, 6vw, 52px); line-height: 1; margin: 0; letter-spacing: .01em; text-wrap: balance; }
+h2 { font-family: var(--f-display); font-weight: 600; font-size: 28px; line-height: 1.1; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--f-display); font-weight: 600; font-size: 20px; margin: 0; letter-spacing: .01em; }
+p { margin: 0; max-width: 70ch; }
+.muted { color: var(--muted); }
+code, .mono { font-family: var(--f-mono); font-size: .88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+section { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.sec-head { display: flex; flex-direction: column; gap: 6px; }
+.src { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--muted); align-items: center; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend svg { flex: none; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.controls label { font-size: 13px; color: var(--muted); }
+select, button.preset, input[type=range] { font-family: var(--f-body); font-size: 13px; }
+select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--chip); color: var(--fg); }
+button.preset { padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--chip); color: var(--fg); cursor: pointer; }
+button.preset:hover { border-color: var(--hi); }
+button.preset:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--hi); outline-offset: 2px; }
+input[type=range] { accent-color: var(--hi); width: 220px; max-width: 100%; }
+.schem {
+  overflow-x: auto; background-color: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.schem svg { display: block; }
+.expr { font-family: var(--f-mono); font-size: 13px; background: var(--code-bg); border-radius: 6px; padding: 10px 12px; overflow-x: auto; white-space: pre; line-height: 1.7; }
+.notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.note { border-top: 2px solid var(--line); padding-top: 8px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.note b { font-family: var(--f-display); font-weight: 600; font-size: 17px; letter-spacing: .01em; }
+.note p { font-size: 14px; color: var(--muted); }
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+.pair > div { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.status { font-family: var(--f-mono); font-size: 13px; }
+
+/* SVG parts */
+.w { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.w.lo { stroke: var(--lo); }
+.w.hi { stroke: var(--hi); }
+.bar { stroke-width: 2.5; }
+.bar.lo { stroke: var(--lo); } .bar.hi { stroke: var(--hi); }
+.gate { fill: var(--chip); stroke: var(--fg); stroke-width: 1.6; }
+.bub { fill: var(--panel); stroke: var(--fg); stroke-width: 1.6; }
+.gtxt { font-family: var(--f-mono); font-size: 9.5px; fill: var(--muted); letter-spacing: .04em; }
+.tag { font-family: var(--f-mono); font-size: 10.5px; fill: var(--muted); letter-spacing: .03em; }
+.tag.hi { fill: var(--hi); font-weight: 600; }
+.grp { font-family: var(--f-display); font-size: 15px; font-weight: 600; fill: var(--fg); letter-spacing: .03em; }
+.grp-sub { font-family: var(--f-mono); font-size: 10.5px; fill: var(--muted); }
+.pill { cursor: pointer; }
+.pill rect { fill: var(--chip); stroke: var(--line); stroke-width: 1.2; }
+.pill:hover rect { stroke: var(--hi); }
+.pill:focus { outline: none; }
+.pill:focus-visible rect { stroke: var(--hi); stroke-width: 2.2; }
+.pill text { font-family: var(--f-mono); font-size: 11px; fill: var(--fg); }
+.pill.small text { font-size: 10px; fill: var(--muted); }
+.led.lo { fill: var(--lo); } .led.hi { fill: var(--hi); }
+.fn rect { fill: var(--code-bg); stroke: var(--line); stroke-width: 1.2; }
+.fn text { font-family: var(--f-mono); font-size: 10.5px; fill: var(--fg); }
+.lamp rect { stroke-width: 1.6; }
+.lamp.on rect { fill: var(--ok-bg); stroke: var(--ok); }
+.lamp.on text { fill: var(--ok); }
+.lamp.bad rect { fill: var(--bad-bg); stroke: var(--bad); }
+.lamp.bad text { fill: var(--bad); }
+.lamp.off rect { fill: var(--chip); stroke: var(--line); stroke-dasharray: 4 3; }
+.lamp.off text { fill: var(--muted); }
+.lamp text { font-family: var(--f-mono); font-size: 11.5px; font-weight: 600; }
+.lamp .cap { font-weight: 400; font-size: 10px; fill: var(--muted); }
+@media (prefers-reduced-motion: no-preference) { .w, .bar, .led { transition: stroke .15s, fill .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">SAF_1TPT_SYSTEM_VEH11 · VBA logic</div>
+    <h1>Fleet Logic Schematic</h1>
+    <p>Each <code>If</code> in your VBA becomes a gate here. Click any input on the left of a circuit to change it, and the wires show the result straight away. The behaviour matches the VBA, and the criteria lists and disregard rules are the real ones from your workbook.</p>
+    <div class="legend" aria-label="Legend">
+      <span><svg width="34" height="10"><line x1="0" y1="5" x2="34" y2="5" class="w hi"/></svg>HIGH (true)</span>
+      <span><svg width="34" height="10"><line x1="0" y1="5" x2="34" y2="5" class="w lo"/></svg>LOW (false)</span>
+      <span><svg width="20" height="14"><circle cx="8" cy="7" r="4" class="bub"/></svg>bubble = NOT on that pin</span>
+      <span><svg width="16" height="26"><line x1="8" y1="1" x2="8" y2="25" class="bar lo"/></svg>long bar = gate with extended inputs</span>
+    </div>
+  </header>
+
+  <!-- ============================ 1. DEPLOYABLE ============================ -->
+  <section id="deployable">
+    <div class="sec-head">
+      <div class="src">modServiceable · CalculateDeployable(ws, rowNum, vehicleType)</div>
+      <h2>1 · Is the vehicle deployable?</h2>
+      <p>Every row is checked unless the vehicle type ignores it (DisregardConfig). If any row is HIGH, the big NOR goes LOW and DEPLOYABLE is left blank, which the system reads as NOT AVA.</p>
+    </div>
+    <div class="controls">
+      <label for="vtype">Vehicle type</label>
+      <select id="vtype"></select>
+      <button class="preset" data-preset="clear" type="button">All clear</button>
+      <button class="preset" data-preset="tasking" type="button">NC 34637: TASKING = XCA</button>
+      <button class="preset" data-preset="vor" type="button">VOR = X</button>
+      <button class="preset" data-preset="aircon" type="button">AIRCON = N</button>
+      <button class="preset" data-preset="blank" type="button">Maintenance cells blank</button>
+    </div>
+    <div class="status" id="dep-status" aria-live="polite"></div>
+    <div class="schem" id="c-main"></div>
+    <div class="expr">DEPLOYABLE = NOT(  Σ blocked_i · ¬ignored_i   +   Σ maint_j · ¬ignored_j  )
+
+blocked_i = cell has any text          (VOR STATUS: text contains "X")
+maint_j   = cell = "N"                 (Y and blank both count as pass)
+result    = "AVA" when HIGH, "" (blank) when LOW</div>
+    <div class="notes">
+      <div class="note"><b>Blank maintenance counts as a pass</b><p>Only an <code>N</code> blocks a vehicle. An item nobody filled in does not. Try the "Maintenance cells blank" preset.</p></div>
+      <div class="note"><b>VOR needs an X</b><p>VOR STATUS only blocks when the text contains an X. Something like <code>DONE</code> leaves the vehicle deployable. Click VOR STATUS three times to see this.</p></div>
+      <div class="note"><b>Any text blocks</b><p>TASKING, SELF DRIVE, TLOAN, OVERSEAS and STANDBY block on any text at all, even a single space-free word.</p></div>
+      <div class="note"><b>Disregards mask a row</b><p>Pick MB 290 GS, then set AIRCON = N. The ignore pin forces that AND gate LOW, so the vehicle stays AVA.</p></div>
+    </div>
+  </section>
+
+  <!-- ============================ 2. DASHBOARD ============================ -->
+  <section id="dashboard">
+    <div class="sec-head">
+      <div class="src">modDashBoard · RenderDashboard (per vehicle)</div>
+      <h2>2 · Where each vehicle shows up on the dashboard</h2>
+      <p>RenderDashboard runs these gates once for every vehicle. Every vehicle also goes into the Maintenance Schedule table, so that table has no gate.</p>
+    </div>
+    <div class="schem" id="c-dash"></div>
+    <p class="muted">"Any blocked field has text" here reads the raw cells, without disregards. So a vehicle that is NOT AVA only because of a maintenance N does not appear in the Daily Status table.</p>
+  </section>
+
+  <!-- ============================ 3. COLOURS ============================ -->
+  <section id="colours">
+    <div class="sec-head">
+      <div class="src">ApplyDeployableHighlight · AddDueFormat · RenderDashboard</div>
+      <h2>3 · Colour rules</h2>
+      <p>The conditional formatting is logic too. The comparators (grey boxes) turn a number or a date into HIGH or LOW.</p>
+    </div>
+    <div class="pair">
+      <div>
+        <h3>DEPLOYABLE cell on a fleet sheet</h3>
+        <div class="schem" id="c-cell"></div>
+      </div>
+      <div>
+        <h3>% Serviceable cell (Dashboard C6)</h3>
+        <div class="controls"><label for="pct">Fleet % serviceable: <span id="pct-v" class="mono"></span></label><input type="range" id="pct" min="0" max="100" value="50"></div>
+        <div class="schem" id="c-pct"></div>
+      </div>
+    </div>
+    <div>
+      <h3>Maintenance schedule date (AVI Due, Next SVC/UQM, N/VI, N/LT)</h3>
+      <div class="controls"><label for="days">Due in <span id="days-v" class="mono"></span></label><input type="range" id="days" min="-40" max="70" value="12"></div>
+      <div class="schem" id="c-due"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 4. EDIT FORMS ============================ -->
+  <section id="edits">
+    <div class="sec-head">
+      <div class="src">modMaintenance · ProcessMaintenance &nbsp;|&nbsp; modBlockedVehicles · ProcessBlockedVehicle</div>
+      <h2>4 · Extra questions in the edit forms</h2>
+      <p>These gates decide when the forms ask the follow-up questions (Remarks, Date Book In) and what the BlockedVehicles log records.</p>
+    </div>
+    <div><h3>STANDBY → Remarks</h3><div class="schem" id="c-standby"></div></div>
+    <div><h3>VOR → Date Book In</h3><div class="schem" id="c-vor"></div></div>
+    <div><h3>BlockedVehicles "Status" column</h3><div class="schem" id="c-status"></div>
+      <p class="muted">This works as a priority encoder: VOR wins over BLOCKED, and CLEAR is HIGH only when both inputs are LOW.</p></div>
+  </section>
+
+  <!-- ============================ 5. ACCESS ============================ -->
+  <section id="access">
+    <div class="sec-head">
+      <div class="src">modSession · RequireLogin &nbsp;|&nbsp; modVehiclesPersonnel · AddVehicle &nbsp;|&nbsp; modColumnMap · DetectNewCriteria</div>
+      <h2>5 · Gates that stop an action</h2>
+      <p>These run before anything changes. When a gate is LOW, the macro shows a message and exits.</p>
+    </div>
+    <div class="schem" id="c-login"></div>
+    <div class="schem" id="c-add"></div>
+    <div class="schem" id="c-crit"></div>
+  </section>
+</div>
+
+<script>
+(function () {
+  /* ------------------------------------------------------------------ data from the workbook */
+  var BLOCKED = ['TASKING', 'SELF DRIVE', 'TLOAN', 'OVERSEAS', 'STANDBY', 'VOR STATUS'];
+  var MAINT = ['AVI SLIP', 'VC STICKER', 'MLC', 'P-PLATE', 'WHEEL-CHOKE', 'KEY/FUEL TAG', 'CLEANINESS', 'CANOPY',
+    'CUSHION COVER', 'SEATS CONDITION', 'TYRES', 'SAFETY BELTS / STRAP', 'FE', 'BII TOOL', 'AIRCON', 'IVC', 'IVC 2'];
+  var DISREGARD = {
+    '10 TON TOWER (B4)': ['CUSHION COVER', 'IVC 2', 'P-PLATE'],
+    'MB 290 FAM/GAS': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'FE'],
+    'MB 290 FAM/SYS': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'FE'],
+    'MB 290 GLPS': ['CUSHION COVER', 'AIRCON', 'IVC 2'],
+    'MB 290 GS': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE'],
+    'VAMTAC (CEREMONY)': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE', 'CANOPY'],
+    'VAMTAC CREW': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE', 'CANOPY'],
+    'VAMTAC FAM STORE': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE', 'CANOPY'],
+    'VAMTAC FAM SYSTEM': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE', 'CANOPY'],
+    'VAMTAC MUV': ['CUSHION COVER', 'AIRCON', 'IVC 2', 'P-PLATE', 'CANOPY'],
+    'MB G300 (TOWER)': [],
+  };
+  var SAMPLE = { 'TASKING': 'XCA', 'SELF DRIVE': 'TRG RUN', 'TLOAN': 'TO 3 DIV', 'OVERSEAS': 'EX WALLABY', 'STANDBY': 'X' };
+  var G = { days: 12, pct: 50 };
+
+  /* ------------------------------------------------------------------ tiny logic + schematic engine */
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  var GATE_W = { and: 56, nand: 56, or: 56, nor: 56, not: 34, buf: 34 };
+  function bubbleOut(t) { return t === 'nor' || t === 'nand' || t === 'not'; }
+
+  function geom(n) {
+    var W = n.W || GATE_W[n.t], H = n.H || Math.max(36, n.in.length * 14 + 8);
+    return { W: W, H: H, top: n.y - H / 2 };
+  }
+  function pinY(n, i) {
+    if (n.pins) return n.pins[i];
+    var g = geom(n);
+    return g.top + g.H * (i + 1) / (n.in.length + 1);
+  }
+  function pinX(n, i) {
+    var g = geom(n), py = pinY(n, i), x = n.x;
+    if ((n.t === 'or' || n.t === 'nor') && py > g.top && py < g.top + g.H) {
+      var u = (py - g.top) / g.H;
+      x += 2 * u * (1 - u) * 0.3 * g.H;
+    }
+    return x;
+  }
+  function outPt(n) {
+    if (n.t === 'in' || n.t === 'fn') return [n.x + n.w, n.y];
+    var g = geom(n);
+    return [n.x + g.W + (bubbleOut(n.t) ? 8 : 0), n.y];
+  }
+
+  function evaluate(c) {
+    var v = {};
+    c.nodes.forEach(function (n) {
+      if (n.t === 'in') v[n.id] = !!n.states[n.s][1];
+      else if (n.t === 'fn') v[n.id] = !!n.f();
+      else if (n.t === 'out') v[n.id] = v[n.in[0]];
+      else {
+        var ins = n.in.map(function (id, i) { var x = v[id]; return (n.inv && n.inv[i]) ? !x : x; });
+        var any = ins.some(Boolean), all = ins.every(Boolean);
+        v[n.id] = { and: all, nand: !all, or: any, nor: !any, not: !ins[0], buf: ins[0] }[n.t];
+      }
+    });
+    c.v = v;
+    return v;
+  }
+
+  function gatePath(n) {
+    var g = geom(n), x = n.x, t = g.top, W = g.W, H = g.H, cy = n.y;
+    if (n.t === 'and' || n.t === 'nand') {
+      var r = H / 2;
+      return 'M' + x + ',' + t + ' H' + (x + W - r) + ' A' + r + ',' + r + ' 0 0 1 ' + (x + W - r) + ',' + (t + H) + ' H' + x + ' Z';
+    }
+    if (n.t === 'or' || n.t === 'nor') {
+      return 'M' + x + ',' + t + ' Q' + (x + W * 0.58) + ',' + t + ' ' + (x + W) + ',' + cy +
+        ' Q' + (x + W * 0.58) + ',' + (t + H) + ' ' + x + ',' + (t + H) + ' Q' + (x + 0.3 * H) + ',' + cy + ' ' + x + ',' + t + ' Z';
+    }
+    return 'M' + x + ',' + t + ' L' + (x + W) + ',' + cy + ' L' + x + ',' + (t + H) + ' Z';
+  }
+
+  function render(c) {
+    var v = evaluate(c), byId = {}, s = [];
+    c.nodes.forEach(function (n) { byId[n.id] = n; });
+    s.push('<svg xmlns="http://www.w3.org/2000/svg" width="' + c.w + '" height="' + c.h + '" viewBox="0 0 ' + c.w + ' ' + c.h + '" role="img" aria-label="' + esc(c.aria) + '">');
+    (c.text || []).forEach(function (t) { s.push('<text x="' + t[0] + '" y="' + t[1] + '" class="' + (t[3] || 'grp') + '">' + esc(t[2]) + '</text>'); });
+
+    // wires first so gates sit on top
+    c.nodes.forEach(function (n) {
+      if (!n.in) return;
+      n.in.forEach(function (id, i) {
+        var src = byId[id], o = outPt(src), tx, ty;
+        if (n.t === 'out') { tx = n.x; ty = n.y; } else { tx = pinX(n, i) - ((n.inv && n.inv[i]) ? 8 : 0); ty = pinY(n, i); }
+        var cls = v[id] ? 'hi' : 'lo', d;
+        if (Math.abs(o[1] - ty) < 0.5) d = 'M' + o[0] + ',' + o[1] + ' H' + tx;
+        else {
+          var bx = (n.bend && n.bend[i] != null) ? n.bend[i] : (o[0] + tx) / 2;
+          d = 'M' + o[0] + ',' + o[1] + ' H' + bx + ' V' + ty + ' H' + tx;
+        }
+        s.push('<path d="' + d + '" class="w ' + cls + '"/>');
+        if (n.dots && n.dots[i]) s.push('<circle cx="' + n.dots[i][0] + '" cy="' + n.dots[i][1] + '" r="3.2" class="led ' + cls + '"/>');
+      });
+    });
+
+    c.nodes.forEach(function (n) {
+      var val = v[n.id];
+      if (n.t === 'in') {
+        var st = n.states[n.s], h = n.h || 20, txt = (n.label ? n.label + ': ' : '') + st[0];
+        s.push('<g class="pill' + (n.small ? ' small' : '') + '" data-c="' + c.id + '" data-n="' + n.id + '" tabindex="0" role="button" aria-label="' + esc(txt + ', click to change') + '">' +
+          '<rect x="' + n.x + '" y="' + (n.y - h / 2) + '" width="' + n.w + '" height="' + h + '" rx="' + h / 2 + '"/>' +
+          '<text x="' + (n.x + 10) + '" y="' + (n.y + 3.8) + '">' + esc(txt) + '</text>' +
+          '<circle cx="' + (n.x + n.w - 10) + '" cy="' + n.y + '" r="4" class="led ' + (val ? 'hi' : 'lo') + '"/></g>');
+      } else if (n.t === 'fn') {
+        s.push('<g class="fn"><rect x="' + n.x + '" y="' + (n.y - 13) + '" width="' + n.w + '" height="26" rx="4"/>' +
+          '<text x="' + (n.x + 8) + '" y="' + (n.y + 4) + '">' + esc(n.label()) + '</text>' +
+          '<circle cx="' + (n.x + n.w - 9) + '" cy="' + n.y + '" r="4" class="led ' + (val ? 'hi' : 'lo') + '"/></g>');
+      } else if (n.t === 'out') {
+        var on = val ? n.on : n.off, w = n.w || 170;
+        s.push('<g class="lamp ' + on[1] + '"><rect x="' + n.x + '" y="' + (n.y - 15) + '" width="' + w + '" height="30" rx="6"/>' +
+          '<text x="' + (n.x + 10) + '" y="' + (n.y + 4) + '">' + esc(on[0]) + '</text>' +
+          (n.cap ? '<text class="cap" x="' + n.x + '" y="' + (n.y + 29) + '">' + esc(n.cap) + '</text>' : '') + '</g>');
+      } else {
+        var g = geom(n);
+        if (n.pins) {
+          var lo = Math.min.apply(null, n.pins), hi = Math.max.apply(null, n.pins);
+          if (lo < g.top + 2 || hi > g.top + g.H - 2) {
+            var barOn = n.in.some(function (id, i) { var x = v[id]; return (n.inv && n.inv[i]) ? !x : x; });
+            s.push('<line x1="' + n.x + '" y1="' + Math.min(lo, g.top) + '" x2="' + n.x + '" y2="' + Math.max(hi, g.top + g.H) + '" class="bar ' + (barOn ? 'hi' : 'lo') + '"/>');
+          }
+        }
+        s.push('<path d="' + gatePath(n) + '" class="gate"/>');
+        if (bubbleOut(n.t)) s.push('<circle cx="' + (n.x + g.W + 4) + '" cy="' + n.y + '" r="4" class="bub"/>');
+        (n.inv || []).forEach(function (inv, i) { if (inv) s.push('<circle cx="' + (pinX(n, i) - 4) + '" cy="' + pinY(n, i) + '" r="4" class="bub"/>'); });
+        var lbl = n.t.toUpperCase();
+        s.push('<text x="' + (n.x + (n.t === 'not' || n.t === 'buf' ? 5 : 12)) + '" y="' + (n.y + 3.5) + '" class="gtxt">' + lbl + '</text>');
+        if (n.tag) s.push('<text x="' + (n.tagX != null ? n.tagX : outPt(n)[0] + 6) + '" y="' + (n.tagY != null ? n.tagY : n.y - 8) + '" class="tag ' + (val ? 'hi' : '') + '">' + esc(n.tag) + '</text>');
+      }
+    });
+    s.push('</svg>');
+    c.el.innerHTML = s.join('');
+  }
+
+  var CIRCUITS = {};
+  function add(c) { c.el = document.getElementById(c.id); CIRCUITS[c.id] = c; render(c); return c; }
+  function rerender(id) { render(CIRCUITS[id]); if (id === 'c-main') depStatus(); }
+  function node(c, id) { return c.nodes.filter(function (n) { return n.id === id; })[0]; }
+
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest && e.target.closest('.pill');
+    if (!g) return;
+    toggle(g.getAttribute('data-c'), g.getAttribute('data-n'));
+  });
+  document.addEventListener('keydown', function (e) {
+    var g = e.target.closest && e.target.closest('.pill');
+    if (!g || (e.key !== 'Enter' && e.key !== ' ')) return;
+    e.preventDefault();
+    toggle(g.getAttribute('data-c'), g.getAttribute('data-n'));
+    var again = document.querySelector('.pill[data-c="' + g.getAttribute('data-c') + '"][data-n="' + g.getAttribute('data-n') + '"]');
+    if (again) again.focus();
+  });
+  function toggle(cid, nid) {
+    var c = CIRCUITS[cid], n = node(c, nid);
+    n.s = (n.s + 1) % n.states.length;
+    if (cid === 'c-main' && nid.indexOf('ig') === 0) document.getElementById('vtype').value = '__custom';
+    rerender(cid);
+  }
+
+  /* ------------------------------------------------------------------ 1. main DEPLOYABLE circuit */
+  var main = { id: 'c-main', w: 930, h: 0, nodes: [], text: [], aria: 'Logic diagram of CalculateDeployable' };
+  var ROW = 36, y = 74, bPins = [], mPins = [];
+  main.text.push([12, 30, 'BLOCKED-STYLE FIELDS'], [12, 46, 'any text blocks · VOR STATUS needs an X', 'grp-sub']);
+  function row(name, kind, idx) {
+    var cy = y;
+    var states = kind === 'b'
+      ? (name === 'VOR STATUS' ? [['(blank)', false], ['X', true], ['DONE (no X)', false]] : [['(blank)', false], [SAMPLE[name], true]])
+      : [['Y', false], ['N', true], ['(blank)', false]];
+    main.nodes.push({ id: 'f' + kind + idx, t: 'in', x: 12, y: cy - 8, w: 222, h: 18, label: name, states: states, s: 0 });
+    main.nodes.push({ id: 'ig' + kind + idx, t: 'in', x: 248, y: cy + 8, w: 96, h: 16, small: true, label: '', states: [['counted', false], ['ignored', true]], s: 0 });
+    main.nodes.push({ id: 'a' + kind + idx, t: 'and', x: 380, y: cy, W: 44, H: 30, in: ['f' + kind + idx, 'ig' + kind + idx], inv: [false, true], pins: [cy - 8, cy + 8] });
+    (kind === 'b' ? bPins : mPins).push(cy);
+    y += ROW;
+  }
+  BLOCKED.forEach(function (n, i) { row(n, 'b', i); });
+  y += 36;
+  main.text.push([12, y - 30, 'MAINTENANCE ITEMS'], [12, y - 14, 'only "N" blocks · Y and blank pass', 'grp-sub']);
+  y += 14;
+  MAINT.forEach(function (n, i) { row(n, 'm', i); });
+  main.h = y + 10;
+  var yB = (bPins[0] + bPins[bPins.length - 1]) / 2, yM = (mPins[0] + mPins[mPins.length - 1]) / 2;
+  main.nodes.push({ id: 'orB', t: 'or', x: 500, y: yB, W: 58, H: 46, in: BLOCKED.map(function (_, i) { return 'ab' + i; }), pins: bPins, tag: 'ANY BLOCKED' });
+  main.nodes.push({ id: 'orM', t: 'or', x: 500, y: yM, W: 58, H: 46, in: MAINT.map(function (_, i) { return 'am' + i; }), pins: mPins, tag: 'ANY ITEM = N' });
+  main.nodes.push({ id: 'nor', t: 'nor', x: 660, y: (yB + yM) / 2, W: 58, H: 46, in: ['orB', 'orM'], pins: [yB, yM] });
+  main.nodes.push({ id: 'dep', t: 'out', x: 750, y: (yB + yM) / 2, w: 168, in: ['nor'], on: ['DEPLOYABLE = "AVA"', 'on'], off: ['DEPLOYABLE = ""', 'bad'], cap: 'blank is shown as NOT AVA' });
+  add(main);
+
+  var sel = document.getElementById('vtype');
+  sel.innerHTML = Object.keys(DISREGARD).map(function (t) { return '<option>' + esc(t) + '</option>'; }).join('') +
+    '<option value="">Other type (no disregard rules)</option><option value="__custom">Custom (my own ignore pins)</option>';
+  sel.value = 'MB 290 GS';
+  function applyType() {
+    var t = sel.value;
+    if (t === '__custom') return;
+    var list = DISREGARD[t] || [];
+    BLOCKED.forEach(function (n, i) { node(main, 'igb' + i).s = list.indexOf(n) >= 0 ? 1 : 0; });
+    MAINT.forEach(function (n, i) { node(main, 'igm' + i).s = list.indexOf(n) >= 0 ? 1 : 0; });
+    rerender('c-main');
+  }
+  sel.addEventListener('change', applyType);
+
+  function setAll(fb, fm) {
+    BLOCKED.forEach(function (n, i) { node(main, 'fb' + i).s = fb(n); });
+    MAINT.forEach(function (n, i) { node(main, 'fm' + i).s = fm(n); });
+  }
+  document.querySelectorAll('[data-preset]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.getAttribute('data-preset');
+      if (p === 'clear') setAll(function () { return 0; }, function () { return 0; });
+      if (p === 'tasking') { sel.value = 'MB G300 (TOWER)'; applyType(); setAll(function (n) { return n === 'TASKING' ? 1 : 0; }, function () { return 2; }); }
+      if (p === 'vor') setAll(function (n) { return n === 'VOR STATUS' ? 1 : 0; }, function () { return 0; });
+      if (p === 'aircon') setAll(function () { return 0; }, function (n) { return n === 'AIRCON' ? 1 : 0; });
+      if (p === 'blank') setAll(function () { return 0; }, function () { return 2; });
+      rerender('c-main');
+    });
+  });
+  function depStatus() {
+    var v = main.v, why = [];
+    BLOCKED.forEach(function (n, i) { if (v['ab' + i]) why.push(n); });
+    MAINT.forEach(function (n, i) { if (v['am' + i]) why.push(n + ' = N'); });
+    var ign = MAINT.concat(BLOCKED).filter(function (n) {
+      var i = MAINT.indexOf(n), id = i >= 0 ? 'fm' + i : 'fb' + BLOCKED.indexOf(n), ig = i >= 0 ? 'igm' + i : 'igb' + BLOCKED.indexOf(n);
+      return v[id] && v[ig];
+    });
+    document.getElementById('dep-status').textContent = v.nor
+      ? 'Result: AVA' + (ign.length ? ' (ignored for this type: ' + ign.join(', ') + ')' : '')
+      : 'Result: NOT AVA, because ' + why.join(', ');
+  }
+  applyType();
+
+  /* ------------------------------------------------------------------ 2. dashboard routing */
+  add({ id: 'c-dash', w: 760, h: 230, aria: 'Dashboard routing logic', nodes: [
+    { id: 'ava', t: 'in', x: 12, y: 40, w: 200, label: 'Vehicle', states: [['AVA', true], ['NOT AVA', false]], s: 1 },
+    { id: 'rem', t: 'in', x: 12, y: 116, w: 260, label: 'Any blocked field has text', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'fleet', t: 'in', x: 12, y: 190, w: 260, label: 'Dashboard type', states: [['NC (all fleets)', false], ['Fleet Commander', true]], s: 0 },
+    { id: 'o1', t: 'out', x: 470, y: 40, w: 270, in: ['ava'], on: ['+1 to Total Serviceable', 'on'], off: ['not counted as serviceable', 'off'] },
+    { id: 'and', t: 'and', x: 340, y: 108, in: ['ava', 'rem'], inv: [true, false], pins: [100, 116], H: 34, bend: [290] },
+    { id: 'o2', t: 'out', x: 470, y: 108, w: 270, in: ['and'], on: ['row in Daily Status table', 'bad'], off: ['not in Daily Status table', 'off'] },
+    { id: 'o3', t: 'out', x: 470, y: 190, w: 270, in: ['fleet'], on: ['row in All Vehicles table', 'on'], off: ['no All Vehicles table', 'off'] },
+  ] });
+
+  /* ------------------------------------------------------------------ 3. colour rules */
+  add({ id: 'c-cell', w: 470, h: 160, aria: 'DEPLOYABLE cell colour logic', nodes: [
+    { id: 'dep', t: 'in', x: 12, y: 40, w: 170, label: 'DEPLOYABLE', states: [['AVA', true], ['(blank)', false]], s: 1 },
+    { id: 'mid', t: 'in', x: 12, y: 112, w: 170, label: 'MID cell', states: [['34637', true], ['(blank)', false]], s: 0 },
+    { id: 'g', t: 'out', x: 300, y: 40, w: 150, in: ['dep'], on: ['GREEN fill', 'on'], off: ['no green', 'off'] },
+    { id: 'and', t: 'and', x: 220, y: 108, in: ['mid', 'dep'], inv: [false, true], pins: [112, 100], H: 34, bend: [null, 196], dots: [null, [196, 40]] },
+    { id: 'r', t: 'out', x: 300, y: 108, w: 150, in: ['and'], on: ['RED fill', 'bad'], off: ['no red', 'off'] },
+  ] });
+
+  add({ id: 'c-pct', w: 440, h: 80, aria: 'Percent serviceable alarm', nodes: [
+    { id: 'cmp', t: 'fn', x: 12, y: 40, w: 190, f: function () { return G.pct < 70; }, label: function () { return G.pct + '% < 70% ?'; } },
+    { id: 'r', t: 'out', x: 260, y: 40, w: 164, in: ['cmp'], on: ['RED cell', 'bad'], off: ['normal cell', 'off'] },
+  ] });
+
+  function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function edate(d) { var y = d.getFullYear(), m = d.getMonth() + 1, last = new Date(y, m + 1, 0).getDate(); return new Date(y, m, Math.min(d.getDate(), last)); }
+  function dmy(d) { return ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + d.getFullYear(); }
+  add({ id: 'c-due', w: 720, h: 170, aria: 'Due date highlight logic', nodes: [
+    { id: 'num', t: 'in', x: 12, y: 36, w: 230, label: 'Cell holds a date', states: [['yes', true], ['no (text / blank)', false]], s: 0 },
+    { id: 'c1', t: 'fn', x: 12, y: 86, w: 230, f: function () { return G.days >= 0; }, label: function () { return dmy(addDays(today(), G.days)) + ' ≥ TODAY ?'; } },
+    { id: 'c2', t: 'fn', x: 12, y: 136, w: 230, f: function () { return addDays(today(), G.days) <= edate(today()); }, label: function () { return '≤ EDATE(TODAY,1) ' + dmy(edate(today())) + ' ?'; } },
+    { id: 'and', t: 'and', x: 340, y: 86, in: ['num', 'c1', 'c2'], pins: [72, 86, 100], H: 44, bend: [300, null, 300] },
+    { id: 'r', t: 'out', x: 450, y: 86, w: 250, in: ['and'], on: ['RED bold: due within 1 month', 'bad'], off: ['no highlight', 'off'], cap: 'overdue dates are NOT highlighted' },
+  ] });
+
+  /* ------------------------------------------------------------------ 4. edit-form prompts */
+  add({ id: 'c-standby', w: 720, h: 210, aria: 'STANDBY remarks logic', nodes: [
+    { id: 'typed', t: 'in', x: 12, y: 34, w: 270, label: 'New STANDBY typed', states: [['"X - workshop"', true], ['(left blank)', false]], s: 0 },
+    { id: 'diff', t: 'in', x: 12, y: 74, w: 270, label: 'Different from current', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'hasx', t: 'in', x: 12, y: 130, w: 270, label: 'STANDBY contains X', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'rmk', t: 'in', x: 12, y: 172, w: 270, label: 'Current remark', states: [['"Veh cannot start"', true], ['(blank)', false]], s: 0 },
+    { id: 'ed', t: 'and', x: 320, y: 54, in: ['typed', 'diff'], pins: [34, 74], H: 36, tag: 'edited' },
+    { id: 'o1', t: 'out', x: 500, y: 54, w: 200, in: ['ed'], on: ['ask for Remarks', 'on'], off: ['no Remarks question', 'off'] },
+    { id: 'note', t: 'and', x: 430, y: 146, in: ['ed', 'hasx', 'rmk'], inv: [true, false, false], pins: [134, 146, 160], H: 44, bend: [404, 350, 366], dots: [[404, 54], null, null] },
+    { id: 'o2', t: 'out', x: 530, y: 146, w: 170, in: ['note'], on: ['show "has X" note', 'on'], off: ['no note', 'off'] },
+  ] });
+
+  add({ id: 'c-vor', w: 460, h: 140, aria: 'VOR date book in logic', nodes: [
+    { id: 'vx', t: 'in', x: 12, y: 50, w: 190, label: 'VOR STATUS', states: [['X', true], ['(blank)', false]], s: 0 },
+    { id: 'o1', t: 'out', x: 290, y: 30, w: 160, in: ['vx'], on: ['ask Date Book In', 'on'], off: ['no question', 'off'], },
+    { id: 'n', t: 'not', x: 230, y: 96, in: ['vx'], bend: [216] },
+    { id: 'o2', t: 'out', x: 290, y: 96, w: 160, in: ['n'], on: ['clear Date Book In', 'bad'], off: ['keep Date Book In', 'off'] },
+  ] });
+  // VOR output 1 needs its own bend: patch the route by giving the out node a bend
+  node(CIRCUITS['c-vor'], 'o1').bend = [216];
+  rerender('c-vor');
+
+  add({ id: 'c-status', w: 700, h: 190, aria: 'BlockedVehicles status encoder', nodes: [
+    { id: 'vor', t: 'in', x: 12, y: 50, w: 210, label: 'VOR contains X', states: [['yes', true], ['no', false]], s: 1 },
+    { id: 'blk', t: 'in', x: 12, y: 130, w: 210, label: 'Any blocked field', states: [['filled', true], ['empty', false]], s: 0 },
+    { id: 'um', t: 'out', x: 470, y: 30, w: 210, in: ['vor'], on: ['UNDER MAINTENANCE', 'bad'], off: ['-', 'off'] },
+    { id: 'b', t: 'and', x: 330, y: 90, in: ['vor', 'blk'], inv: [true, false], pins: [82, 98], H: 34, bend: [270, 290], dots: [[270, 50], null] },
+    { id: 'bo', t: 'out', x: 470, y: 90, w: 210, in: ['b'], on: ['BLOCKED', 'bad'], off: ['-', 'off'] },
+    { id: 'c', t: 'nor', x: 330, y: 150, in: ['vor', 'blk'], pins: [142, 158], H: 34, bend: [270, 290], dots: [null, [290, 130]] },
+    { id: 'co', t: 'out', x: 470, y: 150, w: 210, in: ['c'], on: ['CLEAR', 'on'], off: ['-', 'off'] },
+  ] });
+  node(CIRCUITS['c-status'], 'um').bend = [270];
+  rerender('c-status');
+
+  /* ------------------------------------------------------------------ 5. access gates */
+  add({ id: 'c-login', w: 680, h: 110, aria: 'Login gate', text: [[12, 18, 'Any edit button · RequireLogin + GetActiveDataSheet', 'grp-sub']], nodes: [
+    { id: 'li', t: 'in', x: 12, y: 46, w: 230, label: 'Logged in', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'ex', t: 'in', x: 12, y: 84, w: 230, label: 'Fleet sheet still exists', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'a', t: 'and', x: 320, y: 65, in: ['li', 'ex'], pins: [46, 84], H: 36 },
+    { id: 'o', t: 'out', x: 430, y: 65, w: 230, in: ['a'], on: ['action runs', 'on'], off: ['"Please log in first"', 'bad'] },
+  ] });
+  add({ id: 'c-add', w: 680, h: 150, aria: 'Add vehicle gate', text: [[12, 18, 'Add Vehicle · AddVehicle', 'grp-sub']], nodes: [
+    { id: 'li', t: 'in', x: 12, y: 46, w: 230, label: 'Logged in', states: [['yes', true], ['no', false]], s: 0 },
+    { id: 'tm', t: 'in', x: 12, y: 84, w: 230, label: 'Type and MID entered', states: [['yes', true], ['no (blank)', false]], s: 0 },
+    { id: 'dup', t: 'in', x: 12, y: 122, w: 230, label: 'MID on any fleet', states: [['not found', false], ['already exists', true]], s: 0 },
+    { id: 'a', t: 'and', x: 320, y: 84, in: ['li', 'tm', 'dup'], inv: [false, false, true], pins: [46, 84, 122], H: 44 },
+    { id: 'o', t: 'out', x: 430, y: 84, w: 230, in: ['a'], on: ['row added, DEPLOYABLE = AVA', 'on'], off: ['vehicle not added', 'bad'] },
+  ] });
+  add({ id: 'c-crit', w: 680, h: 150, aria: 'New criteria detection gate', text: [[12, 18, 'Import File / Check File / Scan Criteria · DetectNewCriteria (per header)', 'grp-sub']], nodes: [
+    { id: 'hd', t: 'in', x: 12, y: 46, w: 230, label: 'Header cell', states: [['"BATTERY"', true], ['(blank)', false]], s: 0 },
+    { id: 'core', t: 'in', x: 12, y: 84, w: 230, label: 'Core field (MID, S/N…)', states: [['no', false], ['yes', true]], s: 0 },
+    { id: 'cls', t: 'in', x: 12, y: 122, w: 230, label: 'In CriteriaConfig', states: [['no', false], ['yes', true]], s: 0 },
+    { id: 'a', t: 'and', x: 320, y: 84, in: ['hd', 'core', 'cls'], inv: [false, true, true], pins: [46, 84, 122], H: 44 },
+    { id: 'o', t: 'out', x: 430, y: 84, w: 230, in: ['a'], on: ['ask: Maintenance / Blocked?', 'on'], off: ['skip this header', 'off'] },
+  ] });
+
+  /* ------------------------------------------------------------------ sliders */
+  function bindRange(id, key, fmt, circ) {
+    var r = document.getElementById(id), out = document.getElementById(id + '-v');
+    function upd() { G[key] = +r.value; out.textContent = fmt(G[key]); rerender(circ); }
+    r.addEventListener('input', upd); upd();
+  }
+  bindRange('pct', 'pct', function (x) { return x + '%'; }, 'c-pct');
+  bindRange('days', 'days', function (x) { return x === 0 ? 'today' : x > 0 ? x + ' days' : Math.abs(x) + ' days ago (overdue)'; }, 'c-due');
+})();
+</script>
+
+<style>
+/* portfolio match: matte black instead of green-black */
+:root[data-theme="dark"] { --bg: #121315; --panel: #1a1b1e; --line: #2c2e33; --chip: #1f2124; --code-bg: #202226; --fg: #f1f0ea; --muted: #9c9fa6; --lo: #45484e; --hi: #ff8b4d; }
+body.embedded { padding-block: 20px 40px; }
+</style>
+<script>if (window.self !== window.top) document.documentElement.classList.add('in-frame');</script>
+</body></html>
