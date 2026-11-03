@@ -1255,7 +1255,7 @@ h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2
    ========================================================= */
 .xv-sep { color: var(--gold); margin-inline: 4px; }
 .xv-sec { padding-bottom: 0; }
-.xv { position: relative; height: 190vh; }
+.xv { position: relative; height: 330vh; }
 .xv-stage {
   position: sticky; top: 64px; height: calc(100vh - 64px); height: calc(100svh - 64px);
   overflow: hidden;
@@ -1336,7 +1336,7 @@ h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2
 
 /* phones: stack on the left, short labels on the right, details card at the bottom */
 @media (max-width: 760px) {
-  .xv { height: 220vh; }
+  .xv { height: 380vh; }
   .xv-stack { --s: 42vw; }
   .xv-scene { place-items: center start; padding-left: calc(4vw + 9vw); padding-bottom: 120px; perspective: 1800px; }
   .xv-call { max-width: 42vw; }
