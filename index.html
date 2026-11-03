@@ -772,6 +772,7 @@
             <linearGradient id="mcu-body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3d44"/><stop offset=".55" stop-color="#1d1f23"/><stop offset="1" stop-color="#121316"/></linearGradient>
             <linearGradient id="mcu-pin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c4"/><stop offset=".5" stop-color="#d8a547"/><stop offset="1" stop-color="#8d6b2f"/></linearGradient>
             <linearGradient id="mcu-sheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <linearGradient id="mcu-die" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d5bd0"/><stop offset=".5" stop-color="#3b2f7d"/><stop offset="1" stop-color="#211a4a"/></linearGradient>
             <radialGradient id="mcu-led" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#e9fffb"/><stop offset=".4" stop-color="#5ee6cf"/><stop offset="1" stop-color="#0b7d6c"/></radialGradient>
             <clipPath id="mcu-clip"><path d="M64 50h172a14 14 0 0 1 14 14v172a14 14 0 0 1-14 14H64a14 14 0 0 1-14-14V72z"/></clipPath>
           </defs>
@@ -826,6 +827,17 @@
           <g class="mp" data-side="t" data-i="11"><rect x="230.0" y="20" width="8" height="32" rx="1.5"/><rect class="foot" x="230.0" y="20" width="8" height="9" rx="1.5"/></g>
           <g class="mp" data-side="b" data-i="11"><rect x="230.0" y="248" width="8" height="32" rx="1.5"/><rect class="foot" x="230.0" y="271" width="8" height="9" rx="1.5"/></g>
           </g>
+<!-- inside the package: lead frame, bond wires and silicon die -->
+          <g class="mcu-inside">
+            <rect x="50" y="50" width="200" height="200" rx="12" fill="#0b0c0e" stroke="#2c2f35"/>
+            <g class="mcu-wires" fill="none" stroke="#e9c46a" stroke-width="1.1" opacity=".9"><path d="M52 66.0 Q80 66.0 106 110.0"/><path d="M248 66.0 Q220 66.0 194 110.0"/><path d="M66.0 52 Q66.0 80 110.0 106"/><path d="M66.0 248 Q66.0 220 110.0 194"/><path d="M52 81.3 Q80 81.3 106 117.3"/><path d="M248 81.3 Q220 81.3 194 117.3"/><path d="M81.3 52 Q81.3 80 117.3 106"/><path d="M81.3 248 Q81.3 220 117.3 194"/><path d="M52 96.5 Q80 96.5 106 124.5"/><path d="M248 96.5 Q220 96.5 194 124.5"/><path d="M96.5 52 Q96.5 80 124.5 106"/><path d="M96.5 248 Q96.5 220 124.5 194"/><path d="M52 111.8 Q80 111.8 106 131.8"/><path d="M248 111.8 Q220 111.8 194 131.8"/><path d="M111.8 52 Q111.8 80 131.8 106"/><path d="M111.8 248 Q111.8 220 131.8 194"/><path d="M52 127.1 Q80 127.1 106 139.1"/><path d="M248 127.1 Q220 127.1 194 139.1"/><path d="M127.1 52 Q127.1 80 139.1 106"/><path d="M127.1 248 Q127.1 220 139.1 194"/><path d="M52 142.4 Q80 142.4 106 146.4"/><path d="M248 142.4 Q220 142.4 194 146.4"/><path d="M142.4 52 Q142.4 80 146.4 106"/><path d="M142.4 248 Q142.4 220 146.4 194"/><path d="M52 157.6 Q80 157.6 106 153.6"/><path d="M248 157.6 Q220 157.6 194 153.6"/><path d="M157.6 52 Q157.6 80 153.6 106"/><path d="M157.6 248 Q157.6 220 153.6 194"/><path d="M52 172.9 Q80 172.9 106 160.9"/><path d="M248 172.9 Q220 172.9 194 160.9"/><path d="M172.9 52 Q172.9 80 160.9 106"/><path d="M172.9 248 Q172.9 220 160.9 194"/><path d="M52 188.2 Q80 188.2 106 168.2"/><path d="M248 188.2 Q220 188.2 194 168.2"/><path d="M188.2 52 Q188.2 80 168.2 106"/><path d="M188.2 248 Q188.2 220 168.2 194"/><path d="M52 203.5 Q80 203.5 106 175.5"/><path d="M248 203.5 Q220 203.5 194 175.5"/><path d="M203.5 52 Q203.5 80 175.5 106"/><path d="M203.5 248 Q203.5 220 175.5 194"/><path d="M52 218.7 Q80 218.7 106 182.7"/><path d="M248 218.7 Q220 218.7 194 182.7"/><path d="M218.7 52 Q218.7 80 182.7 106"/><path d="M218.7 248 Q218.7 220 182.7 194"/><path d="M52 234.0 Q80 234.0 106 190.0"/><path d="M248 234.0 Q220 234.0 194 190.0"/><path d="M234.0 52 Q234.0 80 190.0 106"/><path d="M234.0 248 Q234.0 220 190.0 194"/></g>
+            <rect x="100" y="100" width="100" height="100" rx="3" fill="url(#mcu-die)" stroke="#6b5aa8" stroke-width="1"/>
+            <g fill="none" stroke="#b9a8ff" stroke-width=".6" opacity=".45"><path d="M112 112h76v76h-76z"/><path d="M112 130h76M112 150h76M112 170h76M130 112v76M150 112v76M170 112v76"/></g>
+            <g fill="#4ad8c4" opacity=".55"><rect x="118" y="118" width="26" height="16"/><rect x="152" y="118" width="30" height="10"/><rect x="118" y="156" width="14" height="26"/><rect x="140" y="160" width="42" height="22" fill="#d8a547" opacity=".55"/></g>
+            <g fill="#d8a547"><rect x="103" y="108.0" width="5" height="4"/><rect x="192" y="108.0" width="5" height="4"/><rect x="108.0" y="103" width="4" height="5"/><rect x="108.0" y="192" width="4" height="5"/><rect x="103" y="115.3" width="5" height="4"/><rect x="192" y="115.3" width="5" height="4"/><rect x="115.3" y="103" width="4" height="5"/><rect x="115.3" y="192" width="4" height="5"/><rect x="103" y="122.5" width="5" height="4"/><rect x="192" y="122.5" width="5" height="4"/><rect x="122.5" y="103" width="4" height="5"/><rect x="122.5" y="192" width="4" height="5"/><rect x="103" y="129.8" width="5" height="4"/><rect x="192" y="129.8" width="5" height="4"/><rect x="129.8" y="103" width="4" height="5"/><rect x="129.8" y="192" width="4" height="5"/><rect x="103" y="137.1" width="5" height="4"/><rect x="192" y="137.1" width="5" height="4"/><rect x="137.1" y="103" width="4" height="5"/><rect x="137.1" y="192" width="4" height="5"/><rect x="103" y="144.4" width="5" height="4"/><rect x="192" y="144.4" width="5" height="4"/><rect x="144.4" y="103" width="4" height="5"/><rect x="144.4" y="192" width="4" height="5"/><rect x="103" y="151.6" width="5" height="4"/><rect x="192" y="151.6" width="5" height="4"/><rect x="151.6" y="103" width="4" height="5"/><rect x="151.6" y="192" width="4" height="5"/><rect x="103" y="158.9" width="5" height="4"/><rect x="192" y="158.9" width="5" height="4"/><rect x="158.9" y="103" width="4" height="5"/><rect x="158.9" y="192" width="4" height="5"/><rect x="103" y="166.2" width="5" height="4"/><rect x="192" y="166.2" width="5" height="4"/><rect x="166.2" y="103" width="4" height="5"/><rect x="166.2" y="192" width="4" height="5"/><rect x="103" y="173.5" width="5" height="4"/><rect x="192" y="173.5" width="5" height="4"/><rect x="173.5" y="103" width="4" height="5"/><rect x="173.5" y="192" width="4" height="5"/><rect x="103" y="180.7" width="5" height="4"/><rect x="192" y="180.7" width="5" height="4"/><rect x="180.7" y="103" width="4" height="5"/><rect x="180.7" y="192" width="4" height="5"/><rect x="103" y="188.0" width="5" height="4"/><rect x="192" y="188.0" width="5" height="4"/><rect x="188.0" y="103" width="4" height="5"/><rect x="188.0" y="192" width="4" height="5"/></g>
+            <text x="150" y="146" text-anchor="middle" class="mcu-die-label">SX · ESP</text>
+          </g>
+          <g class="mcu-lid">
           <!-- package body with chamfered pin-1 corner -->
           <path d="M64 50h172a14 14 0 0 1 14 14v172a14 14 0 0 1-14 14H64a14 14 0 0 1-14-14V72z" fill="url(#mcu-body)"/>
           <path d="M66 56h168a10 10 0 0 1 10 10v168a10 10 0 0 1-10 10H66a10 10 0 0 1-10-10V76z" fill="none" stroke="#4a4e56" stroke-width="1.2"/>
@@ -840,8 +852,9 @@
           <text x="150" y="186" text-anchor="middle" class="mcu-meta">EEE · LORA · IOT</text>
           <text x="150" y="226" text-anchor="middle" class="mcu-meta dimmer">REV 2026 · SG</text>
           <circle class="mcu-led" cx="222" cy="78" r="6" fill="url(#mcu-led)"/>
+          </g>
         </svg>
-            <p class="hub-hint">Hover or tap a port to trace it</p>
+            <p class="hub-hint">Tap the chip to break it down again · hover a port to trace it</p>
           </div>
           <div class="hub-col hub-col-r">
           <article class="hub-node hub-r" data-n="3" tabindex="0">
@@ -1167,7 +1180,14 @@
         return [r.left + r.width/2 - h.left, r.top - h.top];
       }
       function draw() {
+        hub.classList.add('measuring'); // ignore the burst transforms while measuring
         var h = hub.getBoundingClientRect();
+        var cr = mcu.getBoundingClientRect(), cx = cr.left + cr.width / 2, cy = cr.top + cr.height / 2;
+        nodes.forEach(function (n) {
+          var r = n.getBoundingClientRect();
+          n.style.setProperty('--dx', (cx - (r.left + r.width / 2)) + 'px');
+          n.style.setProperty('--dy', (cy - (r.top + r.height / 2)) + 'px');
+        });
         svg.setAttribute('width', h.width); svg.setAttribute('height', h.height);
         svg.setAttribute('viewBox', '0 0 ' + h.width + ' ' + h.height);
         svg.innerHTML = '';
@@ -1203,6 +1223,7 @@
           via.setAttribute('class', 'ht-via'); via.dataset.n = k; via.style.setProperty('--k', k);
           svg.appendChild(via);
         });
+        hub.classList.remove('measuring');
       }
       function setActive(k) {
         hub.classList.toggle('has-active', k !== null);
@@ -1227,6 +1248,16 @@
         n.addEventListener('focus', function () { if (lastPointer === 'mouse' && !n.matches(':hover')) setActive(k); });
       });
       document.addEventListener('click', function (e) { if (!e.target.closest('.hub-node')) setActive(null); });
+      // tap / click the chip to replay the breakdown
+      var replayT;
+      function replay() {
+        clearTimeout(replayT); setActive(null);
+        hub.classList.remove('live', 'settled'); void hub.offsetWidth; hub.classList.add('live');
+        replayT = setTimeout(function () { hub.classList.add('settled'); }, 3400);
+      }
+      mcu.setAttribute('tabindex', '0');
+      mcu.addEventListener('click', function () { replay(); mcu.blur(); });
+      mcu.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); } });
       var raf; function redraw() { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); }
       if ('ResizeObserver' in window) new ResizeObserver(redraw).observe(hub);
       window.addEventListener('resize', redraw);
@@ -1238,7 +1269,7 @@
         new IntersectionObserver(function (en, ob) {
           if (en[0].isIntersecting) {
             hub.classList.add('live'); ob.disconnect();
-            setTimeout(function () { hub.classList.add('settled'); }, 2200); // entrance done: stop replaying it
+            setTimeout(function () { hub.classList.add('settled'); }, 3400); // breakdown done
           }
         }, { threshold: 0.2 }).observe(hub);
       } else hub.classList.add('live');

@@ -1181,3 +1181,71 @@ h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2
   .hub-hint { order: -1; margin-bottom: 4px; }
   .hub-core { margin-bottom: 40px; }
 }
+
+/* =========================================================
+   Skills hub: breakdown (exploded teardown) animation
+   1. lid lifts off, revealing die + bond wires (0–0.6s)
+   2. ports burst out of the chip to their places (0.5–1.4s)
+   3. traces wire up to each port (1.2–2.2s)
+   4. lid snaps back on (2.4–3.0s)
+   ========================================================= */
+.mcu-svg { cursor: pointer; }
+.mcu-svg:focus-visible { outline: 2px solid var(--signal); outline-offset: 6px; border-radius: 12px; }
+.mcu-die-label { font: 600 8px var(--mono); fill: #e8e2ff; letter-spacing: .14em; opacity: .7; }
+.mcu-inside { opacity: 0; }
+.mcu-lid { transform-box: view-box; transform-origin: 150px 150px; }
+.mcu-wires path { stroke-dasharray: 60; stroke-dashoffset: 0; }
+
+.hub.live:not(.settled) .mcu-inside { animation: insideShow 3s ease both; }
+.hub.live:not(.settled) .mcu-lid { animation: lidLift 3s cubic-bezier(.5,0,.2,1) both; }
+.hub.live:not(.settled) .mcu-wires path { animation: wireGlow 3s ease both; }
+.hub.live:not(.settled) .mcu-svg .mp { animation: pinsSpread 3s cubic-bezier(.5,0,.2,1) both; }
+@keyframes insideShow { 0% { opacity: 0; } 8%, 80% { opacity: 1; } 92%, 100% { opacity: 0; } }
+@keyframes lidLift {
+  0%        { transform: none; opacity: 1; }
+  18%, 76%  { transform: translate(28px, -150px) rotate(9deg) scale(.92); opacity: .95; }
+  92%       { transform: translate(0, 6px); opacity: 1; }
+  100%      { transform: none; opacity: 1; }
+}
+@keyframes wireGlow { 0%, 10% { stroke-dashoffset: 60; stroke: #fff2c4; } 40% { stroke-dashoffset: 0; } 60% { stroke: #5ee6cf; } 100% { stroke-dashoffset: 0; stroke: #e9c46a; } }
+.mcu-svg .mp { transform-box: view-box; transform-origin: 150px 150px; }
+@keyframes pinsSpread { 0% { transform: none; } 18%, 76% { transform: scale(1.06); } 92%, 100% { transform: none; } }
+
+/* ports start packed inside the chip and burst outward */
+.hub.measuring .hub-node { transform: none !important; animation: none !important; transition: none !important; }
+.hub-js .hub:not(.live) .hub-node { opacity: 0; transform: translate(var(--dx, 0), var(--dy, 0)) scale(.15); }
+.hub.live:not(.settled) .hub-node { animation: burst .9s cubic-bezier(.2, 1.25, .35, 1) both; }
+.hub.live .hub-col-l .hub-node:nth-child(1) { animation-delay: .5s; }
+.hub.live .hub-col-l .hub-node:nth-child(2) { animation-delay: .58s; }
+.hub.live .hub-col-l .hub-node:nth-child(3) { animation-delay: .66s; }
+.hub.live .hub-col-r .hub-node:nth-child(1) { animation-delay: .54s; }
+.hub.live .hub-col-r .hub-node:nth-child(2) { animation-delay: .62s; }
+.hub.live .hub-col-r .hub-node:nth-child(3) { animation-delay: .7s; }
+@keyframes burst {
+  0%   { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(.15) rotate(-6deg); }
+  25%  { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+
+/* traces wire up after the ports land */
+.hub.live:not(.settled) .ht-base { animation: htDraw 1s cubic-bezier(.6,0,.3,1) calc(var(--k) * 110ms + 1.2s) both; }
+.hub.live:not(.settled) .ht-via { animation: htVia .35s ease-out calc(var(--k) * 110ms + 2.1s) both; }
+.hub.live:not(.settled) .ht-pulse { animation-delay: calc(var(--k) * 430ms + 2.4s); }
+.hub.settled .ht-base { stroke-dasharray: none; stroke-dashoffset: 0; }
+.hub.settled .ht-via { opacity: 1; }
+.hub.live:not(.settled) .hub-node { pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mcu-lid, .mcu-inside, .mcu-svg .mp, .mcu-wires path { animation: none !important; }
+  .hub-js .hub:not(.live) .hub-node { transform: none; }
+}
+@media (max-width: 980px) {
+  .hub-hint { text-align: center; line-height: 1.5; max-width: 30ch; margin-bottom: 96px !important; }
+  .hub-core { padding-top: 0; }
+  @keyframes lidLift {
+    0%        { transform: none; opacity: 1; }
+    18%, 76%  { transform: translate(20px, -110px) rotate(8deg) scale(.9); opacity: .95; }
+    92%       { transform: translate(0, 5px); opacity: 1; }
+    100%      { transform: none; opacity: 1; }
+  }
+}
