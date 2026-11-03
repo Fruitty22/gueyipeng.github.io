@@ -1271,7 +1271,7 @@
             hub.classList.add('live'); ob.disconnect();
             setTimeout(function () { hub.classList.add('settled'); }, 3400); // breakdown done
           }
-        }, { threshold: 0.2 }).observe(hub);
+        }, { threshold: 0.95, rootMargin: "0px 0px -20% 0px" }).observe(mcu); // start once the whole chip is well on screen
       } else hub.classList.add('live');
     })();
   </script>
