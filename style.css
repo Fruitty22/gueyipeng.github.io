@@ -1561,3 +1561,4 @@ body.lb-open .rail { display: none; }
 @media (prefers-reduced-motion: reduce) { .txm-packet, .txm-led { animation: none !important; } }
 @media (max-width: 520px) { .txm-name b { display: none; } .txm-head { padding-inline: 16px; } }
 @media (min-width: 901px) { .contact-grid { align-items: center; } }
+.txm-why { display: block; margin-top: 6px; opacity: .7; font-family: var(--mono); font-size: .75rem; }

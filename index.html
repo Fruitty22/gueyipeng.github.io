@@ -1583,6 +1583,11 @@
           _captcha: 'false',
           _honey: form.querySelector('.txm-honey').value
         };
+        if (location.protocol === 'file:') {
+          setState('NO LINK', 'fail');
+          showErr('The form only works on the live website, not when this file is opened from your computer.');
+          return;
+        }
         setState('TRANSMITTING…', 'busy'); label.textContent = 'Transmitting…'; send.disabled = true;
         var started = Date.now();
         fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
@@ -1596,10 +1601,18 @@
               send.disabled = false; label.textContent = 'Send message';
             }, Math.max(0, 1200 - (Date.now() - started)));
           })
-          .catch(function () {
+          .catch(function (er) {
+            var why = String(er && er.message || '');
+            if (window.console) console.warn('Contact form:', why);
             setState('NO LINK', 'fail');
-            showErr('The message could not be sent just now. Please try again in a moment, or ' +
-              '<a href="https://linkedin.com/in/gue-yi-peng-0013491ba" target="_blank" rel="noopener">message me on LinkedIn</a>.');
+            if (/activat/i.test(why)) {
+              showErr('This form is waiting for a one-time activation by Yi Peng. Please try again later, or ' +
+                '<a href="https://linkedin.com/in/gue-yi-peng-0013491ba" target="_blank" rel="noopener">message me on LinkedIn</a>.');
+            } else {
+              showErr('The message could not be sent just now. Please try again in a moment, or ' +
+                '<a href="https://linkedin.com/in/gue-yi-peng-0013491ba" target="_blank" rel="noopener">message me on LinkedIn</a>.' +
+                (why ? '<br><small class="txm-why">Reason: ' + why.replace(/</g, '&lt;') + '</small>' : ''));
+            }
             send.disabled = false; label.textContent = 'Send message';
           });
       });
