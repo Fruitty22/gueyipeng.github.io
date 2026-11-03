@@ -1255,7 +1255,7 @@ h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2
    ========================================================= */
 .xv-sep { color: var(--gold); margin-inline: 4px; }
 .xv-sec { padding-bottom: 0; }
-.xv { position: relative; height: 330vh; }
+.xv { position: relative; height: 190vh; }
 .xv-stage {
   position: sticky; top: 64px; height: calc(100vh - 64px); height: calc(100svh - 64px);
   overflow: hidden;
@@ -1336,7 +1336,7 @@ h2.split, .tile-title h2, .compare-text h2, .contact-inner h2 { line-height: 1.2
 
 /* phones: stack on the left, short labels on the right, details card at the bottom */
 @media (max-width: 760px) {
-  .xv { height: 380vh; }
+  .xv { height: 220vh; }
   .xv-stack { --s: 42vw; }
   .xv-scene { place-items: center start; padding-left: calc(4vw + 9vw); padding-bottom: 120px; perspective: 1800px; }
   .xv-call { max-width: 42vw; }
@@ -1562,3 +1562,57 @@ body.lb-open .rail { display: none; }
 @media (max-width: 520px) { .txm-name b { display: none; } .txm-head { padding-inline: 16px; } }
 @media (min-width: 901px) { .contact-grid { align-items: center; } }
 .txm-why { display: block; margin-top: 6px; opacity: .7; font-family: var(--mono); font-size: .75rem; }
+
+
+/* =========================================================
+   Readability pass: brighter secondary text, larger small labels
+   ========================================================= */
+:root { --dim: #b9bcc3; }
+body { font-size: 1.0938rem; }
+.silk { font-size: .82rem; letter-spacing: .16em; color: #c3c6cc; }
+.lede, .hero-sub { color: #dedfe0; }
+.hero-sub { font-size: 1.2rem; }
+.feature-body > p:not(.badge):not(.tagline), .about-text p:last-child, .moment-text > p:not(.silk),
+.compare-text > p:not(.silk), .bullets li, .card-body > p:not(.badge), .tile p, .txm-done-text { color: #e3e3df; }
+.card-body > p:not(.badge) { font-size: 1rem; }
+.badge { font-size: .8rem; color: #d4d6db; }
+.chips li { font-size: .84rem; }
+.specs li span, .xv-part { font-size: .74rem; }
+.xv-skills { font-size: .9rem; color: #d7d9dd; }
+.xv-num { font-size: .78rem; color: #c3c6cc; }
+.xv-tt { font-size: 1.2rem; }
+.board figcaption, .shot figcaption span, .when, .hn-port, .txm-field label, .txm-topics legend, .mail-label { font-size: .78rem; }
+.board figcaption { color: #c3c6cc; }
+.stats dt { font-size: .92rem; color: #cfd1d6; }
+.log time { font-size: .88rem; color: #c3c6cc; }
+.log details p { color: #e0e0dc; }
+.tile-num, .tile-go { font-size: .82rem; opacity: 1; }
+.cmp-label { font-size: .78rem; }
+.cmp-note { font: 500 .78rem/1.4 var(--mono); letter-spacing: .06em; color: #c3c6cc; }
+.chirp-label, .vertical-tag { color: #a9acb3; }
+.footer-inner { color: #c3c6cc; }
+.nav a span { font-size: .74rem; }
+@media (max-width: 760px) {
+  body { font-size: 1.0625rem; }
+  .xv-tt { font-size: 1rem; }
+  .xv-detail .xv-skills { font-size: .92rem; }
+  .silk { font-size: .78rem; }
+  .badge { font-size: .76rem; }
+}
+@media (max-width: 760px) { .rail a span { display: none !important; } .xv-tt { font-size: .95rem; overflow-wrap: anywhere; } }
+@media (max-width: 760px) {
+  .xv-stack { --s: 40vw; }
+  .xv-scene { padding-left: 7vw; }
+  .xv-tt { font-size: .9rem; overflow-wrap: normal; word-break: normal; hyphens: none; }
+  .xv-call { padding-right: 0; }
+}
+@media (max-width: 760px) and (max-height: 720px) {
+  .xv-call { display: block; }
+  .xv-call .xv-num { display: inline; margin-right: 5px; }
+  .xv-tt { font-size: .82rem; }
+  .xv-detail { padding: 10px 14px; gap: 4px; }
+  .xv-detail b { font-size: .95rem; }
+  .xv-detail .xv-skills { font-size: .82rem; }
+}
+/* sticky stage starts below the 73px header */
+.xv-stage { top: 73px; height: calc(100vh - 73px); height: calc(100svh - 73px); }

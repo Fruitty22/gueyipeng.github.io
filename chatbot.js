@@ -2,17 +2,12 @@
    "Ask Yi Peng's portfolio" chatbot
    ---------------------------------------------------------
    Works straight away on GitHub Pages: answers come from the
-   knowledge base below, matched in the visitor's browser.
-
-   To switch on a real AI model, deploy worker.js (see
-   CHATBOT-SETUP.md) and paste its URL into CHAT_API_URL.
-   If the AI service is unreachable, the bot falls back to the
-   built-in answers automatically.
+   knowledge base (KB) below, matched in the visitor's browser.
+   To change an answer, edit its "a" text; to catch more
+   questions, add words to its "keys".
    ========================================================= */
 (function () {
   "use strict";
-
-  var CHAT_API_URL = ""; // e.g. "https://portfolio-chat.yourname.workers.dev"
 
   /* ---------- Knowledge base: edit these to change answers ---------- */
   var KB = [
@@ -24,7 +19,7 @@
     {
       id: "projects", link: "#projects", label: "All projects", generic: true,
       keys: ["projects", "project list", "what have you built", "built", "portfolio", "work", "show me", "examples", "list"],
-      a: "Here are his main builds:<ul><li><b>TrackSafe</b> – LoRa safety tracking for MRT crews (Bronze, RailTech 2024)</li><li><b>META-HUB</b> – AWS + AI knowledge portal for Metabots</li><li><b>GearCharge</b> – BLE + RFID bike tracking (Silver &amp; Best Prototype, IdeateCOMM 2025)</li><li><b>Smart Trolley</b> – LoRa + GPS trolley tracker (Lee Kuan Yew Technology Award)</li><li><b>Smart Walking Frame</b> – gait rehab aid (SHEC 2024)</li><li><b>Digital Lanyard</b> – COVID-19 distancing wearable (Silver, Sixth Sense)</li><li><b>Team Gravity</b> – gravity energy storage (1st Runner-Up, SEGC 2023)</li><li>Plus a smart home cooling system and a fleet tracker</li></ul>Ask about any of them for details."
+      a: "Here are his main builds:<ul><li><b>TrackSafe</b> – LoRa safety tracking for MRT crews (Bronze, RailTech 2024)</li><li><b>META-HUB</b> – AWS + AI knowledge portal for Metabots</li><li><b>GearCharge</b> – BLE + RFID bike tracking (Silver &amp; Best Prototype, IdeateCOMM 2025)</li><li><b>Smart Trolley</b> – LoRa + GPS trolley tracker (Lee Kuan Yew Technology Award)</li><li><b>Smart Walking Frame</b> – gait rehab aid (2nd Place, SHEC 2024)</li><li><b>Digital Lanyard</b> – COVID-19 distancing wearable (Silver, Sixth Sense)</li><li><b>Team Gravity</b> – gravity energy storage (1st Runner-Up, SEGC 2023)</li><li>Plus a smart home cooling system and a fleet tracker</li></ul>Ask about any of them for details."
     },
     {
       id: "tracksafe", link: "#proj-tracksafe", label: "TrackSafe",
@@ -49,7 +44,7 @@
     {
       id: "walkingframe", link: "#proj-walkingframe", label: "Smart Walking Frame",
       keys: ["walking frame", "walker", "gait", "rehab", "rehabilitation", "shec", "healthcare", "hospital", "st andrew", "biomedical", "patient"],
-      a: "The <b>Smart Walking Frame</b> is a sensor-equipped frame for gait rehabilitation, developed for St. Andrew's Community Hospital. It gives patients feedback so they can build consistent walking patterns and longer strides.<br><br>It placed at the <b>SHEC 2024 Student Poster Competition</b> (Singapore Healthcare Engineering Conference)."
+      a: "The <b>Smart Walking Frame</b> is a sensor-equipped frame for gait rehabilitation, developed for St. Andrew's Community Hospital. It gives patients feedback so they can build consistent walking patterns and longer strides.<br><br>It won <b>2nd Place at the SHEC 2024 Student Poster Competition</b> (Singapore Healthcare Engineering Conference)."
     },
     {
       id: "lanyard", link: "#proj-lanyard", label: "Digital Lanyard",
@@ -99,7 +94,7 @@
     {
       id: "awards", link: "#awards", label: "Awards",
       keys: ["awards", "award", "achievements", "achievement", "won", "win", "prize", "prizes", "competition", "competitions", "medal", "trophy", "recognition"],
-      a: "<ul><li>IdeateCOMM Challenge 2025 – <b>Silver &amp; Best Prototype</b></li><li>Singapore RailTech Grand Challenge 2024 – <b>Bronze</b></li><li>SHEC 2024 Student Poster Competition – placed</li><li>Singapore Energy Grand Challenge (Youth) 2023 – <b>1st Runner-Up</b></li><li><b>Lee Kuan Yew Technology Award</b> (ITE, 2023)</li><li><b>Outstanding Graduate Award</b> (ITE, 2023)</li><li>The Sixth Sense Competition 2022 – <b>Silver</b></li></ul>Also Director's List (AY2021/22, AY2022/23) and several Edusave awards."
+      a: "<ul><li>IdeateCOMM Challenge 2025 – <b>Silver &amp; Best Prototype</b></li><li>Singapore RailTech Grand Challenge 2024 – <b>Bronze</b></li><li>SHEC 2024 Student Poster Competition – <b>2nd Place</b></li><li>Singapore Energy Grand Challenge (Youth) 2023 – <b>1st Runner-Up</b></li><li><b>Lee Kuan Yew Technology Award</b> (ITE, 2023)</li><li><b>Outstanding Graduate Award</b> (ITE, 2023)</li><li>The Sixth Sense Competition 2022 – <b>Silver</b></li></ul>Also Director's List (AY2021/22, AY2022/23) and several Edusave awards."
     },
     {
       id: "certs", link: "#skills", label: "Certifications",
@@ -175,7 +170,7 @@
       log = root.querySelector("#cb-log"), chips = root.querySelector("#cb-chips"),
       form = root.querySelector("#cb-form"), input = root.querySelector("#cb-in"),
       xbtn = root.querySelector("#cb-x");
-  var history = [], started = false, busy = false;
+  var started = false, busy = false;
 
   function scrollDown() { log.scrollTop = log.scrollHeight; }
   function addMsg(who, html, link) {
@@ -217,12 +212,6 @@
   xbtn.addEventListener("click", close);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
 
-  function mdLite(t) { // safe formatting for AI replies
-    var esc = t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    return esc.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
-  }
-  function linkFor(text) { var hit = localAnswer(text); return hit && hit.link ? { href: hit.link, label: hit.label } : null; }
-
   function ask(q) {
     q = (q || "").trim(); if (!q || busy) return;
     busy = true; addMsg("user", q); input.value = ""; chips.innerHTML = "";
@@ -238,20 +227,9 @@
       var hit = localAnswer(q);
       finish(hit ? hit.a : FALLBACK, hit && hit.link ? { href: hit.link, label: hit.label } : null);
     }
-    if (!CHAT_API_URL) { useLocal(); return; }
-    history.push({ role: "user", content: q });
-    fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: history.slice(-10) }) })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-      .then(function (d) {
-        if (!d || !d.reply) throw new Error("empty");
-        history.push({ role: "assistant", content: d.reply });
-        finish(mdLite(d.reply), linkFor(q + " " + d.reply));
-      })
-      .catch(function () { history.pop(); useLocal(); });
+    useLocal();
   }
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
-
-  if (CHAT_API_URL) root.querySelector("#cb-mode").textContent = "AI assistant · answers may be imperfect";
 
   // gentle nudge a few seconds after load, once per visit
   setTimeout(function () { if (panel.hidden) fab.classList.add("cb-nudge"); }, 4000);
