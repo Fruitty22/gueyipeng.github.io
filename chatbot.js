@@ -231,7 +231,7 @@
     var projects = ranked.filter(function (r) { return r.sc >= 2 && SHORT[r.e.id]; });
     if (projects.length >= 2 && / (vs|versus|compare|comparison|difference|differ|better|and|or|between) /.test(n)) {
       lastTopic = projects[0].e;
-      return { a: "Here's how they compare:<ul>" + projects.slice(0, 3).map(function (r) { return "<li>" + SHORT[r.e.id] + "</li>"; }).join("") + "</ul>Ask about either one for the full story.", link: projects[0].e.link, label: projects[0].e.label };
+      return { id: "compare", a: "Here's how they compare:<ul>" + projects.slice(0, 3).map(function (r) { return "<li>" + SHORT[r.e.id] + "</li>"; }).join("") + "</ul>Ask about either one for the full story.", link: projects[0].e.link, label: projects[0].e.label };
     }
 
     if (top && top.sc >= 0.9) { lastTopic = top.e; return top.e; }
@@ -239,7 +239,7 @@
     // follow-ups like "tell me more", "how much did it cost", "what tech did it use"
     var nWords = n.trim().split(" ").length;
     if (lastTopic && nWords <= 8 && / (more|it|its|that|this|they|them|those|details|detail|elaborate|further|else) /.test(n)) {
-      return { a: "More on <b>" + lastTopic.label + "</b>:<br><br>" + lastTopic.a, link: lastTopic.link, label: lastTopic.label };
+      return { id: "followup", a: "More on <b>" + lastTopic.label + "</b>:<br><br>" + lastTopic.a, link: lastTopic.link, label: lastTopic.label };
     }
 
     if (OFFTOPIC.test(n)) return { a: "I can only help with questions about Yi Peng and his work, like his projects, internships, skills or awards. What would you like to know?" };
@@ -332,23 +332,46 @@
       }, 450);
     }
     var hit = localAnswer(q);
-    // confident built-in answer: instant and always accurate
-    if (hit || !CHAT_API_URL) {
-      finish(hit ? hit.a : FALLBACK, hit && hit.link ? { href: hit.link, label: hit.label } : null);
-      return;
+    var link = hit && hit.link ? { href: hit.link, label: hit.label } : null;
+    function plain(html) { return String(html).replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim().slice(0, 480); }
+    function remember(answerHtml) {           // keep both sides so the AI understands follow-ups
+      history.push({ role: "user", content: q.slice(0, 480) }, { role: "assistant", content: plain(answerHtml) });
+      if (history.length > 12) history = history.slice(-12);
     }
-    // unusual question: ask the AI, fall back to the built-in reply if it is unavailable
-    history.push({ role: "user", content: q });
-    fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: history.slice(-8) }) })
+    function useLocal() { var a = hit ? hit.a : FALLBACK; remember(a); finish(a, link); }
+
+    if (!CHAT_API_URL || !needsThinking(q, hit)) { useLocal(); return; }
+
+    // questions that need reasoning go to the AI; the built-in answer is the backup
+    var msgs = history.concat([{ role: "user", content: q.slice(0, 480) }]).slice(-8);
+    fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs }) })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) {
         if (!d || !d.reply) throw new Error("empty");
-        history.push({ role: "assistant", content: d.reply });
-        var guess = scoreAll(norm(q + " " + d.reply))[0];
-        finish(safeText(d.reply), guess && guess.sc >= 2 ? { href: guess.e.link, label: guess.e.label } : null);
+        remember(d.reply);
+        var guess = link ? null : scoreAll(norm(q + " " + d.reply))[0];
+        finish(safeText(d.reply), link || (guess && guess.sc >= 2 ? { href: guess.e.link, label: guess.e.label } : null));
       })
-      .catch(function () { history.pop(); finish(FALLBACK, null); });
+      .catch(function () { useLocal(); });
   }
+
+  /* Which questions go to the AI?
+     Built-in (instant): greetings, thanks, resume, contact, personal/off-topic, and plain lookups
+       like "tell me about TrackSafe" or "what did he do at SSMC".
+     AI: anything the built-in answers don't cover, plus questions that need judgement:
+       why / how / would / which / is it true / compare / best / suit / explain like… */
+  var ALWAYS_LOCAL = { resume: 1, contact: 1, location: 1 };
+  var THINK = / (why|how|would|could|should|which|whats the best|best|most|least|compare|comparison|vs|versus|better|worse|difference|suit|suitable|fit|fits|good at|bad at|strong|weak|true|really|actually|did he|does he|is he|was he|has he|can he|will he|recommend|opinion|think|explain|simple|simply|kid|non-engineer|if |imagine|example|impressive|hardest|proud) /;
+  function needsThinking(q, hit) {
+    if (!hit) return true;                                   // nothing built in: let the AI try
+    if (hit.id && ALWAYS_LOCAL[hit.id]) return false;
+    if (!hit.id) return false;                              // greetings, thanks, personal, off-topic
+    if (hit.id === "followup" || hit.id === "compare") return true;   // the AI sees the chat so far
+    var n = norm(q).replace(/ (what|where|when) did he (do|work|study|intern) /g, " $1 ");
+    if (/^ (tell me about|tell me more about|about|info on|show me|describe|what is|whats|what was) /.test(n) && !THINK.test(n)) return false;
+    return THINK.test(n);
+  }
+
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
   if (CHAT_API_URL) root.querySelector("#cb-mode").textContent = "Answers from the site, AI for anything else";
 
