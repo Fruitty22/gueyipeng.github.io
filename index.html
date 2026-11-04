@@ -135,6 +135,7 @@
       <a href="#experience"><span>J2</span>Experience</a>
       <a href="#skills"><span>J3</span>Skills</a>
       <a href="#awards"><span>J4</span>Awards</a>
+      <a href="resume.pdf" class="nav-cv" download="Gue_Yi_Peng_Resume.pdf"><span>CV</span>Resume</a>
       <a href="#contact" class="nav-cta"><span>TX</span>Contact</a>
     </nav>
   </header>
@@ -194,6 +195,7 @@
 
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary"><span class="tx-stamp" aria-hidden="true">TX</span>See the projects</a>
+          <a href="resume.pdf" class="btn btn-ghost btn-resume" download="Gue_Yi_Peng_Resume.pdf"><svg class="dl-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m-4-4 4 4 4-4M4 15h12"/></svg>Download resume</a>
           <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
 
@@ -423,11 +425,11 @@
       <article id="proj-gearcharge" class="feature has-gallery wrap reveal">
         <figure class="board">
           <span class="ref">U3</span>
-          <div class="board-media">
-            <img width="1600" height="865" src="images/u3-gearcharge-station.jpg" alt="GearCharge receiver station: ESP32-WROOM-32E receives Bluetooth bike data and links to the Blynk IoT app over Wi-Fi" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <div class="board-media has-backdrop" style="--bd:url(images/u3-gearcharge-prototype.jpg)">
+            <img width="270" height="483" class="img-portrait" src="images/u3-gearcharge-prototype.jpg" alt="GearCharge prototype on the bench: RFID reader wired up, with the Blynk IoT console open on the laptop showing the bike status switches" loading="lazy" onerror="this.remove()">
             <div class="board-fallback"><span>GearCharge</span></div>
           </div>
-          <figcaption>Receiver station · ESP32-WROOM-32E → Blynk → phone</figcaption>
+          <figcaption>Bench test · RFID reader live, Blynk console on the laptop</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge badge-silver">Silver &amp; Best Prototype · IdeateCOMM Challenge 2025</p>
@@ -474,7 +476,7 @@
           <article id="proj-trolley" class="card reveal">
             <div class="card-media has-slides">
               <span class="ref">U4</span>
-              <img width="1600" height="900" src="images/u4-trolley-lora-gps.jpg" alt="TTGO LoRa GPS board beside a phone showing received coordinates, and the abandoned trolley's location pinned on Google Maps" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+              <img width="1230" height="1139" class="img-trolley" src="images/u4-trolley-tracker.jpg" alt="Take Me Home tracker mounted on a supermarket trolley handle: red 3D-printed case with OLED display and LoRa antenna" loading="lazy" onerror="this.remove()">
               <div class="board-fallback"><span>Smart Trolley</span></div>
               <img width="1400" height="788" class="slide-2" src="images/u4-ite-achievers-award.jpg" alt="Team with their Lee Kuan Yew Technology Award trophies at the ITE Student Achievers' Awards 2023 ceremony" loading="lazy" onerror="this.remove()">
               <span class="slide-dots" aria-hidden="true"><i></i><i></i></span>
@@ -763,6 +765,10 @@
       <div class="xv" id="xv">
         <div class="xv-stage">
           <p class="xv-tag" aria-hidden="true">GYP-32 <span>/</span> EXPLODED VIEW</p>
+          <div class="xv-skipbox">
+            <button type="button" class="xv-skip" id="xv-skip" data-mode="end" aria-label="Skip the animation and show all skills"><span class="xv-skip-txt">Skip animation</span> <b aria-hidden="true">⏭</b></button>
+            <span class="xv-meter" aria-hidden="true"><i id="xv-meter"></i></span>
+          </div>
           <svg class="xv-lines" id="xv-lines" aria-hidden="true"></svg>
           <div class="xv-scene">
             <div class="xv-lift">
@@ -935,6 +941,7 @@
           <p class="lede">Looking for internships, research and project collaborations in embedded systems, wireless networks and data. Send a message below and it lands straight in my inbox.</p>
           <div class="hero-actions">
             <a href="https://linkedin.com/in/gue-yi-peng-0013491ba" class="btn btn-primary" target="_blank" rel="noopener"><span class="tx-stamp" aria-hidden="true">TX</span>LinkedIn ↗</a>
+            <a href="resume.pdf" class="btn btn-ghost btn-resume" download="Gue_Yi_Peng_Resume.pdf"><svg class="dl-ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m-4-4 4 4 4-4M4 15h12"/></svg>Resume (PDF)</a>
             <a href="https://drive.google.com/drive/folders/1Z_107ApZiYflD4bVxDYTsywjPEqOQm-Q" class="btn btn-ghost" target="_blank" rel="noopener">Full portfolio on Drive ↗</a>
           </div>
         </div>
@@ -1383,6 +1390,8 @@
         setDetail(m ? active : -1);
         fitStack(m);
         xv.classList.toggle('started', p > 0.02);
+        xv.classList.toggle('finished', p > 0.985);
+        var mtr = document.getElementById('xv-meter'); if (mtr) mtr.style.width = (p * 100).toFixed(1) + '%';
         drawCallouts(m);
       }
 
@@ -1464,6 +1473,23 @@
         c.addEventListener('mouseenter', function () { if (!mobile()) { pinned = i; frame(); } });
         c.addEventListener('mouseleave', function () { if (!mobile()) { pinned = -1; frame(); } });
       });
+
+      // Skip: first press jumps to the fully exploded view; once there, it moves on past the section
+      var skip = document.getElementById('xv-skip');
+      function jumpTo(y) { window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' }); }
+      skip.addEventListener('click', function () {
+        var top = xv.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(stage).top) || 0);
+        var total = xv.offsetHeight - stage.offsetHeight;
+        if (progress() < 0.98) jumpTo(top + total);
+        else jumpTo(xv.getBoundingClientRect().bottom + window.scrollY - 60);
+      });
+      function skipLabel() {
+        var done = progress() >= 0.98;
+        skip.querySelector('.xv-skip-txt').textContent = done ? 'Continue to Awards' : 'Skip animation';
+        skip.querySelector('b').textContent = done ? '↓' : '⏭';
+        skip.setAttribute('aria-label', done ? 'Continue to the Awards section' : 'Skip the animation and show all skills');
+      }
+      window.addEventListener('scroll', skipLabel, { passive: true });
 
       var ticking = false;
       function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }

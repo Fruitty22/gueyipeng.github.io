@@ -9,6 +9,10 @@
 (function () {
   "use strict";
 
+  /* Optional AI for unusual questions. Leave empty to use only the built-in answers.
+     Set-up guide: CHATBOT-SETUP.md. Paste your Worker address between the quotes. */
+  var CHAT_API_URL = "https://portfolio-chat.gyp-portfolio.workers.dev";
+
   /* ---------- Knowledge base: edit these to change answers ---------- */
   var KB = [
     {
@@ -108,7 +112,7 @@
     },
     {
       id: "contact", link: "#contact", label: "Contact",
-      keys: ["contact", "email", "e-mail", "mail", "reach", "hire", "hiring", "recruit", "available", "availability", "opportunity", "opportunities", "linkedin", "connect", "resume", "cv", "talk"],
+      keys: ["contact", "email", "e-mail", "mail", "reach", "hire", "hiring", "recruit", "available", "availability", "opportunity", "opportunities", "linkedin", "connect", "talk"],
       a: "He's open to internships, research and project collaborations in embedded systems, wireless networks and data.<br><br>Use the <b>message form</b> in the Contact section and it goes straight to his inbox, or connect on LinkedIn: <a href=\"https://linkedin.com/in/gue-yi-peng-0013491ba\" target=\"_blank\" rel=\"noopener\">gue-yi-peng-0013491ba</a>"
     },
     {
@@ -116,30 +120,130 @@
       keys: ["best", "favourite", "favorite", "proudest", "proud", "biggest", "most impressive", "highlight", "highlights", "strongest"],
       a: "Two stand out: <b>TrackSafe</b>, a full LoRa network from helmet hardware to the control-room dashboard that won Bronze at RailTech 2024, and <b>META-HUB</b>, an AWS + AI backend for a real company that saved over US$2,000 a year and went to Interclean Amsterdam."
     }
+,
+    {
+      id: "resume", link: "#top", label: "Resume", generic: false,
+      keys: ["resume", "cv", "curriculum vitae", "download", "pdf"],
+      a: "You can download Yi Peng's resume as a PDF: <a href=\"resume.pdf\" download=\"Gue_Yi_Peng_Resume.pdf\">Download resume</a>. There's also a <b>Resume</b> button in the top menu and in the Contact section."
+    },
+    {
+      id: "available", link: "#contact", label: "Contact",
+      keys: ["available", "availability", "start date", "when can", "free", "part time", "part-time", "full time", "full-time", "summer", "holiday", "vacation", "internship", "intern", "hiring", "open to", "looking for", "job", "role", "position", "opportunity"],
+      a: "Yi Peng is looking for <b>internships, research roles and project collaborations</b> in embedded systems, wireless networks and data. For timing and availability, the quickest way is to send him a message with the form in the Contact section."
+    },
+    {
+      id: "location", link: "#contact", label: "Contact",
+      keys: ["where", "location", "based", "live", "country", "singapore", "relocate", "remote", "overseas"],
+      a: "He's based in <b>Singapore</b>. For anything about relocating or remote work, send him a message through the Contact form."
+    },
+    {
+      id: "whyhire", link: "#projects", label: "Projects",
+      keys: ["why hire", "why should", "strength", "strengths", "good at", "best at", "stand out", "unique", "special", "what makes", "value", "bring"],
+      a: "Three things stand out:<ul><li><b>He builds end to end</b>: hardware, firmware, wireless link and the dashboard or cloud behind it (TrackSafe, META-HUB).</li><li><b>Proven under judging</b>: 6 competition awards, including the Lee Kuan Yew Technology Award.</li><li><b>Industry testing experience</b>: reliability and yield work at SSMC and sensor testing at SICK.</li></ul>"
+    },
+    {
+      id: "weakness", link: "#experience", label: "Experience",
+      keys: ["weakness", "weaknesses", "improve", "improving", "learning", "challenge", "challenges", "difficult", "hardest", "struggle", "mistake", "failure", "failed"],
+      a: "A good example is <b>TrackSafe</b>: working out position from LoRa signal strength (RSSI) is noisy, so the team used several receivers along the track and compared readings to decide which zone a helmet was in. For a personal answer about strengths and areas he's working on, send Yi Peng a message; he'd be happy to chat."
+    },
+    {
+      id: "grades", link: "#awards", label: "Awards",
+      keys: ["gpa", "grade", "grades", "results", "score", "cgpa", "marks", "academic", "deans list", "directors list"],
+      a: "He was on the <b>Director's List</b> for AY2021/22 and AY2022/23, received the <b>Outstanding Graduate Award</b> at ITE, and several Edusave academic and skills awards. Exact grades aren't listed on the site; ask him through the Contact form if you need them."
+    },
+    {
+      id: "nextstudy", link: "#top", label: "About",
+      keys: ["university", "uni", "degree", "next", "future", "plans", "goal", "goals", "further studies", "study next", "specialise", "specialize"],
+      a: "Next he's heading into an <b>Electrical &amp; Electronic Engineering degree</b>, with interests in Communication &amp; Network, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
+    },
+    {
+      id: "website", link: "#top", label: "Top",
+      keys: ["website", "this site", "portfolio site", "built this", "made this", "how was this", "design", "animation", "chip animation"],
+      a: "Yi Peng built this portfolio with plain HTML, CSS and JavaScript, themed as a circuit board: each section is a connector (J1–J4), each project a component (U1–U9), and the skills section is an exploded view of a chip called GYP-32."
+    },
+    {
+      id: "team", link: "#experience", label: "Experience",
+      keys: ["team", "teamwork", "collaborate", "collaboration", "group", "communication", "present", "presenting", "public speaking"],
+      a: "Most of his projects were team builds, and he led several (TrackSafe, GearCharge, the Smart Trolley). He has presented to judges at national competitions, at Interclean Amsterdam with Metabots, and as Outreach Leader coached 30 secondary school students."
+    }
   ];
 
   var GREETING = "Hi! I'm the portfolio assistant. Ask me about Yi Peng's projects, internships, skills or awards.";
   var FALLBACK = "I'm not sure about that one. Try asking about a project (like TrackSafe or META-HUB), his internships, skills or awards. You can also send Yi Peng a message with the form in the Contact section.";
-  var SUGGEST = ["What projects has he built?", "Tell me about TrackSafe", "What did he do at SSMC?", "Which projects use LoRa?", "How can I contact him?"];
+  var SUGGEST = ["What projects has he built?", "Compare TrackSafe and GearCharge", "Why should we hire him?", "Which projects use LoRa?", "Can I see his resume?"];
+
+  /* one-line summaries, used when someone compares projects */
+  var SHORT = {
+    tracksafe: "<b>TrackSafe</b>: LoRa (1–3 km) helmet trackers for MRT crews, ESP32 + Firestore + Flutter dashboard. Bronze, RailTech 2024.",
+    metahub: "<b>META-HUB</b>: AWS + AI knowledge portal (Bedrock, Lex, Pinecone) for Metabots; saved US$2,000+/yr. Shown at Interclean Amsterdam.",
+    gearcharge: "<b>GearCharge</b>: BLE + RFID bike tracking with Blynk alerts, under S$20 per bike. Silver &amp; Best Prototype, IdeateCOMM 2025.",
+    trolley: "<b>Smart Trolley</b>: LoRa + GPS trolley tracker with Google Sheets logging and regression. Lee Kuan Yew Technology Award.",
+    walkingframe: "<b>Smart Walking Frame</b>: sensor frame for gait rehab. 2nd Place, SHEC 2024.",
+    lanyard: "<b>Digital Lanyard</b>: ESP32-CAM distancing + thermal fever alert wearable. Silver, Sixth Sense 2022.",
+    gravity: "<b>Team Gravity</b>: gravity energy storage concept with blockchain energy records. 1st Runner-Up, SEGC 2023.",
+    smarthome: "<b>Home Cooling System</b>: Raspberry Pi + Zigbee home automation with ThingSpeak logging.",
+    fleet: "<b>Fleet Tracker</b>: VBA Excel serviceability system with Power BI export and an interactive logic schematic.",
+    ssmc: "<b>SSMC internship</b>: reliability testing and yield analysis on NXP automotive chips (2025).",
+    sick: "<b>SICK internship</b>: stress, heat and reliability testing of industrial sensors (2022–23)."
+  };
 
   /* ---------- local answer engine ---------- */
   function norm(t) { return " " + t.toLowerCase().replace(/[’']/g, "").replace(/[^a-z0-9+#\-. ]+/g, " ").replace(/\s+/g, " ").trim() + " "; }
-  function localAnswer(q) {
-    var n = norm(q).replace(/ (tell me|can you tell me|what about|tell us) (about )?/g, " ");
-    if (/^ (hi|hello|hey|yo|hiya|good (morning|afternoon|evening))[ !.]*$/.test(n)) return { a: "Hello! What would you like to know about Yi Peng's work?" };
-    if (/ (thanks|thank you|thx|ty) /.test(n)) return { a: "You're welcome! Anything else you'd like to know?" };
-    var best = null, bestScore = 0;
-    KB.forEach(function (e) {
+  function lev(a, b) { // edit distance, for typo tolerance
+    if (Math.abs(a.length - b.length) > 2) return 9;
+    var d = []; for (var i = 0; i <= a.length; i++) { d[i] = [i]; }
+    for (var j = 1; j <= b.length; j++) d[0][j] = j;
+    for (i = 1; i <= a.length; i++) for (j = 1; j <= b.length; j++)
+      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+    return d[a.length][b.length];
+  }
+  function scoreAll(n) {
+    var words = n.trim().split(" ");
+    return KB.map(function (e) {
       var sc = 0;
       e.keys.forEach(function (k) {
         var kk = " " + k + " ";
         if (n.indexOf(kk) !== -1) sc += 2 + k.split(" ").length;
         else if (k.length > 4 && n.indexOf(k) !== -1) sc += 1.5;
+        else if (k.length >= 5 && k.indexOf(" ") === -1) {
+          var tol = k.length >= 8 ? 2 : 1;
+          for (var w = 0; w < words.length; w++) { if (words[w].length >= 4 && lev(words[w], k) <= tol) { sc += 1.4; break; } }
+        }
       });
-      if (e.generic) sc *= 0.45; // broad topics only win when nothing specific matches
-      if (sc > bestScore) { bestScore = sc; best = e; }
-    });
-    return bestScore >= 0.9 ? best : null;
+      if (e.generic) sc *= 0.45;
+      return { e: e, sc: sc };
+    }).sort(function (x, y) { return y.sc - x.sc; });
+  }
+  var lastTopic = null;
+  var OFFTOPIC = /\b(weather|joke|recipe|movie|football|stock|bitcoin|politic|election|homework|translate|write me|poem|song|capital of|who won)\b/;
+  var PERSONAL = /\b(salary|pay|paid|expected pay|age|how old|birthday|religion|race|married|girlfriend|boyfriend|phone number|address|ic number|nric)\b/;
+
+  function localAnswer(q) {
+    var n = norm(q).replace(/ (tell me|can you tell me|what about|tell us|could you tell me) (about )?/g, " ");
+    if (/^ (hi|hello|hey|yo|hiya|good (morning|afternoon|evening))[ !.]*$/.test(n)) return { a: "Hello! What would you like to know about Yi Peng's work?" };
+    if (/ (thanks|thank you|thx|ty) /.test(n)) return { a: "You're welcome! Anything else you'd like to know?" };
+    if (/ (who are you|what are you|are you (a )?(bot|ai|human|real)) /.test(n)) return { a: "I'm a small assistant built into Yi Peng's portfolio. I answer from what's on this site, so for anything personal it's best to message him through the Contact form." };
+    if (PERSONAL.test(n)) return { a: "That's something Yi Peng would rather discuss directly. Send him a message through the Contact form and he'll get back to you.", link: "#contact", label: "Contact" };
+
+    var ranked = scoreAll(n), top = ranked[0];
+
+    // comparisons: two or more projects named, or "compare / vs / difference"
+    var projects = ranked.filter(function (r) { return r.sc >= 2 && SHORT[r.e.id]; });
+    if (projects.length >= 2 && / (vs|versus|compare|comparison|difference|differ|better|and|or|between) /.test(n)) {
+      lastTopic = projects[0].e;
+      return { a: "Here's how they compare:<ul>" + projects.slice(0, 3).map(function (r) { return "<li>" + SHORT[r.e.id] + "</li>"; }).join("") + "</ul>Ask about either one for the full story.", link: projects[0].e.link, label: projects[0].e.label };
+    }
+
+    if (top && top.sc >= 0.9) { lastTopic = top.e; return top.e; }
+
+    // follow-ups like "tell me more", "how much did it cost", "what tech did it use"
+    var nWords = n.trim().split(" ").length;
+    if (lastTopic && nWords <= 8 && / (more|it|its|that|this|they|them|those|details|detail|elaborate|further|else) /.test(n)) {
+      return { a: "More on <b>" + lastTopic.label + "</b>:<br><br>" + lastTopic.a, link: lastTopic.link, label: lastTopic.label };
+    }
+
+    if (OFFTOPIC.test(n)) return { a: "I can only help with questions about Yi Peng and his work, like his projects, internships, skills or awards. What would you like to know?" };
+    return null;
   }
 
   /* ---------- UI ---------- */
@@ -170,7 +274,11 @@
       log = root.querySelector("#cb-log"), chips = root.querySelector("#cb-chips"),
       form = root.querySelector("#cb-form"), input = root.querySelector("#cb-in"),
       xbtn = root.querySelector("#cb-x");
-  var started = false, busy = false;
+  var started = false, busy = false, history = [];
+  function safeText(t) { // AI replies are shown as text with light formatting only
+    var esc = String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return esc.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+  }
 
   function scrollDown() { log.scrollTop = log.scrollHeight; }
   function addMsg(who, html, link) {
@@ -223,13 +331,26 @@
         renderChips(follow);
       }, 450);
     }
-    function useLocal() {
-      var hit = localAnswer(q);
+    var hit = localAnswer(q);
+    // confident built-in answer: instant and always accurate
+    if (hit || !CHAT_API_URL) {
       finish(hit ? hit.a : FALLBACK, hit && hit.link ? { href: hit.link, label: hit.label } : null);
+      return;
     }
-    useLocal();
+    // unusual question: ask the AI, fall back to the built-in reply if it is unavailable
+    history.push({ role: "user", content: q });
+    fetch(CHAT_API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: history.slice(-8) }) })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        if (!d || !d.reply) throw new Error("empty");
+        history.push({ role: "assistant", content: d.reply });
+        var guess = scoreAll(norm(q + " " + d.reply))[0];
+        finish(safeText(d.reply), guess && guess.sc >= 2 ? { href: guess.e.link, label: guess.e.label } : null);
+      })
+      .catch(function () { history.pop(); finish(FALLBACK, null); });
   }
   form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
+  if (CHAT_API_URL) root.querySelector("#cb-mode").textContent = "Answers from the site, AI for anything else";
 
   // gentle nudge a few seconds after load, once per visit
   setTimeout(function () { if (panel.hidden) fab.classList.add("cb-nudge"); }, 4000);
