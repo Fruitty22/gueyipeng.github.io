@@ -118,8 +118,8 @@
     <span class="rail-track" aria-hidden="true"><span class="rail-fill" id="rail-fill"></span></span>
     <a href="#top" data-sec="top"><i></i><span>TOP</span></a>
     <a href="#projects" data-sec="projects"><i></i><span>J1 PROJECTS</span></a>
-    <a href="#experience" data-sec="experience"><i></i><span>J2 EXPERIENCE</span></a>
-    <a href="#skills" data-sec="skills"><i></i><span>J3 SKILLS</span></a>
+    <a href="#skills" data-sec="skills"><i></i><span>J2 SKILLS</span></a>
+    <a href="#experience" data-sec="experience"><i></i><span>J3 EXPERIENCE</span></a>
     <a href="#awards" data-sec="awards"><i></i><span>J4 AWARDS</span></a>
     <a href="#contact" data-sec="contact"><i></i><span>TX CONTACT</span></a>
   </nav>
@@ -132,8 +132,8 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#projects"><span>J1</span>Projects</a>
-      <a href="#experience"><span>J2</span>Experience</a>
-      <a href="#skills"><span>J3</span>Skills</a>
+      <a href="#skills"><span>J2</span>Skills</a>
+      <a href="#experience"><span>J3</span>Experience</a>
       <a href="#awards"><span>J4</span>Awards</a>
       <a href="resume.pdf" class="nav-cv" download="Gue_Yi_Peng_Resume.pdf"><span>CV</span>Resume</a>
       <a href="#contact" class="nav-cta"><span>TX</span>Contact</a>
@@ -259,50 +259,51 @@
       </dl>
     </section>
 
-    <!-- ================= HOW I BUILD (bento) ================= -->
-    <section class="how">
+    <!-- ================= KEY PROJECTS (bento) ================= -->
+    <section class="how" aria-label="Key projects">
       <div class="wrap">
         <div class="bento">
           <div class="tile tile-title reveal">
-            <p class="silk">U0 · HOW I BUILD</p>
-            <h2 class="split">Hardware that works <em>off the bench.</em></h2>
+            <p class="silk">U0 · KEY PROJECTS</p>
+            <h2 class="split">Key projects, <em>at a glance.</em></h2>
+            <p class="tile-lede">Tap a card to jump to the full story.</p>
           </div>
           <a href="#proj-gearcharge" class="tile tile-link tile-gold reveal">
             <span class="tile-num">01</span>
             <svg class="tile-3d" aria-hidden="true"><use href="#i-chip"/></svg>
-            <h3>Prototype on real boards</h3>
-            <p>ESP32, Arduino, Raspberry Pi and PIC, soldered by hand and housed in 3D-printed cases, so every idea is tested as a working device.</p>
-            <span class="tile-go">See GearCharge <b aria-hidden="true">→</b></span>
+            <h3>GearCharge</h3>
+            <p>BLE and RFID bike tracking for Ageless Bicycle Singapore. Silver at IdeateCOMM 2025.</p>
+            <span class="tile-go">View project <b aria-hidden="true">→</b></span>
           </a>
           <a href="#proj-tracksafe" class="tile tile-link tile-photo reveal">
             <img width="1066" height="1600" src="images/tracksafe-helmet.jpg" alt="Gue Yi Peng holding the TrackSafe helmet and receiver" loading="lazy" onerror="this.closest('.tile').classList.add('is-missing')">
             <div class="tile-over">
               <span class="tile-num">02</span>
-              <h3>Wireless by default</h3>
-              <p>LoRa for kilometres, BLE for zones, Wi-Fi to reach the cloud.</p>
-              <span class="tile-go">See TrackSafe <b aria-hidden="true">→</b></span>
+              <h3>TrackSafe</h3>
+              <p>Real-time LoRa tracking of maintenance crews on MRT tracks.</p>
+              <span class="tile-go">View project <b aria-hidden="true">→</b></span>
             </div>
           </a>
           <a href="#job-sick" class="tile tile-link tile-cyan reveal">
             <span class="tile-num">03</span>
             <svg class="tile-3d" aria-hidden="true"><use href="#i-cap"/></svg>
-            <h3>Test until it breaks</h3>
-            <p>Stress, heat and reliability testing on sensors at SICK, and 125 °C heat tests on automotive chips at SSMC.</p>
-            <span class="tile-go">See SICK internship <b aria-hidden="true">→</b></span>
+            <h3>SICK internship</h3>
+            <p>Stress, heat and reliability testing on industrial sensors.</p>
+            <span class="tile-go">View internship <b aria-hidden="true">→</b></span>
           </a>
           <a href="#job-ssmc" class="tile tile-link tile-dark reveal">
             <span class="tile-num">04</span>
             <svg class="tile-3d" aria-hidden="true"><use href="#i-pcb"/></svg>
-            <h3>Data you can act on</h3>
-            <p>Yield analysis on 100+ wafer lots a day, regression on tracking data, live dashboards at the control room.</p>
-            <span class="tile-go">See SSMC internship <b aria-hidden="true">→</b></span>
+            <h3>SSMC internship</h3>
+            <p>Yield analysis on 100+ wafer lots a day.</p>
+            <span class="tile-go">View internship <b aria-hidden="true">→</b></span>
           </a>
           <a href="#proj-metahub" class="tile tile-link tile-copper reveal">
             <span class="tile-num">05</span>
             <svg class="tile-3d" aria-hidden="true"><use href="#i-cloud"/></svg>
-            <h3>Cloud that pays for itself</h3>
-            <p>An AWS backend for META-HUB that cut over US$2,000 a year in cloud costs.</p>
-            <span class="tile-go">See META-HUB <b aria-hidden="true">→</b></span>
+            <h3>META-HUB</h3>
+            <p>An AWS backend that cut over US$2,000 a year in cloud costs.</p>
+            <span class="tile-go">View project <b aria-hidden="true">→</b></span>
           </a>
         </div>
       </div>
@@ -678,86 +679,10 @@
       </div>
     </section>
 
-    <!-- ================= EXPERIENCE ================= -->
-    <section id="experience" class="experience">
-      <div class="wrap section-head reveal">
-        <p class="silk">J2 · EXPERIENCE</p>
-        <svg class="f3d head-3d h-cap" aria-hidden="true" style="--r:-8deg;--d:-0s;--drift:-70px"><use href="#i-cap"/></svg>
-        <h2 class="split">On the <em>fab floor</em> and in the test lab.</h2>
-      </div>
-
-      <div class="wrap timeline">
-
-        <article id="job-ssmc" class="job reveal">
-          <div class="job-media">
-            <figure class="shot job-shot job-shot-slide">
-              <img width="1600" height="899" src="images/ssmc-yield-analysis.jpg" alt="SSMC yield analysis slide: bin pareto, PCM correlation graph, wafer yield trend and wafer map signatures" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
-              <figcaption><span>Yield analysis</span>Bin pareto, PCM correlation, yield trend and wafer maps</figcaption>
-            </figure>
-          </div>
-          <div class="job-body">
-            <p class="when">04/2025 – 08/2025</p>
-            <h3>SSMC <small>Systems on Silicon Manufacturing Co.</small></h3>
-            <p class="role">Product &amp; Testing Engineer (Intern)</p>
-            <ul class="bullets">
-              <li>Ran reliability and process-control tests on NXP automotive chips, including 125 °C heat-stress tests, to verify they met automotive quality standards.</li>
-              <li>Performed yield analysis and spot-fail diagnosis on 100+ wafer lots a day, reading wafer maps, split-lot history and PCM correlations to find root causes of yield loss.</li>
-              <li>Standardised and validated yield data with a VBA-based Excel tool for accurate, consistent records.</li>
-              <li>Handled RMA wafers through collection and scrapping for traceable disposal.</li>
-            </ul>
-            <a class="card-link" href="https://drive.google.com/file/d/18bRRqZS6hvFue2QEymJacBbT_Cx4cT_q/view" target="_blank" rel="noopener">Internship presentation ↗</a>
-          </div>
-        </article>
-
-        <article id="job-sick" class="job reveal">
-          <div class="job-media job-media-pair">
-            <figure class="shot job-shot">
-              <img width="1043" height="811" src="images/sick-oscilloscope.jpg" alt="Gue Yi Peng probing a sensor signal on a Keysight InfiniiVision oscilloscope" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
-              <figcaption><span>Test bench</span>Checking a sensor's output on the oscilloscope</figcaption>
-            </figure>
-            <figure class="shot job-shot">
-              <img width="1600" height="1200" src="images/sick-team.jpg" alt="Gue Yi Peng with colleagues under the SICK logo" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
-              <figcaption><span>SICK Singapore</span>With the test engineering team</figcaption>
-            </figure>
-          </div>
-          <div class="job-body">
-            <p class="when">12/2022 – 03/2023</p>
-            <h3>SICK <small>Sensor Intelligence</small></h3>
-            <p class="role">Test Engineer (Intern)</p>
-            <ul class="bullets">
-              <li>Characterised photoelectric and inductive proximity sensors through stress, heat and reliability testing before production.</li>
-              <li>Assembled and soldered prototypes for new photoelectric sensor designs to support R&amp;D iterations.</li>
-              <li>Evaluated refractive index and false-trigger performance under extreme conditions to find failure limits.</li>
-              <li>Ran temperature tests on reed switches across their rated range.</li>
-            </ul>
-            <a class="card-link" href="https://drive.google.com/file/d/1J9aeTSNML0Wk7gTSQNfmhNrlLcpZxmaV/view" target="_blank" rel="noopener">Internship presentation ↗</a>
-          </div>
-        </article>
-
-        <article class="job job-small reveal">
-          <div class="job-body">
-            <p class="when">10/2023 – 06/2024</p>
-            <h3>Electronic Interest Group <small>Temasek Polytechnic</small></h3>
-            <p class="role">Outreach Leader</p>
-            <ul class="bullets">
-              <li>Coordinated Electronics orientation for 50+ Year 1 students.</li>
-              <li>Coached 30 Tampines Secondary students to build a prototype from scratch: soldering, 3D printing and coding.</li>
-              <li>Set up an exhibition at Bedok Green Secondary to promote TP Electronics to the Sec 4 cohort.</li>
-            </ul>
-            <div class="links">
-              <a href="https://www.instagram.com/p/DA-ihzsyfP5/" target="_blank" rel="noopener">Tampines Sec STEM programme ↗</a>
-              <a href="https://www.instagram.com/p/DA96B-6TZr9/" target="_blank" rel="noopener">TP Electronics Interest Group post ↗</a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
     <!-- ================= SKILLS ================= -->
     <section id="skills" class="skills xv-sec">
       <div class="wrap section-head reveal">
-        <p class="silk">J3 · SKILLS <span class="xv-sep">/</span> EXPLODED VIEW</p>
+        <p class="silk">J2 · SKILLS <span class="xv-sep">/</span> EXPLODED VIEW</p>
         <svg class="f3d head-3d h-chip" aria-hidden="true" style="--r:-6deg;--d:-1s;--drift:-70px"><use href="#i-chip"/></svg>
         <h2 class="split">The <em>breakdown.</em></h2>
         <p class="lede">Keep scrolling: the GYP-32 comes apart layer by layer, and every part is one skill set.</p>
@@ -883,6 +808,84 @@
         </div>
       </div>
     </section>
+
+    <!-- ================= EXPERIENCE ================= -->
+    <section id="experience" class="experience">
+      <div class="wrap section-head reveal">
+        <p class="silk">J3 · EXPERIENCE</p>
+        <svg class="f3d head-3d h-cap" aria-hidden="true" style="--r:-8deg;--d:-0s;--drift:-70px"><use href="#i-cap"/></svg>
+        <h2 class="split">On the <em>fab floor</em> and in the test lab.</h2>
+      </div>
+
+      <div class="wrap timeline">
+
+        <article id="job-ssmc" class="job reveal">
+          <div class="job-media">
+            <figure class="shot job-shot job-shot-slide">
+              <img width="1600" height="899" src="images/ssmc-yield-analysis.jpg" alt="SSMC yield analysis slide: bin pareto, PCM correlation graph, wafer yield trend and wafer map signatures" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>Yield analysis</span>Bin pareto, PCM correlation, yield trend and wafer maps</figcaption>
+            </figure>
+          </div>
+          <div class="job-body">
+            <p class="when">04/2025 – 08/2025</p>
+            <h3>SSMC <small>Systems on Silicon Manufacturing Co.</small></h3>
+            <p class="role">Product &amp; Testing Engineer (Intern)</p>
+            <ul class="bullets">
+              <li>Ran reliability and process-control tests on NXP automotive chips, including 125 °C heat-stress tests, to verify they met automotive quality standards.</li>
+              <li>Performed yield analysis and spot-fail diagnosis on 100+ wafer lots a day, reading wafer maps, split-lot history and PCM correlations to find root causes of yield loss.</li>
+              <li>Standardised and validated yield data with a VBA-based Excel tool for accurate, consistent records.</li>
+              <li>Handled RMA wafers through collection and scrapping for traceable disposal.</li>
+            </ul>
+            <a class="card-link" href="https://drive.google.com/file/d/18bRRqZS6hvFue2QEymJacBbT_Cx4cT_q/view" target="_blank" rel="noopener">Internship presentation ↗</a>
+          </div>
+        </article>
+
+        <article id="job-sick" class="job reveal">
+          <div class="job-media job-media-pair">
+            <figure class="shot job-shot">
+              <img width="1043" height="811" src="images/sick-oscilloscope.jpg" alt="Gue Yi Peng probing a sensor signal on a Keysight InfiniiVision oscilloscope" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>Test bench</span>Checking a sensor's output on the oscilloscope</figcaption>
+            </figure>
+            <figure class="shot job-shot">
+              <img width="1600" height="1200" src="images/sick-team.jpg" alt="Gue Yi Peng with colleagues under the SICK logo" loading="lazy" onerror="this.closest('.shot').classList.add('is-missing')">
+              <figcaption><span>SICK Singapore</span>With the test engineering team</figcaption>
+            </figure>
+          </div>
+          <div class="job-body">
+            <p class="when">12/2022 – 03/2023</p>
+            <h3>SICK <small>Sensor Intelligence</small></h3>
+            <p class="role">Test Engineer (Intern)</p>
+            <ul class="bullets">
+              <li>Characterised photoelectric and inductive proximity sensors through stress, heat and reliability testing before production.</li>
+              <li>Assembled and soldered prototypes for new photoelectric sensor designs to support R&amp;D iterations.</li>
+              <li>Evaluated refractive index and false-trigger performance under extreme conditions to find failure limits.</li>
+              <li>Ran temperature tests on reed switches across their rated range.</li>
+            </ul>
+            <a class="card-link" href="https://drive.google.com/file/d/1J9aeTSNML0Wk7gTSQNfmhNrlLcpZxmaV/view" target="_blank" rel="noopener">Internship presentation ↗</a>
+          </div>
+        </article>
+
+        <article class="job job-small reveal">
+          <div class="job-body">
+            <p class="when">10/2023 – 06/2024</p>
+            <h3>Electronic Interest Group <small>Temasek Polytechnic</small></h3>
+            <p class="role">Outreach Leader</p>
+            <ul class="bullets">
+              <li>Coordinated Electronics orientation for 50+ Year 1 students.</li>
+              <li>Coached 30 Tampines Secondary students to build a prototype from scratch: soldering, 3D printing and coding.</li>
+              <li>Set up an exhibition at Bedok Green Secondary to promote TP Electronics to the Sec 4 cohort.</li>
+            </ul>
+            <div class="links">
+              <a href="https://www.instagram.com/p/DA-ihzsyfP5/" target="_blank" rel="noopener">Tampines Sec STEM programme ↗</a>
+              <a href="https://www.instagram.com/p/DA96B-6TZr9/" target="_blank" rel="noopener">TP Electronics Interest Group post ↗</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    
 
     <!-- ================= AWARDS (FAQ-style accordion like Kigo) ================= -->
     <section id="awards" class="awards">
@@ -1485,9 +1488,9 @@
       });
       function skipLabel() {
         var done = progress() >= 0.98;
-        skip.querySelector('.xv-skip-txt').textContent = done ? 'Continue to Awards' : 'Skip animation';
+        skip.querySelector('.xv-skip-txt').textContent = done ? 'Continue to Experience' : 'Skip animation';
         skip.querySelector('b').textContent = done ? '↓' : '⏭';
-        skip.setAttribute('aria-label', done ? 'Continue to the Awards section' : 'Skip the animation and show all skills');
+        skip.setAttribute('aria-label', done ? 'Continue to the Experience section' : 'Skip the animation and show all skills');
       }
       window.addEventListener('scroll', skipLabel, { passive: true });
 
@@ -1572,10 +1575,15 @@
   <script>
     /* Contact form: sends to Yi Peng's inbox through FormSubmit (no backend needed on GitHub Pages) */
     (function () {
-      // After you activate FormSubmit, paste the random form ID from its email here, e.g. 'a1b2c3d4e5...'
-      // so the address is no longer anywhere in the site's code.
+      // OPTION 1 (recommended): Web3Forms. Get a free access key at https://web3forms.com
+      // (enter your email, the key is emailed to you) and paste it between the quotes.
+      // When a key is set, the form uses Web3Forms; otherwise it uses FormSubmit below.
+      var WEB3FORMS_KEY = '';
+      // OPTION 2: FormSubmit. Optional random form ID from FormSubmit's email, so your address is not in the code.
       var FORM_ID = '';
-      var ENDPOINT = 'https://formsubmit.co/ajax/' + (FORM_ID || atob('bW9jLmxpYW1nQDY1NDMyMWduZXBpeWV1Zw==').split('').reverse().join(''));
+      var USE_WEB3 = !!WEB3FORMS_KEY;
+      var ENDPOINT = USE_WEB3 ? 'https://api.web3forms.com/submit'
+        : 'https://formsubmit.co/ajax/' + (FORM_ID || atob('bW9jLmxpYW1nQDY1NDMyMWduZXBpeWV1Zw==').split('').reverse().join(''));
       var form = document.getElementById('txm'); if (!form) return;
       var send = document.getElementById('txm-send'), label = form.querySelector('.txm-send-label');
       var err = document.getElementById('txm-error'), state = document.getElementById('txm-state');
@@ -1612,6 +1620,18 @@
           _captcha: 'false',
           _honey: form.querySelector('.txm-honey').value
         };
+        if (USE_WEB3) {
+          data = {
+            access_key: WEB3FORMS_KEY,
+            subject: data._subject,
+            from_name: 'Portfolio contact form',
+            name: data.name,
+            email: data.email,
+            topic: data.topic,
+            message: data.message,
+            botcheck: data._honey ? true : ''
+          };
+        }
         if (location.protocol === 'file:') {
           setState('NO LINK', 'fail');
           showErr('The form only works on the live website, not when this file is opened from your computer.');
@@ -1619,8 +1639,10 @@
         }
         setState('TRANSMITTING…', 'busy'); label.textContent = 'Transmitting…'; send.disabled = true;
         var started = Date.now();
-        fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
-          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); return j; }); })
+        var ctrl = window.AbortController ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);   // don't hang forever if the service is down
+        fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data), signal: ctrl ? ctrl.signal : undefined })
+          .then(function (r) { clearTimeout(timer); return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || ('HTTP ' + r.status)); return j; }); }, function (e) { clearTimeout(timer); throw new Error(e && e.name === 'AbortError' ? 'The mail service took too long to respond' : 'Could not reach the mail service'); })
           .then(function () {
             setTimeout(function () {
               setState('DELIVERED', 'ok');

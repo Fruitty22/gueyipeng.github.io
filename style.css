@@ -794,6 +794,7 @@ body.lb-open { overflow: hidden; }
 .tile-num { position: absolute; top: 18px; left: 22px; font-family: var(--mono); font-size: .8rem; letter-spacing: .12em; opacity: .8; }
 .tile-title { grid-area: title; justify-content: center; gap: 16px; background: var(--edge); }
 .tile-title h2 { font-size: var(--fs-h2); }
+.tile-lede { color: var(--dim); font-size: 0.95rem; margin: 0; }
 .tile-gold   { grid-area: gold;   background: var(--gold); color: #1c1407; border-color: transparent; }
 .tile-gold p { color: #3a2a0c; }
 .tile-photo  { grid-area: photo;  padding: 0; min-height: 556px; }
