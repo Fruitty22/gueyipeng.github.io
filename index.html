@@ -323,10 +323,10 @@
         <figure class="board">
           <span class="ref">U1</span>
           <div class="board-media">
-            <img width="1018" height="657" src="images/u1-tracksafe-helmet-node.jpg" alt="TrackSafe helmet node: 3D-printed case holding an ESP32 LoRa board with OLED showing ping, helmet ID TAN and 99% battery, with SMA antenna" loading="lazy" onerror="this.remove()">
+            <img width="1500" height="1125" src="images/u1-tracksafe-system.jpg" alt="Finished TrackSafe system: helmet transmitter and two LoRa receivers with OLED readouts in front of the MRT maintenance dashboard flagging an unauthorised entry" loading="lazy" onerror="this.remove()">
             <div class="board-fallback"><span>TrackSafe</span></div>
           </div>
-          <figcaption>Helmet node · OLED shows ping, helmet ID and battery</figcaption>
+          <figcaption>Hardware + software integrated · the dashboard flags an unauthorised entry live</figcaption>
         </figure>
         <div class="feature-body">
           <p class="badge badge-bronze">Bronze · Singapore RailTech Grand Challenge 2024 (IHL)</p>
@@ -357,18 +357,33 @@
       </article>
 
       <!-- ---------- U1 TrackSafe photo gallery ---------- -->
-      <div class="gallery wrap reveal">
+      <div class="gallery gallery-tight wrap reveal">
         <figure class="shot shot-tall">
-          <img width="1066" height="1600" src="images/tracksafe-helmet.jpg" alt="Gue Yi Peng holding the TrackSafe helmet transmitter and OCC receiver beside the Singapore RailTech Grand Challenge banner" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
-          <figcaption><span>TX + RX</span>Helmet transmitter and OCC receiver prototypes</figcaption>
+          <img width="1065" height="1600" src="images/u1-pitch-rssi.jpg" alt="Gue Yi Peng presenting Scenario 3, proximity and distance detection from RSSI across five repeaters" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Pitch</span>Explaining how RSSI from five repeaters places each helmet</figcaption>
         </figure>
         <figure class="shot">
-          <img width="1600" height="1066" src="images/tracksafe-award.jpg" alt="Team TP-MAGFY on stage with the trophy as Open Innovation Challenge 2nd Runner-Up" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <img width="1600" height="1066" src="images/u1-award-stage.jpg" alt="Team TP-MAGFY on stage with the trophy and cheque as Open Innovation Challenge 2nd Runner-Up" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
           <figcaption><span>30 Nov 2024</span>Open Innovation Challenge, 2nd Runner-Up (Bronze)</figcaption>
         </figure>
         <figure class="shot">
-          <img width="1600" height="1066" src="images/tracksafe-booth.jpg" alt="Team TP-MAGFY at the exhibition booth with the TrackSafe helmet, receivers and live web dashboard" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
-          <figcaption><span>Live demo</span>Helmet, receivers and web dashboard at the exhibition</figcaption>
+          <img width="1600" height="1066" src="images/u1-booth.jpg" alt="Team TP-MAGFY with guests of honour at the booth, holding the TrackSafe helmet beside the live dashboard" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Live demo</span>Showing the helmet and dashboard to guests of honour</figcaption>
+        </figure>
+      </div>
+      <div class="strip wrap reveal" aria-label="TrackSafe build log">
+        <p class="strip-label silk">U1 · BUILD LOG</p>
+        <figure class="shot">
+          <img width="1200" height="1600" src="images/u1-build-ping.jpg" alt="Two Heltec LoRa boards on a desk, one transmitting and one receiving a ping with RSSI and SNR on the OLED" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Step 1</span>First ping between two LoRa boards</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="1600" height="1200" src="images/u1-build-range.jpg" alt="Holding a LoRa receiver at a window, OLED showing a received ping and RSSI of -26 dBm" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Step 2</span>Standalone node on a power bank, reading RSSI</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="900" height="1600" src="images/u1-build-rssi.jpg" alt="LoRa receiver held down a long corridor showing RSSI of -97 dBm" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Step 3</span>Walking the corridor to map signal strength against distance</figcaption>
         </figure>
       </div>
 
@@ -409,10 +424,30 @@
         </div>
       </article>
 
+      <div class="strip strip-4 strip-ui wrap reveal" aria-label="META-HUB backend pipeline">
+        <p class="strip-label silk">U2 · UNDER THE HOOD</p>
+        <figure class="shot">
+          <img width="1600" height="617" src="images/u2-s3.jpg" alt="Amazon S3 bucket with a folder for each Metabots robot and solution" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>01 · Store</span>Amazon S3 holds every brochure, manual and photo, one folder per robot</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="1600" height="702" src="images/u2-glue.jpg" alt="AWS Glue visual ETL job metabotsS3toRDSdocs with a list of successful runs" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>02 · Clean</span>AWS Glue ETL job cleans the files and moves their details into the database</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="1600" height="739" src="images/u2-mysql.jpg" alt="MySQL Workbench showing the metabots documents table with title, file path, robot name and section" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>03 · Index</span>MySQL on Amazon RDS indexes each document by robot, section and file path</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="1218" height="856" src="images/u2-lambda.jpg" alt="AWS Lambda function LexBedrockHandler with its Python code" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>04 · Answer</span>A Lambda function joins Lex and Bedrock so the chatbot answers with sources</figcaption>
+        </figure>
+      </div>
+
       <div class="moment moment-flip wrap reveal">
         <figure class="shot moment-shot">
-          <img width="1398" height="1280" src="images/u2-interclean-amsterdam.jpg" alt="The team with Metabots at the Advanced Cobotics Solutions booth at Interclean Amsterdam, beside the DRIVO and META-VAC 35 robots" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
-          <figcaption><span>Interclean Amsterdam · RAI</span>With the Metabots team at the Advanced Cobotics Solutions booth</figcaption>
+          <img width="1600" height="740" src="images/u2-pitching-amsterdam.jpg" alt="Gue Yi Peng explaining META-HUB to a visitor in front of the META-HUB Resources screen on the Metabots stand at Interclean Amsterdam" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Interclean Amsterdam · RAI</span>Walking a visitor through META-HUB on the Metabots stand</figcaption>
         </figure>
         <div class="moment-text">
           <p class="silk">U2 · IN THE FIELD</p>
@@ -457,10 +492,26 @@
         </div>
       </article>
 
+      <div class="strip wrap reveal" aria-label="GearCharge photos">
+        <p class="strip-label silk">U3 · HOW IT WORKS</p>
+        <figure class="shot">
+          <img width="1600" height="1200" src="images/u3-team-prototype.jpg" alt="The GearCharge team with the tap-to-log RFID prototype in front of the title slide" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Prototype</span>Riders tap the RFID pad to log a bike in or out</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="740" height="1600" src="images/u3-blynk-alerts.jpg" alt="Phone lock screen full of Blynk theft_alert notifications from the ESP32 station" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Alerts</span>Blynk pushes a theft alert the moment a bike leaves the zone</figcaption>
+        </figure>
+        <figure class="shot">
+          <img width="1600" height="1201" src="images/u3-best-prototype.jpg" alt="Best Prototype slide announcing GearCharge at the IdeateCOMM Challenge" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>Result</span>Named Best Prototype at IdeateCOMM 2025</figcaption>
+        </figure>
+      </div>
+
       <div class="moment wrap reveal">
         <figure class="shot moment-shot">
-          <img width="1079" height="1244" src="images/u3-ideatecomm-award.jpg" alt="Receiving Silver and Best Prototype certificates at IdeateCOMM Challenge 2025, and the team presenting GearCharge" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
-          <figcaption><span>04 Oct 2025</span>Silver &amp; Best Prototype certificates, and pitching GearCharge</figcaption>
+          <img width="1600" height="1201" src="images/u3-award-stage.jpg" alt="Receiving the IdeateCOMM certificate on stage under the GEARCHARGE slide" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+          <figcaption><span>04 Oct 2025</span>On stage with the Silver &amp; Best Prototype certificates</figcaption>
         </figure>
         <div class="moment-text">
           <p class="silk">U3 · ON STAGE</p>
@@ -471,16 +522,38 @@
 
       <!-- ---------- More projects grid ---------- -->
       <div class="wrap">
-        <h3 class="sub-head reveal"><span class="silk">U4–U9</span> More builds</h3>
+        <h3 class="sub-head reveal"><span class="silk">U4–U10</span> More builds</h3>
         <div class="grid">
 
-          <article id="proj-trolley" class="card reveal">
-            <div class="card-media has-slides">
+          <article id="proj-website" class="card card-wide reveal">
+            <div class="card-media has-slides" data-slides>
               <span class="ref">U4</span>
-              <img width="1230" height="1139" class="img-trolley" src="images/u4-trolley-tracker.jpg" alt="Take Me Home tracker mounted on a supermarket trolley handle: red 3D-printed case with OLED display and LoRa antenna" loading="lazy" onerror="this.remove()">
+              <img width="1280" height="1600" class="img-contain" src="images/u10-qr-card.jpg" alt="Portfolio QR card: scan to open fruitty22.github.io/gueyipeng.github.io" loading="lazy" onerror="this.remove()">
+              <div class="board-fallback"><span>This website</span></div>
+              <img width="1517" height="446" class="img-contain" src="images/u10-cloudflare.jpg" alt="Cloudflare Worker portfolio-chat with a Workers AI binding" loading="lazy" onerror="this.remove()">
+              <span class="slide-dots" aria-hidden="true"></span>
+            </div>
+            <div class="card-body">
+              <p class="badge">Web · Cloud · AI</p>
+              <h4>Interactive Portfolio Website</h4>
+              <p>The site you are on. I hand-built it in HTML, CSS and JavaScript and host it on GitHub Pages, with a scroll-driven exploded view of my skills and a contact form that keeps my email private. The chatbot answers from a built-in knowledge base first, and sends unusual questions to Workers AI running on a Cloudflare Worker, locked to this site only.</p>
+              <ul class="chips"><li>HTML · CSS · JS</li><li>GitHub Pages</li><li>Cloudflare Workers AI</li><li>QR</li></ul>
+              <div class="links">
+                <button type="button" class="card-link link-btn" data-open-chat>Ask the chatbot ⧉</button>
+              </div>
+            </div>
+          </article>
+
+          <article id="proj-trolley" class="card reveal">
+            <div class="card-media has-slides" data-slides>
+              <span class="ref">U5</span>
+              <img width="1200" height="1599" class="img-trolley" src="images/u4-trolley.jpg" alt="Take Me Home tracker mounted on a supermarket trolley handle: red 3D-printed case with OLED and LoRa antenna" loading="lazy" onerror="this.remove()">
               <div class="board-fallback"><span>Smart Trolley</span></div>
-              <img width="1400" height="788" class="slide-2" src="images/u4-ite-achievers-award.jpg" alt="Team with their Lee Kuan Yew Technology Award trophies at the ITE Student Achievers' Awards 2023 ceremony" loading="lazy" onerror="this.remove()">
-              <span class="slide-dots" aria-hidden="true"><i></i><i></i></span>
+              <img width="1600" height="1200" src="images/u4-ttgo-gps.jpg" alt="TTGO LoRa32 board with u-blox NEO-6M GPS module showing the distance from the supermarket in metres" loading="lazy" onerror="this.remove()">
+              <img width="1600" height="900" src="images/u4-inside.jpg" alt="Inside the red 3D-printed tracker case: LoRa board, antenna and rechargeable battery" loading="lazy" onerror="this.remove()">
+              <img width="1488" height="993" src="images/u4-map.jpg" alt="Google Maps view of abandoned trolley locations logged around Simei housing blocks" loading="lazy" onerror="this.remove()">
+              <img width="1600" height="900" src="images/u4-lky-team.jpg" alt="The team with lecturers holding the trolley tracker, receiver and the live phone app" loading="lazy" onerror="this.remove()">
+              <span class="slide-dots" aria-hidden="true"></span>
             </div>
             <div class="card-body">
               <p class="badge badge-gold">Lee Kuan Yew Technology Award</p>
@@ -488,23 +561,6 @@
               <p>Each trolley hides a TTGO LoRa board with a GPS module. When it leaves the supermarket's geofence, a buzzer prompts the shopper to return it, and its coordinates are sent over LoRa to the retailer and logged in Google Sheets automatically. One click on a row opens the exact spot in Google Maps, and the growing dataset feeds a linear-regression model that predicts where trolleys get abandoned. No SIM card or data plan needed.</p>
               <ul class="chips"><li>TTGO LoRa</li><li>GPS</li><li>Google Sheets</li><li>Regression</li></ul>
               <a class="card-link" href="https://drive.google.com/file/d/1eDYNb2dMNOxw6xl6ZVSkBtFZXwnqlDa7/view" target="_blank" rel="noopener">Open deck ↗</a>
-            </div>
-          </article>
-
-          <article id="proj-walkingframe" class="card reveal">
-            <div class="card-media has-slides">
-              <span class="ref">U5</span>
-              <img src="https://drive.google.com/thumbnail?id=1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD&amp;sz=w800" alt="Smart walking frame poster for SHEC" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
-              <div class="board-fallback"><span>Walking Frame</span></div>
-              <img width="1080" height="1080" class="slide-2" src="images/u5-shec-award.jpg" alt="SHEC 2024 Student Poster Competition award presentation and the smart walking frame on display" loading="lazy" onerror="this.remove()">
-              <span class="slide-dots" aria-hidden="true"><i></i><i></i></span>
-            </div>
-            <div class="card-body">
-              <p class="badge badge-silver">2nd Place · SHEC Student Poster 2024</p>
-              <h4>Smart Walking Frame</h4>
-              <p>A sensor-equipped walking frame for gait rehabilitation, developed for St. Andrew's Community Hospital. Standard frames give support but no feedback; this one helps patients build consistent walking patterns and longer strides.</p>
-              <ul class="chips"><li>Biomedical</li><li>Sensors</li><li>Rehab tech</li></ul>
-              <a class="card-link" href="https://drive.google.com/file/d/1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD/view" target="_blank" rel="noopener">Open poster ↗</a>
             </div>
           </article>
 
@@ -524,10 +580,13 @@
           </article>
 
           <article id="proj-gravity" class="card reveal">
-            <div class="card-media">
+            <div class="card-media has-slides" data-slides>
               <span class="ref">U7</span>
-              <img width="1600" height="1200" src="images/u7-team-gravity-siew.jpg" alt="Team Gravity receiving 1st Runner-Up certificates on stage at Singapore International Energy Week, organised by the Energy Market Authority" loading="lazy" onerror="this.closest('.shot') ? this.closest('.shot').classList.add('is-missing') : this.remove()">
+              <img width="1600" height="1067" src="images/u7-pitch-siew.jpg" alt="Gue Yi Peng pitching Team Gravity at the Youth@SIEW podium on the Singapore International Energy Week stage" loading="lazy" onerror="this.remove()">
               <div class="board-fallback"><span>Gravity Storage</span></div>
+              <img width="1600" height="1200" src="images/u7-team-gravity-siew.jpg" alt="Team Gravity receiving 1st Runner-Up certificates on stage at Singapore International Energy Week, organised by the Energy Market Authority" loading="lazy" onerror="this.remove()">
+              <img width="1600" height="1200" src="images/u7-siew-team.jpg" alt="Team Gravity with their lecturers in front of the SIEW stage" loading="lazy" onerror="this.remove()">
+              <span class="slide-dots" aria-hidden="true"></span>
             </div>
             <div class="card-body">
               <p class="badge badge-silver">1st Runner-Up · SG Energy Grand Challenge 2023</p>
@@ -538,9 +597,48 @@
             </div>
           </article>
 
+          <article id="proj-argus" class="card reveal">
+            <div class="card-media has-slides" data-slides>
+              <span class="ref">U8</span>
+              <img width="1397" height="817" src="images/u9-argus-login.jpg" alt="Project ARGUS landing page: Every node. One fleet tracker, with a login button for each node" loading="lazy" onerror="this.remove()">
+              <div class="board-fallback"><span>Project ARGUS</span></div>
+              <img width="1600" height="773" src="images/u9-argus-dashboard.jpg" alt="ARGUS dashboard with readiness bars by fleet commander; names, counts and taskings blurred" loading="lazy" onerror="this.remove()">
+              <img width="1600" height="567" src="images/u9-argus-supabase.jpg" alt="Supabase project for the ARGUS fleet tracker: healthy Postgres database hosted in Sydney" loading="lazy" onerror="this.remove()">
+              <span class="slide-dots" aria-hidden="true"></span>
+            </div>
+            <div class="card-body">
+              <p class="badge">Full-stack · Data</p>
+              <h4>Project ARGUS · Fleet Tracker</h4>
+              <p>My Excel VBA fleet tracker, rebuilt as a web app. Each node logs in to its own space with its own vehicles, accounts and Excel imports. A dashboard rolls up availability, deployments, blocked vehicles and maintenance by commander and vehicle type, and an AI fleet assistant answers questions about taskings in plain English. The backend runs on Postgres in Supabase. Names and figures in the screenshots are blurred.</p>
+              <ul class="chips"><li>Supabase</li><li>PostgreSQL</li><li>Dashboards</li><li>Groq AI</li><li>Excel import</li></ul>
+              <div class="links fleet-links">
+                <button type="button" class="card-link link-btn" data-schematic>Original VBA logic ⧉</button>
+              </div>
+            </div>
+          </article>
+
+          <article id="proj-walkingframe" class="card reveal">
+            <div class="card-media has-slides" data-slides>
+              <span class="ref">U9</span>
+              <img width="694" height="515" src="images/u5-frame.jpg" alt="Smart walking frame with the 3D-printed sensor housings clamped to its legs" loading="lazy" onerror="this.remove()">
+              <div class="board-fallback"><span>Walking Frame</span></div>
+              <img width="748" height="739" src="images/u5-pcb-mounted.jpg" alt="Open control box on the walking frame: custom green PCB with ESP32, buck converter, 9 V battery and buzzer" loading="lazy" onerror="this.remove()">
+              <img width="750" height="738" src="images/u5-pcb-sensor.jpg" alt="Custom PCB with 9 V battery holder beside the ultrasonic distance sensor housing" loading="lazy" onerror="this.remove()">
+              <img width="1080" height="1080" src="images/u5-shec-award.jpg" alt="SHEC 2024 Student Poster Competition award presentation and the smart walking frame on display" loading="lazy" onerror="this.remove()">
+              <span class="slide-dots" aria-hidden="true"></span>
+            </div>
+            <div class="card-body">
+              <p class="badge badge-silver">2nd Place · SHEC Student Poster 2024</p>
+              <h4>Smart Walking Frame</h4>
+              <p>A sensor-equipped walking frame for gait rehabilitation, developed for St. Andrew's Community Hospital. Standard frames give support but no feedback; this one helps patients build consistent walking patterns and longer strides.</p>
+              <ul class="chips"><li>Biomedical</li><li>Sensors</li><li>Rehab tech</li></ul>
+              <a class="card-link" href="https://drive.google.com/file/d/1ib9LzIiRwYA5ANT04yU_hZA_ryp9pYuD/view" target="_blank" rel="noopener">Open poster ↗</a>
+            </div>
+          </article>
+
           <article id="proj-smarthome" class="card reveal">
             <div class="card-media">
-              <span class="ref">U8</span>
+              <span class="ref">U10</span>
               <img src="https://drive.google.com/thumbnail?id=1lFhbmyEnAQqVq5IQsZ_1edF6SeVcgWF4&amp;sz=w800" alt="Automated home cooling system slide" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
               <div class="board-fallback"><span>Smart Home</span></div>
             </div>
@@ -550,24 +648,6 @@
               <p>A Raspberry Pi and WISE-module smart home that reads temperature, humidity, light and motion, then closes windows, lowers shutters and switches the aircon through relays. Data logs to ThingSpeak, with Twitter alerts for remote monitoring.</p>
               <ul class="chips"><li>Raspberry Pi</li><li>Zigbee</li><li>DHT11 · LDR · PIR</li><li>ThingSpeak</li></ul>
               <a class="card-link" href="https://drive.google.com/file/d/1lFhbmyEnAQqVq5IQsZ_1edF6SeVcgWF4/view" target="_blank" rel="noopener">Open deck ↗</a>
-            </div>
-          </article>
-
-          <article id="proj-fleet" class="card reveal">
-            <button type="button" class="card-media fleet-preview" data-schematic aria-label="Open the interactive Fleet Logic Schematic">
-              <span class="ref">U9</span>
-              <span class="fleet-frame" aria-hidden="true"><iframe src="fleet-logic-schematic.html" title="Fleet Logic Schematic preview" loading="lazy" tabindex="-1" scrolling="no"></iframe></span>
-              <span class="fleet-play"><b>▶</b> Try the interactive schematic</span>
-            </button>
-            <div class="card-body">
-              <p class="badge">Software · Data</p>
-              <h4>Fleet Serviceability Tracker</h4>
-              <p>A VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting. Its decision logic is drawn as live logic gates you can click through.</p>
-              <ul class="chips"><li>Excel VBA</li><li>Power BI</li><li>Dashboards</li><li>Logic design</li></ul>
-              <div class="links fleet-links">
-                <button type="button" class="card-link link-btn" data-schematic>Interactive schematic ⧉</button>
-                <a class="card-link" href="https://drive.google.com/drive/folders/1S0AtXFNbGoCteNqMzQKSWnCVvyeL7euz" target="_blank" rel="noopener">Open files ↗</a>
-              </div>
             </div>
           </article>
 
@@ -1506,7 +1586,7 @@
   <!-- Fleet Logic Schematic viewer -->
   <dialog class="sv" id="sv" aria-label="Fleet Logic Schematic">
     <div class="sv-bar">
-      <span class="sv-title"><b>U9</b> Fleet Logic Schematic <em>· click any input to flip it</em></span>
+      <span class="sv-title"><b>U8</b> ARGUS · original VBA logic <em>· click any input to flip it</em></span>
       <span class="sv-tools">
         <a class="lb-btn" href="fleet-logic-schematic.html" target="_blank" rel="noopener">New tab ↗</a>
         <button type="button" class="lb-btn" id="sv-close">Close ✕</button>
@@ -1672,6 +1752,41 @@
         form.reset(); count.textContent = '0 / 1500'; done.hidden = true; form.classList.remove('is-done'); setState('READY · 923 MHz', ''); nameI.focus();
       });
 
+    })();
+  </script>
+
+  <!-- multi-photo project cards + "Ask the chatbot" button -->
+  <script>
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-slides]').forEach(function (box) {
+        var imgs = Array.prototype.slice.call(box.querySelectorAll('img'));
+        var dots = box.querySelector('.slide-dots');
+        if (imgs.length < 2) return;
+        var i = 0, timer = null, hover = false;
+        imgs.forEach(function () { dots.appendChild(document.createElement('i')); });
+        var marks = dots.querySelectorAll('i');
+        function go(n) {
+          imgs = imgs.filter(function (im) { return im.isConnected; });
+          if (!imgs.length) return;
+          i = (n + imgs.length) % imgs.length;
+          imgs.forEach(function (im, k) { im.classList.toggle('on', k === i); });
+          marks.forEach(function (m, k) { m.classList.toggle('on', k === i); });
+        }
+        box.classList.add('is-live'); go(0);
+        if (reduce) return;
+        function start() { stop(); timer = setInterval(function () { if (!hover && !document.hidden) go(i + 1); }, 3600); }
+        function stop() { if (timer) clearInterval(timer); timer = null; }
+        var card = box.closest('.card') || box;
+        card.addEventListener('mouseenter', function () { hover = true; });
+        card.addEventListener('mouseleave', function () { hover = false; });
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (en) { en[0].isIntersecting ? start() : stop(); }, { threshold: .25 }).observe(box);
+        } else start();
+      });
+      document.querySelectorAll('[data-open-chat]').forEach(function (b) {
+        b.addEventListener('click', function () { var f = document.getElementById('cb-fab'); if (f) f.click(); });
+      });
     })();
   </script>
 </body>

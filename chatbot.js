@@ -23,7 +23,7 @@
     {
       id: "projects", link: "#projects", label: "All projects", generic: true,
       keys: ["projects", "project list", "what have you built", "built", "portfolio", "work", "show me", "examples", "list"],
-      a: "Here are his main builds:<ul><li><b>TrackSafe</b> – LoRa safety tracking for MRT crews (Bronze, RailTech 2024)</li><li><b>META-HUB</b> – AWS + AI knowledge portal for Metabots</li><li><b>GearCharge</b> – BLE + RFID bike tracking (Silver &amp; Best Prototype, IdeateCOMM 2025)</li><li><b>Smart Trolley</b> – LoRa + GPS trolley tracker (Lee Kuan Yew Technology Award)</li><li><b>Smart Walking Frame</b> – gait rehab aid (2nd Place, SHEC 2024)</li><li><b>Digital Lanyard</b> – COVID-19 distancing wearable (Silver, Sixth Sense)</li><li><b>Team Gravity</b> – gravity energy storage (1st Runner-Up, SEGC 2023)</li><li>Plus a smart home cooling system and a fleet tracker</li></ul>Ask about any of them for details."
+      a: "Here are his main builds:<ul><li><b>TrackSafe</b> – LoRa safety tracking for MRT crews (Bronze, RailTech 2024)</li><li><b>META-HUB</b> – AWS + AI knowledge portal for Metabots</li><li><b>GearCharge</b> – BLE + RFID bike tracking (Silver &amp; Best Prototype, IdeateCOMM 2025)</li><li><b>Smart Trolley</b> – LoRa + GPS trolley tracker (Lee Kuan Yew Technology Award)</li><li><b>Smart Walking Frame</b> – gait rehab aid (2nd Place, SHEC 2024)</li><li><b>Digital Lanyard</b> – COVID-19 distancing wearable (Silver, Sixth Sense)</li><li><b>Team Gravity</b> – gravity energy storage (1st Runner-Up, SEGC 2023)</li><li><b>Project ARGUS</b> – fleet tracker web app with an AI assistant</li><li>Plus a smart home cooling system and this website</li></ul>Ask about any of them for details."
     },
     {
       id: "tracksafe", link: "#proj-tracksafe", label: "TrackSafe",
@@ -66,9 +66,9 @@
       a: "The <b>Automated Home Cooling System</b> uses a Raspberry Pi and a WISE module to read temperature, humidity, light and motion, then closes windows, lowers shutters and switches the aircon through relays. Data logs to ThingSpeak with Twitter alerts for remote monitoring."
     },
     {
-      id: "fleet", link: "#proj-fleet", label: "Fleet Tracker",
-      keys: ["fleet", "vehicle", "vehicles", "vba", "excel", "macro", "power bi", "powerbi", "serviceability", "dashboard"],
-      a: "The <b>Fleet Serviceability Tracker</b> is a VBA-driven Excel system that tracks vehicle serviceability, maintenance and blocked vehicles across several commanders' sheets, with a dashboard that rolls up the stats and a Power BI export for reporting. You can click through its decision logic as live logic gates in the interactive schematic on the project card."
+      id: "fleet", link: "#proj-argus", label: "Project ARGUS",
+      keys: ["argus", "project argus", "fleet", "vehicle", "vehicles", "vba", "excel", "macro", "serviceability", "dashboard", "supabase", "postgres", "groq"],
+      a: "<b>Project ARGUS</b> is his fleet tracker, rebuilt from an Excel VBA system into a web app. Each node logs in to its own space with its own vehicles, accounts and Excel imports. A dashboard rolls up availability, deployments, blocked vehicles and maintenance by commander and vehicle type, and an AI fleet assistant (Groq) answers questions about taskings in plain English. The backend is Postgres on Supabase. You can still click through the original VBA decision logic in the interactive schematic on the card."
     },
     {
       id: "lora", link: "#proj-tracksafe", label: "LoRa projects",
@@ -157,9 +157,9 @@
       a: "Next he's heading into an <b>Electrical &amp; Electronic Engineering degree</b>, with interests in Communication &amp; Network, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
     },
     {
-      id: "website", link: "#top", label: "Top",
+      id: "website", link: "#proj-website", label: "This website",
       keys: ["website", "this site", "portfolio site", "built this", "made this", "how was this", "design", "animation", "chip animation"],
-      a: "Yi Peng built this portfolio with plain HTML, CSS and JavaScript, themed as a circuit board: each section is a connector (J1–J4), each project a component (U1–U9), and the skills section is an exploded view of a chip called GYP-32."
+      a: "Yi Peng built this portfolio with plain HTML, CSS and JavaScript, themed as a circuit board: each section is a connector (J1–J4), each project a component (U1–U10), and the skills section is an exploded view of a chip called GYP-32. It is hosted on GitHub Pages, and this chatbot answers from a built-in knowledge base, with Workers AI on a Cloudflare Worker for unusual questions."
     },
     {
       id: "team", link: "#experience", label: "Experience",
@@ -182,7 +182,7 @@
     lanyard: "<b>Digital Lanyard</b>: ESP32-CAM distancing + thermal fever alert wearable. Silver, Sixth Sense 2022.",
     gravity: "<b>Team Gravity</b>: gravity energy storage concept with blockchain energy records. 1st Runner-Up, SEGC 2023.",
     smarthome: "<b>Home Cooling System</b>: Raspberry Pi + Zigbee home automation with ThingSpeak logging.",
-    fleet: "<b>Fleet Tracker</b>: VBA Excel serviceability system with Power BI export and an interactive logic schematic.",
+    fleet: "<b>Project ARGUS</b>: fleet tracker web app on Supabase Postgres with a readiness dashboard and an AI fleet assistant.",
     ssmc: "<b>SSMC internship</b>: reliability testing and yield analysis on NXP automotive chips (2025).",
     sick: "<b>SICK internship</b>: stress, heat and reliability testing of industrial sensors (2022–23)."
   };
