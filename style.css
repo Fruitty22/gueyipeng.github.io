@@ -1693,3 +1693,172 @@ body { font-size: 1.0938rem; }
   .card-wide { flex-direction: column; }
   .card-wide .card-media { flex: none; aspect-ratio: 16 / 10; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
 }
+
+/* ---------- LoRa board: live signal + tap-to-explain hotspots ---------- */
+.cmp-hot { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.cmp-hot .hs {
+  position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%); transform: translate(-50%, -50%);
+  pointer-events: auto; cursor: pointer; min-width: 34px; height: 24px; padding: 0 7px; border-radius: 999px;
+  font: 700 .66rem/24px var(--mono); letter-spacing: .06em; color: #0a0a0b; background: var(--signal);
+  border: 0; box-shadow: 0 0 0 0 rgba(94,230,207,.55); animation: hs-ping 2.4s ease-out infinite;
+  transition: opacity .25s, transform .25s, background .2s;
+}
+.cmp-hot .hs:hover, .cmp-hot .hs.on, .cmp-hot .hs:focus-visible { background: var(--gold); transform: translate(-50%, -50%) scale(1.12); outline: none; }
+.cmp-hot .hs.off { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(.6); }
+@keyframes hs-ping { 0% { box-shadow: 0 0 0 0 rgba(94,230,207,.55); } 70%, 100% { box-shadow: 0 0 0 12px rgba(94,230,207,0); } }
+.hs-card {
+  position: absolute; width: min(270px, 62%); pointer-events: auto;
+  background: rgba(12, 13, 15, .94); border: 1px solid var(--gold); border-radius: 10px; padding: 12px 14px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.55); backdrop-filter: blur(6px); z-index: 4;
+}
+.hs-card b { display: block; font: 700 .78rem/1.3 var(--mono); letter-spacing: .06em; color: var(--gold); margin-bottom: 6px; }
+.hs-card p { margin: 0; font-size: .86rem; line-height: 1.45; color: #e3e3df; }
+.hs-card[hidden] { display: none; }
+@media (max-width: 560px) {
+  .cmp-hot .hs { min-width: 28px; height: 20px; line-height: 20px; font-size: .58rem; padding: 0 5px; }
+  .hs-card { width: 76%; font-size: .9em; }
+}
+@media (prefers-reduced-motion: reduce) { .cmp-hot .hs { animation: none; } }
+
+/* ---------- LoRa board v2: silkscreen tags, boot-up, RX console ---------- */
+.cmp-hot .hs {
+  background: rgba(10, 10, 11, .82); color: #eef1e4; border: 1.5px solid #eef1e4;
+  line-height: 21px; box-shadow: 0 0 0 0 rgba(238,241,228,.5); animation-name: hs-ping-w;
+}
+.cmp-hot .hs:hover, .cmp-hot .hs.on, .cmp-hot .hs:focus-visible { background: #eef1e4; color: #0a0a0b; border-color: #eef1e4; }
+@keyframes hs-ping-w { 0% { box-shadow: 0 0 0 0 rgba(238,241,228,.45); } 70%, 100% { box-shadow: 0 0 0 11px rgba(238,241,228,0); } }
+@media (max-width: 560px) { .cmp-hot .hs { line-height: 17px; } }
+
+.cmp-col { display: grid; gap: 14px; min-width: 0; }
+
+/* boot sequence: board starts dark, power LED, traces draw on, OLED splash, then live */
+.cmp-pcb .pcb-traces path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.compare.pre-boot .cmp-pcb .pcb-traces path, .compare.booting:not(.b-trace) .cmp-pcb .pcb-traces path { stroke-dashoffset: 1; }
+.compare.booting .cmp-pcb .pcb-traces path { transition: stroke-dashoffset 1.1s cubic-bezier(.5,0,.2,1); }
+.cmp-pcb .pwr-led { transition: opacity .2s; }
+.compare.pre-boot .cmp-pcb .pwr-led, .compare.booting:not(.b-pwr) .cmp-pcb .pwr-led { opacity: .08; }
+.cmp-pcb .oled-boot { opacity: 0; }
+.compare.pre-boot #oled-1, .compare.pre-boot #oled-2, .compare.booting #oled-1, .compare.booting #oled-2 { opacity: 0; }
+.compare.booting.b-oled .cmp-pcb .oled-boot { opacity: 1; }
+.compare.booting.b-oled .cmp-pcb .oled-bar { transform-box: fill-box; transform-origin: left center; animation: oled-load 1.4s ease-out forwards; }
+@keyframes oled-load { from { transform: scaleX(.02); } to { transform: scaleX(1); } }
+.compare.pre-boot .cmp-hot, .compare.booting .cmp-hot { opacity: 0; pointer-events: none; }
+.cmp-hot { transition: opacity .5s; }
+
+/* receiver console */
+.rx-console {
+  border: 1px solid #2a2c30; border-radius: 12px; background: #0b0c0e; padding: 12px 14px 10px;
+  font-family: var(--mono); font-size: .76rem; color: #c3c6cc; min-height: 150px;
+  transition: border-color .4s, box-shadow .4s;
+}
+.rx-console.rx-flash { animation: rx-flash 1s ease-out; }
+@keyframes rx-flash { 0% { border-color: var(--signal); box-shadow: 0 0 0 1px rgba(94,230,207,.35), 0 0 22px rgba(94,230,207,.18); } 100% { border-color: #2a2c30; box-shadow: none; } }
+.rx-head { display: flex; align-items: center; gap: 10px; padding-bottom: 8px; margin-bottom: 6px; border-bottom: 1px dashed #2a2c30; }
+.rx-head b { color: var(--silk); letter-spacing: .12em; font-weight: 700; font-size: .72rem; }
+.rx-dot { width: 8px; height: 8px; border-radius: 50%; background: #3a3d42; }
+.rx-console.rx-flash .rx-dot { animation: rx-dot 1s ease-out; }
+@keyframes rx-dot { 0%, 40% { background: var(--signal); box-shadow: 0 0 10px var(--signal); } 100% { background: #3a3d42; } }
+.rx-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; margin-left: auto; }
+.rx-bars i { width: 4px; background: #2e3136; border-radius: 1px; transition: background .3s; }
+.rx-bars i:nth-child(1) { height: 4px; } .rx-bars i:nth-child(2) { height: 7px; } .rx-bars i:nth-child(3) { height: 10px; } .rx-bars i:nth-child(4) { height: 12px; }
+.rx-bars i.on { background: var(--signal); }
+.rx-stat { color: var(--gold); min-width: 12ch; text-align: right; }
+.rx-log { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.rx-log li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: rx-in .45s ease-out; }
+.rx-log li span { color: #6d737b; }
+.rx-log li.sys { color: #9aa0a8; }
+.rx-log li:last-child { color: var(--silk); }
+.rx-log li.sys:last-child { color: #c8ccd2; }
+@keyframes rx-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) { .rx-console { font-size: .68rem; } .rx-stat { min-width: 0; } }
+@media (prefers-reduced-motion: reduce) { .rx-log li { animation: none; } .rx-console.rx-flash { animation: none; } }
+
+/* ---------- 3-stage slider: schematic | board | prototype ---------- */
+.compare { touch-action: pan-y; cursor: ew-resize; user-select: none; -webkit-user-select: none; }
+.cmp-proto { position: absolute; inset: 0; margin: 0; overflow: hidden; background: #101113; clip-path: inset(0 0 0 var(--pos2)); }
+.cmp-proto .pbg { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(22px) brightness(.5) saturate(.7); }
+.cmp-proto .pmain {
+  position: absolute; right: 0; top: 0; height: 100%; width: auto; max-width: none; object-fit: cover;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14%); mask-image: linear-gradient(90deg, transparent 0, #000 14%);
+}
+.cmp-proto figcaption {
+  position: absolute; right: 12px; bottom: 12px; font: 600 .68rem/1.2 var(--mono); letter-spacing: .08em; color: #eef1e4;
+  background: rgba(10,10,11,.72); padding: 5px 8px; border-radius: 4px;
+}
+.cmp-line2 { left: var(--pos2); }
+.compare .cmp-knob { position: absolute; top: 50%; transform: translate(-50%, -50%); z-index: 5; cursor: ew-resize; pointer-events: auto; }
+.compare .cmp-knob.k1 { left: var(--pos); }
+.compare .cmp-knob.k2 { left: var(--pos2); }
+.compare .cmp-knob:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+.compare.dragging .cmp-knob { transform: translate(-50%, -50%) scale(1.08); }
+.cmp-label { z-index: 4; transition: opacity .25s; }
+.cmp-m { left: calc(var(--pos) + 12px); right: auto; }
+.cmp-r { right: 12px; }
+.compare.narrow-board .cmp-m, .compare.narrow-proto .cmp-r, .compare.narrow-sch .cmp-l { opacity: 0; }
+.cmp-hot { z-index: 3; }
+@media (max-width: 560px) { .cmp-label { font-size: .6rem; padding: 3px 6px; } .cmp-proto figcaption { font-size: .56rem; } }
+
+/* ---------- schematic flair: plotter draw-on, live nets, scan line, CAD crosshair ---------- */
+.cmp-sch .sch-ink path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.compare.pre-boot .cmp-sch .sch-ink path { stroke-dashoffset: 1; }
+.compare.plotting .cmp-sch .sch-ink path { stroke-dashoffset: 0; transition: stroke-dashoffset .9s cubic-bezier(.6,0,.3,1); }
+.cmp-sch .sch-txt, .cmp-sch .sch-dots { transition: opacity .6s ease .9s; }
+.compare.pre-boot .cmp-sch .sch-txt, .compare.pre-boot .cmp-sch .sch-dots { opacity: 0; }
+.compare.plotting .cmp-sch .sch-dots circle { animation: sch-dot .5s ease-out 1.1s both; transform-box: fill-box; transform-origin: center; }
+@keyframes sch-dot { from { transform: scale(0); } 60% { transform: scale(1.8); } to { transform: scale(1); } }
+.sch-scan {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0); overflow: hidden;
+}
+.sch-scan::before {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 90px; left: -100px;
+  background: linear-gradient(90deg, transparent, rgba(160, 210, 255, .1) 70%, rgba(200, 230, 255, .38) 98%, transparent);
+  animation: sch-scan 6.5s linear infinite;
+}
+@keyframes sch-scan { 0% { transform: translateX(0); } 55%, 100% { transform: translateX(calc(80vw + 200px)); } }
+.compare.pre-boot .sch-scan::before { animation-play-state: paused; opacity: 0; }
+.sch-cross { position: absolute; inset: 0; pointer-events: none; z-index: 2; opacity: 0; transition: opacity .2s; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.sch-cross.on { opacity: 1; }
+.sch-cross .cx, .sch-cross .cy { position: absolute; background: rgba(232, 241, 255, .55); }
+.sch-cross .cx { top: 0; bottom: 0; width: 1px; left: var(--cx); }
+.sch-cross .cy { left: 0; right: 0; height: 1px; top: var(--cy); }
+.sch-cross .cxy {
+  position: absolute; left: calc(var(--cx) + 10px); top: calc(var(--cy) + 10px);
+  font: 600 .62rem/1 var(--mono); letter-spacing: .06em; color: #0d2f57; background: #e8f1ff; padding: 3px 5px; border-radius: 2px; white-space: nowrap;
+}
+.compare .cmp-knob.k1 { left: var(--pos); }
+.cmp-r { right: 12px; left: auto; }
+.compare.narrow-sch .cmp-l, .compare.narrow-board .cmp-r { opacity: 0; }
+@media (hover: none) { .sch-cross { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sch-scan::before { animation: none; opacity: 0; } }
+
+/* ---------- receiver: live GPS map ---------- */
+.rx-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 14px; align-items: start; }
+.rx-map { margin: 0; display: grid; gap: 6px; }
+.rx-map svg { display: block; width: 100%; height: auto; background: #0e1013; border: 1px solid #23262b; border-radius: 8px; }
+.rx-map figcaption { font: 600 .68rem/1.2 var(--mono); color: var(--signal); letter-spacing: .04em; }
+#rx-pin { transition: transform 1.1s cubic-bezier(.4,0,.2,1); }
+#rx-pin .rx-ring { transform-box: fill-box; transform-origin: center; animation: rx-ring 1.8s ease-out infinite; }
+@keyframes rx-ring { from { transform: scale(1); opacity: .9; } to { transform: scale(3.2); opacity: 0; } }
+#rx-pin.out .rx-core { fill: #ff6b5a; } #rx-pin.out .rx-ring { stroke: #ff6b5a; }
+.rx-zone-tag { font: 700 .58rem/1 var(--mono); letter-spacing: .1em; color: #0b0c0e; background: var(--signal); padding: 3px 6px; border-radius: 3px; }
+.rx-zone-tag.out { background: #ff6b5a; animation: rx-blink 1s steps(2) 3; }
+@keyframes rx-blink { 50% { opacity: .35; } }
+.rx-log li.alert, .rx-log li.alert:last-child { color: #ff8a7a; }
+@media (max-width: 760px) { .rx-body { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .rx-head { flex-wrap: wrap; } .rx-zone-tag { order: 5; } }
+@media (prefers-reduced-motion: reduce) { #rx-pin .rx-ring { animation: none; } #rx-pin { transition: none; } }
+
+/* ---------- smart trolley mode: buzzer + sheets ---------- */
+.cmp-pcb .bz-ring { transform-box: fill-box; transform-origin: center; }
+.compare.buzz .cmp-pcb .bz-ring { animation: bz 1s ease-out infinite; }
+.compare.buzz .cmp-pcb .bz-ring.b2 { animation-delay: .5s; }
+@keyframes bz { from { opacity: .95; transform: scale(1); } to { opacity: 0; transform: scale(2.3); } }
+.compare.buzz .cmp-sch .sch-bz { opacity: 1; }
+.compare.buzz #oled-1 { fill: #ff8a7a; }
+.rx-log li.sheet { color: #7fd99a; }
+.rx-log li.ok, .rx-log li.ok:last-child { color: var(--signal); }
+.rx-map figcaption { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; }
+.rx-map figcaption a { color: var(--gold); text-decoration: none; border-bottom: 1px dashed rgba(216,165,71,.5); font-weight: 600; }
+.rx-map figcaption a:hover { color: #f0c76e; }
+@media (prefers-reduced-motion: reduce) { .compare.buzz .cmp-pcb .bz-ring { animation: none; opacity: .6; } }

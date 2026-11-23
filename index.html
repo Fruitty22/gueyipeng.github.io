@@ -659,63 +659,111 @@
     <section class="compare-sec">
       <div class="wrap compare-wrap">
         <div class="compare-text reveal">
-          <p class="silk">U10 · HOW LORA IS MADE</p>
+          <p class="silk">LAB · HOW LORA IS MADE</p>
           <h2 class="split">How a LoRa node <em>is made.</em></h2>
-          <p>Every LoRa node starts as a schematic and ends as a soldered board. Drag the slider to see the same circuit both ways: an ESP32 microcontroller, an SX1276 LoRa radio, an OLED display, a battery and an antenna. These are the building blocks behind TrackSafe and the Smart Trolley.</p>
+          <p>Every LoRa node starts as a schematic and ends as a soldered board. Drag the divider to see the same circuit both ways: an ESP32 microcontroller, an SX1276 LoRa radio, a NEO-6M GPS module, a buzzer, an OLED display, a battery and an antenna. This is the node inside my Take Me Home smart trolley, and the same building blocks power TrackSafe. On the board side it is live: a GPS fix travels through the board and out of the antenna, and the retailer’s gateway below tracks the trolley. When it leaves the supermarket’s geofence, the buzzer sounds and its location is logged to Google Sheets. Tap any part to see what it does.</p>
           <p class="cmp-note">Illustration of a typical LoRa node, not a production board.</p>
         </div>
+        <div class="cmp-col">
         <div class="compare reveal" id="compare" style="--pos:50%">
           <!-- BEFORE: schematic -->
-          <svg class="cmp cmp-sch" viewBox="0 0 800 450" role="img" aria-label="Illustrative schematic of a LoRa sensor node">
+          <svg class="cmp cmp-sch" viewBox="0 0 800 450" role="img" aria-label="Illustrative schematic of a LoRa sensor node: ESP32, SX1276 radio, OLED, battery, antenna and decoupling capacitors">
             <defs>
               <pattern id="bp-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#2c5c8f" stroke-width=".6"/></pattern>
+              <pattern id="bp-grid-major" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M100 0H0V100" fill="none" stroke="#3d74b0" stroke-width="1"/></pattern>
+              <radialGradient id="bp-vignette" cx="50%" cy="45%" r="70%"><stop offset="60%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".35"/></radialGradient>
+              <filter id="sch-glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
             </defs>
             <rect width="800" height="450" fill="#0d2f57"/>
             <rect width="800" height="450" fill="url(#bp-grid)"/>
-            <g fill="none" stroke="#e8f1ff" stroke-width="2">
-              <rect x="110" y="120" width="220" height="180"/>
-              <rect x="440" y="140" width="140" height="120"/>
-              <rect x="130" y="335" width="180" height="60"/>
-              <!-- pins U1 right -->
-              <path d="M330 160h20M330 185h20M330 210h20M330 235h20M330 270h20"/>
-              <!-- pins U2 left -->
-              <path d="M420 160h20M420 185h20M420 210h20M420 235h20"/>
-              <!-- SPI nets -->
-              <path d="M350 160h70M350 185h70M350 210h70M350 235h70"/>
-              <!-- RF out to antenna -->
-              <path d="M580 170h60V95"/>
-              <path d="M640 95l-22-35h44z"/>
-              <path d="M640 60V40"/>
-              <!-- I2C to OLED -->
-              <path d="M180 300v35M240 300v35"/>
-              <!-- battery -->
-              <path d="M650 300v20M620 320h60M635 332h30M620 344h60M635 356h30M650 356v24"/>
-              <path d="M650 300V270H350M650 380v20H90V250h20"/>
-              <path d="M580 230h40v40"/>
+            <rect width="800" height="450" fill="url(#bp-grid-major)" opacity=".55"/>
+            <rect width="800" height="450" fill="url(#bp-vignette)"/>
+            <!-- drawing (plotted on when the section first appears) -->
+            <g class="sch-ink" fill="none" stroke="#e8f1ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path pathLength="1" d="M14 14H786V436H14Z" stroke-width="1.2" opacity=".75"/>
+              <path pathLength="1" d="M200 14v8M400 14v8M600 14v8M200 436v-8M400 436v-8M600 436v-8M14 150h8M14 300h8M786 150h-8M786 300h-8" stroke-width="1" opacity=".75"/>
+              <path pathLength="1" d="M110 120H330V300H110Z"/>
+              <path pathLength="1" d="M440 140H580V260H440Z"/>
+              <path pathLength="1" d="M130 335H310V395H130Z"/>
+              <path pathLength="1" d="M330 160h20M330 185h20M330 210h20M330 235h20M330 270h20"/>
+              <path pathLength="1" d="M420 160h20M420 185h20M420 210h20M420 235h20"/>
+              <path pathLength="1" d="M350 160h70M350 185h70M350 210h70M350 235h70"/>
+              <path pathLength="1" d="M580 170h60V95"/>
+              <path pathLength="1" d="M640 95l-22-35h44zM640 60V40"/>
+              <path pathLength="1" d="M180 300v35M240 300v35"/>
+              <path pathLength="1" d="M650 300v20M620 320h60M635 332h30M620 344h60M635 356h30M650 356v24"/>
+              <path pathLength="1" d="M650 300V270H350M650 380v20H90V250h20"/>
+              <path pathLength="1" d="M580 230h40v40"/>
+              <!-- 3V3 rail + C1 decoupling -->
+              <path pathLength="1" d="M220 120V92M60 92H232M232 82v20"/>
+              <path pathLength="1" d="M60 92V126M46 126h28M46 136h28M60 136V168M48 168h24M53 175h14M58 182h4"/>
+              <!-- C2 decoupling on the radio supply -->
+              <path pathLength="1" d="M470 270v14M458 284h24M458 293h24M470 293v12M460 305h20M465 311h10M469 317h2"/>
+              <!-- U4 GPS on UART2 -->
+              <path pathLength="1" d="M400 42H540V108H400Z"/>
+              <path pathLength="1" d="M290 120V65H400M310 120V85H400"/>
+              <path pathLength="1" d="M540 58h16M556 50v16M548 50h16M548 66h16" stroke-width="1.6"/>
+              <!-- BZ1 piezo buzzer on IO25 -->
+              <path pathLength="1" d="M320 300V318H404M436 318H446V330M404 318a16 16 0 0 0 32 0Z"/>
+              <!-- title block -->
+              <path pathLength="1" d="M560 404H786V436H560ZM560 420H786M668 404V436" stroke-width="1.2"/>
             </g>
-            <g fill="#e8f1ff" font-family="JetBrains Mono, monospace" font-size="14">
-              <text x="122" y="142">U1  ESP32-WROOM</text>
-              <text x="452" y="162">U2  SX1276</text>
+            <g class="sch-dots" fill="#e8f1ff"><circle cx="350" cy="270" r="4"/><circle cx="650" cy="270" r="4"/><circle cx="110" cy="250" r="4"/><circle cx="470" cy="270" r="4"/><circle cx="220" cy="92" r="4"/></g>
+            <!-- labels -->
+            <g class="sch-txt" fill="#e8f1ff" font-family="JetBrains Mono, monospace" font-size="14">
+              <text x="122" y="150">U1  ESP32-WROOM</text>
+              <text x="440" y="132" font-size="13">U2</text><text x="485" y="205" font-size="12" font-weight="700">SX1276</text>
               <text x="142" y="357">U3  OLED 0.96"</text>
-              <text x="690" y="342">BT1</text>
+              <text x="690" y="342">BT1</text><text x="690" y="358" font-size="10" fill="#9fc2ea">3.7 V Li-ion</text>
               <text x="652" y="54">ANT1 923 MHz</text>
+              <text x="238" y="88" font-size="11">3V3</text>
+              <text x="410" y="346" font-size="11">BZ1</text><text x="410" y="358" font-size="9" fill="#9fc2ea">PIEZO</text><text x="314" y="294" font-size="9" fill="#bcd6f5">IO25</text>
+              <text x="412" y="62" font-size="13">U4  NEO-6M</text><text x="412" y="80" font-size="10" fill="#9fc2ea">GPS · UART 9600</text>
+              <text x="566" y="62" font-size="9" fill="#bcd6f5">PATCH</text>
+              <text x="342" y="60" font-size="10">TX</text><text x="342" y="80" font-size="10">RX</text>
+              <g font-size="9" fill="#bcd6f5"><text x="276" y="134">RX2</text><text x="300" y="134">TX2</text><text x="406" y="98">TXD RXD</text></g>
+              <text x="22" y="122" font-size="11">C1</text><text x="22" y="136" font-size="10" fill="#9fc2ea">100n</text>
+              <text x="488" y="288" font-size="11">C2</text><text x="488" y="301" font-size="10" fill="#9fc2ea">100n</text>
+              <g font-size="10" fill="#bcd6f5"><text x="294" y="164">IO18</text><text x="294" y="189">IO23</text><text x="294" y="214">IO19</text><text x="302" y="239">IO5</text>
+                <text x="166" y="294">IO21</text><text x="226" y="294">IO22</text>
+                <text x="446" y="164">SCK</text><text x="446" y="189">MOSI</text><text x="446" y="214">MISO</text><text x="446" y="239">NSS</text><text x="548" y="174">ANT</text><text x="542" y="234">VCC</text></g>
               <text x="357" y="154" font-size="11">SCK</text><text x="357" y="179" font-size="11">MOSI</text><text x="357" y="204" font-size="11">MISO</text><text x="357" y="229" font-size="11">NSS</text>
               <text x="188" y="322" font-size="11">SDA</text><text x="248" y="322" font-size="11">SCL</text>
               <text x="590" y="164" font-size="11">RF</text>
-              <text x="40" y="430" font-size="12" fill="#9fc2ea">LORA-NODE · ILLUSTRATIVE · SHEET 1/1</text>
+              <g font-size="10"><text x="566" y="416" font-weight="700">LORA-NODE</text><text x="674" y="416">SMART TROLLEY · A</text>
+                <text x="566" y="432" fill="#9fc2ea">DRAWN · GYP</text><text x="674" y="432" fill="#9fc2ea">SHEET 1/1 · ILLUS.</text></g>
+              <g font-size="9" fill="#7fa6d4"><text x="196" y="32">1</text><text x="396" y="32">2</text><text x="596" y="32">3</text><text x="28" y="154">A</text><text x="28" y="304">B</text></g>
             </g>
-            <g fill="#e8f1ff"><circle cx="350" cy="270" r="4"/><circle cx="650" cy="270" r="4"/><circle cx="110" cy="250" r="4"/></g>
+            <!-- live nets: light up in step with the packet on the board -->
+            <g class="sch-live" fill="none" stroke-linecap="round" filter="url(#sch-glow)">
+              <path d="M350 235h70" stroke="#5ee6cf" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.03;0.04;0.20;0.22;1"/></path>
+              <path d="M350 160h70" stroke="#5ee6cf" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.05;0.06;0.22;0.24;1"/></path>
+              <path d="M350 185h70" stroke="#5ee6cf" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.07;0.08;0.28;0.30;1"/></path>
+              <path d="M580 170h60V95" stroke="#ffe08a" stroke-width="3.4" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.29;0.30;0.42;0.44;1"/></path>
+              <path d="M420 210h-70" stroke="#d8a547" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.65;0.66;0.80;0.82;1"/></path>
+              <path d="M180 300v35" stroke="#5ee6cf" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.81;0.82;0.92;0.94;1"/></path>
+              <path d="M240 300v35" stroke="#5ee6cf" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.83;0.84;0.94;0.96;1"/></path>
+              <path d="M400 65H290V120" stroke="#9be15d" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.89;0.90;0.97;0.99;1"/></path>
+              <path class="sch-bz" d="M320 300V318H404" stroke="#ff6b5a" stroke-width="3" stroke-dasharray="7 9" opacity="0"><animate attributeName="stroke-dashoffset" values="32;0" dur=".45s" repeatCount="indefinite"/></path>
+              <g stroke="#5ee6cf" stroke-width="2">
+                <path d="M624 32a22 22 0 0 1 32 0" opacity="0"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;.41;.46;.62;1"/></path>
+                <path d="M614 22a36 36 0 0 1 52 0" opacity="0"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;.8;0;0" keyTimes="0;.46;.51;.68;1"/></path>
+                <path d="M604 12a50 50 0 0 1 72 0" opacity="0"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;.6;0;0" keyTimes="0;.51;.56;.74;1"/></path>
+              </g>
+            </g>
           </svg>
           <!-- AFTER: assembled PCB -->
           <svg class="cmp cmp-pcb" viewBox="0 0 800 450" role="img" aria-label="Illustrative assembled LoRa sensor node circuit board">
             <rect width="800" height="450" fill="#0a0a0b"/>
             <rect x="40" y="30" width="720" height="390" rx="22" fill="url(#g3-pcb)"/>
-            <g fill="none" stroke="#e7c06a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
-              <path d="M330 160h90M330 185h90M330 210h90M330 235h90"/>
-              <path d="M580 170h40l20-20V110"/>
-              <path d="M180 300v35M240 300v35"/>
-              <path d="M650 300V280l-10-10H340M650 380v10l-20 20H110l-20-20V260l10-10h10"/>
-              <path d="M580 230h30l10 10v30"/>
+            <g class="pcb-traces" fill="none" stroke="#e7c06a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+              <path pathLength="1" d="M330 160h90M330 185h90M330 210h90M330 235h90"/>
+              <path pathLength="1" d="M580 170h40l20-20V110"/>
+              <path pathLength="1" d="M180 300v35M240 300v35"/>
+              <path pathLength="1" d="M650 300V280l-10-10H340M650 380v10l-20 20H110l-20-20V260l10-10h10"/>
+              <path pathLength="1" d="M580 230h30l10 10v30"/>
+                          <path pathLength="1" d="M290 120V65H392M310 120V85H392"/>
+                          <path pathLength="1" d="M320 300V318H398"/>
             </g>
             <g fill="#ffe08a"><circle cx="420" cy="160" r="6"/><circle cx="420" cy="235" r="6"/><circle cx="640" cy="110" r="7"/><circle cx="90" cy="300" r="6"/></g>
             <!-- U1 ESP32 module: shield can -->
@@ -733,9 +781,12 @@
             <g fill="#c9ced3"><rect x="430" y="150" width="10" height="5"/><rect x="430" y="170" width="10" height="5"/><rect x="430" y="190" width="10" height="5"/><rect x="430" y="210" width="10" height="5"/><rect x="430" y="230" width="10" height="5"/><rect x="580" y="150" width="10" height="5"/><rect x="580" y="170" width="10" height="5"/><rect x="580" y="190" width="10" height="5"/><rect x="580" y="210" width="10" height="5"/><rect x="580" y="230" width="10" height="5"/></g>
             <!-- U3 OLED -->
             <rect x="130" y="335" width="180" height="60" rx="4" fill="#05080a"/>
-            <text x="144" y="358" font-family="JetBrains Mono, monospace" font-size="12" fill="#5ee6cf">Ping: 19.0  ID: TAN</text>
-            <rect x="144" y="368" width="150" height="12" rx="6" fill="none" stroke="#5ee6cf" stroke-width="2"/>
-            <rect x="147" y="371" width="140" height="6" rx="3" fill="#5ee6cf"/>
+            <g class="oled-boot"><rect x="132" y="337" width="176" height="56" rx="3" fill="#05080a"/>
+              <text id="oled-b1" x="144" y="358" font-family="JetBrains Mono, monospace" font-size="12" fill="#5ee6cf">GYP LoRa v1.0</text>
+              <rect x="144" y="370" width="150" height="10" rx="5" fill="none" stroke="#5ee6cf" stroke-width="1.6"/>
+              <rect class="oled-bar" x="146" y="372" width="146" height="6" rx="3" fill="#5ee6cf"/></g>
+            <text id="oled-1" x="144" y="358" font-family="JetBrains Mono, monospace" font-size="12" fill="#5ee6cf">CART 07  GPS 3D</text>
+            <text id="oled-2" x="144" y="381" font-family="JetBrains Mono, monospace" font-size="12" fill="#5ee6cf">RSSI -87dBm SNR 7</text>
             <!-- antenna SMA + whip -->
             <rect x="624" y="60" width="32" height="40" rx="3" fill="url(#g3-gold)"/>
             <rect x="633" y="-10" width="14" height="72" rx="7" fill="url(#g3-whip)"/>
@@ -743,18 +794,139 @@
             <rect x="615" y="300" width="70" height="80" rx="6" fill="#f2f2f2"/>
             <rect x="625" y="312" width="50" height="22" rx="2" fill="#d4d4d4"/>
             <path d="M635 345h30M635 355h30" stroke="#c62828" stroke-width="4"/>
+            <!-- U4 GPS module: NEO-6M with ceramic patch antenna -->
+            <rect x="396" y="38" width="150" height="76" rx="5" fill="#0f3a2a"/>
+            <rect x="404" y="46" width="82" height="60" rx="3" fill="#c9ced3"/><rect x="404" y="46" width="82" height="60" rx="3" fill="url(#g3-shade)" opacity=".5"/>
+            <text x="411" y="68" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#4a5056">u-blox</text>
+            <text x="411" y="84" font-family="JetBrains Mono, monospace" font-size="10" fill="#5b636b">NEO-6M</text>
+            <text x="411" y="98" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b737b">GPS</text>
+            <rect x="494" y="50" width="46" height="46" rx="4" fill="#c79a5a"/><rect x="502" y="58" width="30" height="30" rx="2" fill="#e4bf86"/><circle cx="517" cy="73" r="4" fill="#a87b3e"/>
+            <circle cx="390" cy="65" r="4" fill="#ffe08a"/><circle cx="390" cy="85" r="4" fill="#ffe08a"/>
+            <!-- GPS fix LED -->
+            <rect x="524" y="100" width="14" height="8" rx="2" fill="#16261c"/>
+            <rect x="526" y="102" width="10" height="4" rx="1" fill="#9be15d" opacity=".15" filter="url(#sig-glow)"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values=".15;.15;1;.15" keyTimes="0;.88;.92;1"/></rect>
+            <!-- BZ1 piezo buzzer -->
+            <g class="pcb-bz">
+              <circle class="bz-ring" cx="420" cy="318" r="22" fill="none" stroke="#ff6b5a" stroke-width="2.5" opacity="0"/>
+              <circle class="bz-ring b2" cx="420" cy="318" r="22" fill="none" stroke="#ff6b5a" stroke-width="2.5" opacity="0"/>
+              <circle cx="420" cy="318" r="20" fill="#16181b" stroke="#2c3035" stroke-width="2"/>
+              <circle cx="420" cy="318" r="6" fill="#0b0c0e"/>
+              <text x="412" y="306" font-family="JetBrains Mono, monospace" font-size="8" fill="#6b737b">+</text>
+            </g>
+            <!-- LIVE SIGNAL: one packet every 2.8 s. ESP32 -> SPI -> SX1276 -> antenna, ACK back, OLED refresh -->
+            <defs>
+              <filter id="sig-glow" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <path id="p-sck"  d="M330 160h90"/><path id="p-mosi" d="M330 185h90"/>
+              <path id="p-miso" d="M420 210h-90"/><path id="p-nss"  d="M330 235h90"/>
+              <path id="p-rf"   d="M580 170h40l20-20V12"/>
+              <path id="p-gps" d="M392 65H290V120"/>
+              <path id="p-sda"  d="M180 300v35"/><path id="p-scl" d="M240 300v35"/>
+            </defs>
+            <g class="sig" filter="url(#sig-glow)">
+              <g fill="#5ee6cf">
+                <circle r="4.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.04;.2;1"><mpath href="#p-nss"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.04;.2;.22;1"/></circle>
+                <circle r="4.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.06;.22;1"><mpath href="#p-sck"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.06;.22;.24;1"/></circle>
+                <circle r="4.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.08;.24;1"><mpath href="#p-mosi"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.08;.24;.26;1"/></circle>
+                <circle r="4.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.12;.28;1"><mpath href="#p-mosi"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.12;.28;.3;1"/></circle>
+              </g>
+              <!-- GPS fix arrives over UART -->
+              <g fill="#9be15d">
+                <circle r="4.2" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.9;.98;1"><mpath href="#p-gps"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;.9;.91;.98;1"/></circle>
+                <circle r="4.2" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.93;.995;1"><mpath href="#p-gps"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;.93;.94;.99;1"/></circle>
+              </g>
+              <!-- RF burst up the antenna -->
+              <circle r="5.5" fill="#ffe08a" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.3;.42;1"><mpath href="#p-rf"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.3;.42;.44;1"/></circle>
+              <!-- ACK comes back on MISO -->
+              <circle r="4.5" fill="#d8a547" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.66;.8;1"><mpath href="#p-miso"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.66;.8;.82;1"/></circle>
+              <!-- I2C refresh to the OLED -->
+              <g fill="#5ee6cf">
+                <circle r="3.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.82;.9;1"><mpath href="#p-sda"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.82;.9;.92;1"/></circle>
+                <circle r="3.5" opacity="0"><animateMotion dur="2.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0;1;1" keyTimes="0;.84;.92;1"><mpath href="#p-scl"/></animateMotion><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;.84;.92;.94;1"/></circle>
+              </g>
+            </g>
+            <!-- radio waves from the antenna tip -->
+            <g fill="none" stroke="#5ee6cf" stroke-width="2.5">
+              <circle cx="640" cy="10" r="10" opacity="0"><animate attributeName="r" dur="2.8s" repeatCount="indefinite" values="10;10;120;120" keyTimes="0;.42;.78;1"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;.9;0;0" keyTimes="0;.42;.78;1"/></circle>
+              <circle cx="640" cy="10" r="10" opacity="0"><animate attributeName="r" dur="2.8s" repeatCount="indefinite" values="10;10;120;120" keyTimes="0;.5;.86;1"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;.7;0;0" keyTimes="0;.5;.86;1"/></circle>
+              <circle cx="640" cy="10" r="10" opacity="0"><animate attributeName="r" dur="2.8s" repeatCount="indefinite" values="10;10;120;120" keyTimes="0;.58;.94;1"/><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;.5;0;0" keyTimes="0;.58;.94;1"/></circle>
+            </g>
+            <!-- PWR LED -->
+            <rect x="688" y="244" width="16" height="10" rx="2" fill="#2a1a1a"/>
+            <rect class="pwr-led" x="690" y="246" width="12" height="6" rx="1.5" fill="#ff5a4e" filter="url(#sig-glow)"/>
+            <text x="684" y="270" font-family="JetBrains Mono, monospace" font-size="10" fill="#eef1e4">PWR</text>
+            <!-- TX LED next to the radio -->
+            <rect x="596" y="246" width="16" height="10" rx="2" fill="#1d2a22"/>
+            <rect x="598" y="248" width="12" height="6" rx="1.5" fill="#5ee6cf" opacity=".15" filter="url(#sig-glow)"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values=".15;.15;1;.15;.15" keyTimes="0;.28;.32;.44;1"/></rect>
+            <text x="594" y="272" font-family="JetBrains Mono, monospace" font-size="10" fill="#eef1e4">TX</text>
             <!-- silkscreen -->
             <g fill="#eef1e4" font-family="JetBrains Mono, monospace" font-size="13">
-              <text x="110" y="112">U1</text><text x="440" y="132">U2</text><text x="130" y="415">U3</text><text x="692" y="300">BT1</text><text x="662" y="90">ANT1</text>
+              <text x="110" y="112">U1</text><text x="446" y="350">BZ1</text><text x="396" y="30">U4</text><text x="440" y="132">U2</text><text x="130" y="415">U3</text><text x="692" y="300">BT1</text><text x="662" y="90">ANT1</text>
               <text x="470" y="400" font-size="12">LORA-NODE · EXAMPLE</text>
             </g>
             <g fill="#0a0a0b" stroke="#e7c06a" stroke-width="4"><circle cx="70" cy="60" r="10"/><circle cx="730" cy="60" r="10"/><circle cx="70" cy="390" r="10"/><circle cx="730" cy="390" r="10"/></g>
           </svg>
-          <div class="cmp-line" aria-hidden="true"><span class="cmp-knob">⟷</span></div>
+          <div class="sch-scan" aria-hidden="true"></div>
+          <div class="sch-cross" aria-hidden="true"><i class="cx"></i><i class="cy"></i><span class="cxy">X 000 · Y 000</span></div>
+          <div class="cmp-line" aria-hidden="true"></div>
+          <span class="cmp-knob k1" role="slider" tabindex="0" aria-label="Divider between schematic and board" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">⟷</span>
           <span class="cmp-label cmp-l">SCHEMATIC</span>
           <span class="cmp-label cmp-r">BOARD</span>
-          <label class="sr-only" for="cmp-range">Compare schematic and board</label>
-          <input type="range" id="cmp-range" class="cmp-range" min="0" max="100" value="50">
+          <!-- tap-to-explain hotspots (board side only) -->
+          <div class="cmp-hot" id="cmp-hot">
+            <button type="button" class="hs" style="--x:27.5;--y:40" data-t="U1 · ESP32-WROOM-32E" data-d="The brain. A dual-core 240 MHz chip with Wi-Fi and Bluetooth. It reads the sensors, runs the logic and hands each packet to the radio.">U1</button>
+            <button type="button" class="hs" style="--x:47;--y:31" data-t="SPI bus" data-d="Four lines (SCK, MOSI, MISO, NSS) link the ESP32 to the radio. The glowing dots are a packet going out, and the gold one is the reply coming back.">SPI</button>
+            <button type="button" class="hs" style="--x:69;--y:55" data-t="U2 · SX1276 LoRa radio" data-d="A long-range, low-power radio on 923 MHz, the AS923 band used in Singapore. It trades speed for range, so a small packet can travel kilometres.">U2</button>
+            <button type="button" class="hs" style="--x:80;--y:18" data-t="ANT1 · 923 MHz antenna" data-d="Sends each GPS fix to the retailer’s gateway over LoRa. It reaches across a whole housing estate, with no SIM card or data plan needed.">ANT</button>
+            <button type="button" class="hs" style="--x:55.5;--y:17" data-t="U4 · NEO-6M GPS" data-d="Gets a satellite fix (latitude, longitude and time) through its ceramic patch antenna and sends it to the ESP32 over UART. Every packet carries that fix, so the retailer can see exactly where the trolley is.">U4</button>
+            <button type="button" class="hs" style="--x:52.5;--y:70.5" data-t="BZ1 · Piezo buzzer" data-d="Sounds when the trolley rolls out of the supermarket’s geofence, prompting the shopper to bring it back before it is abandoned.">BZ1</button>
+            <button type="button" class="hs" style="--x:40.5;--y:74" data-t="U3 · 0.96&quot; OLED" data-d="Shows ping, RSSI and SNR on the spot, refreshed over I²C (SDA and SCL) after every packet, so you can check the link without a laptop.">U3</button>
+            <button type="button" class="hs" style="--x:81.25;--y:76" data-t="BT1 · Li-ion battery" data-d="Lets the node run without a cable. Between packets the ESP32 can drop into deep sleep, so one charge lasts much longer.">BT1</button>
+            <div class="hs-card" id="hs-card" role="tooltip" hidden><b></b><p></p></div>
+          </div>
+        </div>
+        <div class="rx-console reveal" id="rx-console" aria-live="off">
+          <div class="rx-head">
+            <span class="rx-dot" aria-hidden="true"></span>
+            <b>RX · RETAILER GATEWAY</b><span class="rx-zone-tag" id="rx-zone-tag">IN GEOFENCE</span>
+            <span class="rx-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="rx-stat" id="rx-stat">waiting…</span>
+          </div>
+          <div class="rx-body">
+            <figure class="rx-map">
+              <svg viewBox="0 0 300 180" role="img" aria-label="Live map of a smart trolley's GPS position around a supermarket geofence and nearby housing blocks">
+                <defs><pattern id="rx-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#1a1d21" stroke-width="1"/></pattern></defs>
+                <rect width="300" height="180" fill="url(#rx-grid)"/>
+                <g fill="none" stroke="#23272c" stroke-width="7" stroke-linecap="round"><path d="M0 104H300"/><path d="M128 0V180"/><path d="M128 52H300"/><path d="M200 104V180"/></g>
+                <g fill="#191c20" stroke="#2c3036" stroke-width="1">
+                  <rect x="150" y="16" width="34" height="22" rx="2"/><rect x="222" y="16" width="34" height="22" rx="2"/><rect x="150" y="66" width="34" height="22" rx="2"/>
+                  <rect x="232" y="66" width="34" height="22" rx="2"/><rect x="146" y="124" width="34" height="22" rx="2"/><rect x="222" y="126" width="34" height="22" rx="2"/><rect x="60" y="128" width="34" height="22" rx="2"/>
+                </g>
+                <g font-family="JetBrains Mono, monospace" font-size="6.5" fill="#6d737b">
+                  <text x="154" y="30">BLK 120</text><text x="226" y="30">BLK 131</text><text x="154" y="80">BLK 247</text><text x="236" y="80">BLK 244</text><text x="150" y="138">BLK 256</text><text x="226" y="140">BLK 229</text><text x="64" y="142">BLK 105</text>
+                </g>
+                <g fill="#ff6b5a" opacity=".55"><circle cx="190" cy="44" r="2.4"/><circle cx="214" cy="60" r="2.4"/><circle cx="142" cy="94" r="2.4"/><circle cx="270" cy="96" r="2.4"/><circle cx="188" cy="152" r="2.4"/><circle cx="214" cy="118" r="2.4"/><circle cx="100" cy="122" r="2.4"/><circle cx="262" cy="154" r="2.4"/></g>
+                <circle cx="62" cy="50" r="50" fill="#d8a547" fill-opacity=".06" stroke="#d8a547" stroke-width="1.6" stroke-dasharray="5 4"/>
+                <rect x="34" y="30" width="56" height="36" rx="3" fill="#13261b" stroke="#3fd67f" stroke-width="1.4"/>
+                <g font-family="JetBrains Mono, monospace" fill="#c3c6cc">
+                  <text x="62" y="46" font-size="7" text-anchor="middle" fill="#9fe7b8" font-weight="700">SUPER-</text><text x="62" y="55" font-size="7" text-anchor="middle" fill="#9fe7b8" font-weight="700">MARKET</text>
+                  <text x="62" y="112" font-size="7" text-anchor="middle" fill="#d8a547" letter-spacing=".06em">GEOFENCE</text>
+                  <text x="292" y="174" text-anchor="end" font-size="7" fill="#5d636b">● past abandoned spots · ILLUSTRATIVE</text>
+                  <text x="8" y="174" font-size="9" fill="#7a8088">N ↑</text>
+                </g>
+                <g id="rx-trail" fill="#5ee6cf"></g>
+                <g id="rx-pin" transform="translate(66 74)">
+                  <circle class="rx-ring" r="6" fill="none" stroke="#5ee6cf" stroke-width="2"/>
+                  <circle class="rx-core" r="6.5" fill="#5ee6cf" stroke="#0b0c0e" stroke-width="2"/>
+                  <path d="M-3.6 -2.2h1.2l1 3.6h4.2l.9-2.6h-5.4M-0.8 3.2a.7.7 0 1 0 .01 0M2.6 3.2a.7.7 0 1 0 .01 0" fill="none" stroke="#0b0c0e" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="10" y="-7" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700" fill="#eef1e4">CART 07</text>
+                </g>
+              </svg>
+
+              <figcaption><span id="rx-fix">waiting for GPS fix…</span> <a id="rx-maps" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Maps ↗</a></figcaption>
+            </figure>
+            <ol class="rx-log" id="rx-log"></ol>
+          </div>
+        </div>
         </div>
       </div>
     </section>
@@ -1265,10 +1437,186 @@
       }
 
       // 4) schematic / board slider
-      var cmp = document.getElementById('compare'), range = document.getElementById('cmp-range');
-      if (cmp && range) {
-        var set = function () { cmp.style.setProperty('--pos', range.value + '%'); };
-        range.addEventListener('input', set); set();
+      var cmp = document.getElementById('compare');
+      if (cmp) {
+        // one divider: schematic | board
+        var P = [50, 100], k1 = cmp.querySelector('.k1');
+        var syncHot = function () {};
+        var set = function () {
+          P[0] = Math.max(0, Math.min(100, P[0]));
+          cmp.style.setProperty('--pos', P[0] + '%'); k1.setAttribute('aria-valuenow', Math.round(P[0]));
+          cmp.classList.toggle('narrow-sch', P[0] < 16); cmp.classList.toggle('narrow-board', P[0] > 84);
+          syncHot();
+        };
+        var drag = false;
+        var pct = function (e) { var r = cmp.getBoundingClientRect(); return Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)); };
+        cmp.addEventListener('pointerdown', function (e) {
+          if (e.target.closest('.hs, .hs-card')) return;
+          drag = true; P[0] = pct(e); set(); cmp.setPointerCapture(e.pointerId); cmp.classList.add('dragging');
+        });
+        var cross = cmp.querySelector('.sch-cross'), cxy = cmp.querySelector('.cxy');
+        cmp.addEventListener('pointermove', function (e) {
+          var x = pct(e);
+          if (drag) { P[0] = x; set(); }
+          if (cross && e.pointerType === 'mouse') {
+            var r = cmp.getBoundingClientRect(), y = Math.max(0, Math.min(100, (e.clientY - r.top) / r.height * 100));
+            var on = !drag && x < P[0] - 1.5;
+            cross.classList.toggle('on', on);
+            if (on) { cross.style.setProperty('--cx', x + '%'); cross.style.setProperty('--cy', y + '%');
+              cxy.textContent = 'X ' + ('00' + Math.round(x * 8)).slice(-3) + ' · Y ' + ('00' + Math.round(y * 4.5)).slice(-3); }
+          }
+        });
+        cmp.addEventListener('pointerleave', function () { if (cross) cross.classList.remove('on'); });
+        var end = function () { drag = false; cmp.classList.remove('dragging'); };
+        cmp.addEventListener('pointerup', end); cmp.addEventListener('pointercancel', end);
+        cmp.addEventListener('dragstart', function (e) { e.preventDefault(); });
+        k1.addEventListener('keydown', function (e) {
+          var d = e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -3 : e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 3 : 0;
+          if (e.key === 'Home') { P[0] = 0; set(); e.preventDefault(); } else if (e.key === 'End') { P[0] = 100; set(); e.preventDefault(); }
+          if (d) { P[0] += d; set(); e.preventDefault(); }
+        });
+        set();
+        // live board: boot-up on first view, then a packet every 2.8 s, mirrored in the RX log
+        var sch = cmp.querySelector('.cmp-sch'), pcb = cmp.querySelector('.cmp-pcb'), o1 = document.getElementById('oled-1'), o2 = document.getElementById('oled-2');
+        var logEl = document.getElementById('rx-log'), stat = document.getElementById('rx-stat'), con = document.getElementById('rx-console');
+        var bars = con ? con.querySelectorAll('.rx-bars i') : [];
+        var ping = 19, lastPhase = 0, live = false, next = null, visible = false;
+        cmp.querySelectorAll('.sch-ink path').forEach(function (pth, i) { pth.style.transitionDelay = (i * 0.07) + 's'; });
+        var stamp = function () { var d = new Date(); return [d.getHours(), d.getMinutes(), d.getSeconds()].map(function (n) { return ('0' + n).slice(-2); }).join(':'); };
+        var log = function (txt, cls) {
+          if (!logEl) return;
+          var li = document.createElement('li'); if (cls) li.className = cls;
+          li.innerHTML = '<span>' + stamp() + '</span> ' + txt; logEl.appendChild(li);
+          while (logEl.children.length > 6) logEl.removeChild(logEl.firstChild);
+        };
+        // GPS: a trolley leaves the supermarket's geofence, the buzzer sounds, the fix is logged to Google Sheets
+        var pin = document.getElementById('rx-pin'), trail = document.getElementById('rx-trail');
+        var fixEl = document.getElementById('rx-fix'), mapsA = document.getElementById('rx-maps'), zoneTag = document.getElementById('rx-zone-tag');
+        var FC = [62, 50], FR = 50, row = 141, buzzing = false, fix = null;
+        var ROUTES = [
+          [[66, 74], [96, 90], [124, 104], [142, 100], [162, 98], [184, 96], [204, 100], [214, 112], [214, 120]],
+          [[70, 70], [104, 74], [128, 66], [128, 52], [150, 52], [172, 50], [190, 46], [190, 44]],
+          [[60, 78], [88, 98], [112, 106], [128, 118], [150, 118], [176, 114], [196, 120], [200, 140], [190, 152]]
+        ];
+        var trip = 0, step = 0, mode = 'in', wait = 2;
+        var cur = ROUTES[0][0].slice();
+        var inside = function (pt) { var dx = pt[0] - FC[0], dy = pt[1] - FC[1]; return Math.sqrt(dx * dx + dy * dy) <= FR; };
+        var setBuzz = function (on) { buzzing = on; cmp.classList.toggle('buzz', on); };
+        var placeFix = function (still) {
+          if (!pin) return null;
+          var r = ROUTES[trip], events = [];
+          if (!still) {
+            if (mode === 'in') { if (--wait <= 0) { mode = 'out'; step = 0; } }
+            else if (mode === 'out') { step += 2; if (step >= r.length - 1) { step = r.length - 1; mode = 'parked'; wait = 2; } }
+            else if (mode === 'parked') { if (--wait <= 0) { mode = 'back'; } }
+            else if (mode === 'back') { step -= 3; if (step <= 0) { step = 0; mode = 'in'; wait = 2; trip = (trip + 1) % ROUTES.length; r = ROUTES[trip]; } }
+            var was = inside(cur);
+            if (trail) {
+              var dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+              dot.setAttribute('cx', cur[0]); dot.setAttribute('cy', cur[1]); dot.setAttribute('r', 2); trail.appendChild(dot);
+              while (trail.children.length > 7) trail.removeChild(trail.firstChild);
+              Array.prototype.forEach.call(trail.children, function (c, k, all) { c.setAttribute('opacity', (k + 1) / (all.length + 2)); });
+            }
+            cur = r[step].slice();
+            var now = inside(cur);
+            if (was && !now) events.push('left');
+            if (!was && now) events.push('back');
+          }
+          pin.setAttribute('transform', 'translate(' + cur[0] + ' ' + cur[1] + ')');
+          var lat = 1.34360 - cur[1] * .000022 + (Math.random() - .5) * .00001, lon = 103.95060 + cur[0] * .000022 + (Math.random() - .5) * .00001;
+          var inFence = inside(cur);
+          fix = { lat: lat.toFixed(5), lon: lon.toFixed(5), inFence: inFence, events: events, parked: mode === 'parked' };
+          if (fixEl) fixEl.textContent = fix.lat + '° N · ' + fix.lon + '° E';
+          if (mapsA) mapsA.href = 'https://www.google.com/maps?q=' + fix.lat + ',' + fix.lon;
+          pin.classList.toggle('out', !inFence);
+          if (zoneTag) { zoneTag.textContent = inFence ? 'IN GEOFENCE' : 'LEFT GEOFENCE'; zoneTag.classList.toggle('out', !inFence); }
+          return fix;
+        };
+        var showRx = function (v) {
+          if (stat) stat.textContent = v.rssi + ' dBm · SNR ' + v.snr;
+          var lvl = v.rssi > -82 ? 4 : v.rssi > -88 ? 3 : v.rssi > -93 ? 2 : 1;
+          bars.forEach(function (b, k) { b.classList.toggle('on', k < lvl); });
+          if (con) { con.classList.remove('rx-flash'); void con.offsetWidth; con.classList.add('rx-flash'); }
+        };
+        var startLive = function () {
+          live = true; cmp.classList.remove('booting'); cmp.classList.add('booted');
+          if (pcb && pcb.setCurrentTime) { pcb.setCurrentTime(0); if (sch) sch.setCurrentTime(0); if (visible) { pcb.unpauseAnimations(); if (sch) sch.unpauseAnimations(); } }
+        };
+        var boot = function () {
+          if (!pcb || !pcb.pauseAnimations) { startLive(); return; }
+          cmp.classList.add('booting', 'plotting'); pcb.pauseAnimations(); if (sch) sch.pauseAnimations();
+          setTimeout(function () { cmp.classList.remove('plotting'); cmp.classList.add('plotted'); }, 1700);
+          var t = [
+            [900,  function () { cmp.classList.add('b-pwr'); log('[boot] power on · 3.7 V', 'sys'); }],
+            [1300, function () { cmp.classList.add('b-trace'); }],
+            [2100, function () { cmp.classList.add('b-oled'); log('[boot] SX1276 found on SPI', 'sys'); }],
+            [2500, function () { log('[gps] NEO-6M on UART2 · 3D fix · 9 sats', 'sys'); }],
+            [3000, function () { log('[lora] 923.2 MHz · SF7 · BW 125 kHz', 'sys'); }],
+            [3600, function () { log('[lora] link up · listening', 'sys'); placeFix(true); if (stat) stat.textContent = 'link up'; startLive(); }]
+          ];
+          t.forEach(function (x) { setTimeout(x[1], x[0]); });
+        };
+        if (pcb && pcb.pauseAnimations) {
+          if (reduce) {
+            pcb.pauseAnimations(); if (sch) sch.pauseAnimations(); cmp.classList.add('booted', 'plotted', 'b-pwr', 'b-trace', 'b-oled');
+            log('[lora] 923.2 MHz · link up', 'sys'); showRx({ rssi: -84, snr: 6 }); placeFix(true); log('RX #19 · cart 07 · in geofence');
+          } else {
+            pcb.pauseAnimations(); if (sch) sch.pauseAnimations(); cmp.classList.add('pre-boot');
+            if ('IntersectionObserver' in window) {
+              var booted = false;
+              new IntersectionObserver(function (en) {
+                visible = en[0].isIntersecting;
+                if (visible && !booted) { booted = true; cmp.classList.remove('pre-boot'); boot(); }
+                else if (live) { if (visible) { pcb.unpauseAnimations(); if (sch) sch.unpauseAnimations(); } else { pcb.pauseAnimations(); if (sch) sch.pauseAnimations(); } }
+              }, { threshold: 0.45 }).observe(cmp);
+            } else { cmp.classList.remove('pre-boot'); visible = true; boot(); }
+          }
+          setInterval(function () {
+            if (reduce || !live || !o1) return;
+            var ph = (pcb.getCurrentTime() % 2.8) / 2.8;
+            if (lastPhase < .58 && ph >= .58) {      // waves reach the receiver
+              ping += 1; next = { rssi: -(78 + Math.round(Math.random() * 18)), snr: 5 + Math.round(Math.random() * 4) };
+              var f = placeFix(false) || { events: [] };
+              showRx(next);
+              if (f.events.indexOf('left') > -1) { log('ALERT · cart 07 left geofence', 'alert'); log('BZ1 on · "please return trolley"', 'alert'); setBuzz(true); }
+              if (f.events.indexOf('back') > -1) { log('cart 07 back in geofence · BZ1 off', 'ok'); setBuzz(false); }
+              if (f.inFence) log('RX #' + ping + ' · cart 07 · in geofence');
+              else { log('RX #' + ping + ' · ' + f.lat + ', ' + f.lon); row += 1; log('Sheets · row ' + row + ' logged' + (f.parked ? ' · parked' : ''), 'sheet'); }
+            }
+            if (lastPhase < .9 && ph >= .9 && next) {  // ACK back, OLED refresh
+              o1.textContent = buzzing ? '!! RETURN CART' : 'CART 07  #' + ping; o2.textContent = 'RSSI ' + next.rssi + 'dBm SNR ' + next.snr;
+            }
+            lastPhase = ph;
+          }, 80);
+        }
+        var hot = document.getElementById('cmp-hot'), card = document.getElementById('hs-card'), openBtn = null;
+        if (hot && card) {
+          var dots = hot.querySelectorAll('.hs');
+          var place = function (btn) {
+            card.querySelector('b').textContent = btn.dataset.t; card.querySelector('p').textContent = btn.dataset.d;
+            card.hidden = false;
+            var x = parseFloat(btn.style.getPropertyValue('--x')), y = parseFloat(btn.style.getPropertyValue('--y'));
+            var W = cmp.clientWidth, H = cmp.clientHeight, cw = card.offsetWidth, ch = card.offsetHeight;
+            var px = x / 100 * W, py = y / 100 * H;
+            var left = x > 55 ? px - cw - 22 : px + 22;
+            left = Math.max(8, Math.min(W - cw - 8, left));
+            var top = Math.max(8, Math.min(H - ch - 8, py - ch / 2));
+            card.style.left = left + 'px'; card.style.top = top + 'px';
+          };
+          var close = function () { card.hidden = true; if (openBtn) openBtn.classList.remove('on'); openBtn = null; };
+          dots.forEach(function (b) {
+            b.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') place(b); });
+            b.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && openBtn !== b) { if (openBtn) place(openBtn); else card.hidden = true; } });
+            b.addEventListener('click', function (e) { e.stopPropagation(); if (openBtn === b) return close(); if (openBtn) openBtn.classList.remove('on'); openBtn = b; b.classList.add('on'); place(b); });
+            b.addEventListener('focus', function () { place(b); });
+            b.addEventListener('blur', function () { if (openBtn !== b) card.hidden = true; });
+          });
+          document.addEventListener('click', function (e) { if (!hot.contains(e.target)) close(); });
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+          // show only the dots that sit on the board side of the slider
+          var sync = function () { dots.forEach(function (b) { var x = parseFloat(b.style.getPropertyValue('--x')), off = x < P[0] + 2 || x > P[1] - 2; b.classList.toggle('off', off); b.tabIndex = off ? -1 : 0; if (off && openBtn === b) close(); }); };
+          syncHot = sync; sync();
+        }
         // gentle one-time sweep so visitors see it moves
         if (!reduce && 'IntersectionObserver' in window) {
           var swept = false;
@@ -1276,9 +1624,9 @@
             if (swept || !en[0].isIntersecting) return; swept = true; ob.disconnect();
             var t0 = null;
             (function sweep(t) {
-              if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 1600);
-              range.value = 50 + Math.sin(k * Math.PI * 2) * 22; set();
-              if (k < 1) requestAnimationFrame(sweep); else { range.value = 50; set(); }
+              if (!t0) t0 = t; var k = Math.min(1, (t - t0) / 2000);
+              P[0] = 50 + Math.sin(k * Math.PI * 2) * 22; set();
+              if (k < 1) requestAnimationFrame(sweep); else { P[0] = 50; set(); }
             })(performance.now());
           }, { threshold: 0.5 }).observe(cmp);
         }
