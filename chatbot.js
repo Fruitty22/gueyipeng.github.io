@@ -17,8 +17,8 @@
   var KB = [
     {
       id: "about", link: "#top", label: "About me", generic: true,
-      keys: ["who is", "who", "yourself", "introduce", "background", "student", "study", "studying", "education", "school", "diploma", "temasek", "polytechnic", "ite", "nitec", "ntu", "university", "degree", "eee", "yi peng", "gue"],
-      a: "Gue Yi Peng is an electronics engineering student from Singapore. He holds a <b>Diploma in Electronics from Temasek Polytechnic</b> (2023–2026) and a <b>Higher Nitec in Electronics Engineering from ITE</b> (2020–2022). He's heading to <b>NTU EEE</b>, focusing on Communication &amp; Network, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
+      keys: ["who is", "who", "yourself", "introduce", "background", "student", "study", "studying", "education", "school", "diploma", "temasek", "polytechnic", "ite", "nitec", "university", "degree", "eee", "yi peng", "gue"],
+      a: "Gue Yi Peng is an electronics engineering student from Singapore. He holds a <b>Diploma in Electronics from Temasek Polytechnic</b> (2023–2026) and a <b>Higher Nitec in Electronics Engineering from ITE</b> (2020–2022). He's keen to pursue an <b>engineering degree at university</b>, with interests in Communication &amp; Networks, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
     },
     {
       id: "projects", link: "#projects", label: "All projects", generic: true,
@@ -154,7 +154,7 @@
     {
       id: "nextstudy", link: "#top", label: "About",
       keys: ["university", "uni", "degree", "next", "future", "plans", "goal", "goals", "further studies", "study next", "specialise", "specialize"],
-      a: "Next he's heading into an <b>Electrical &amp; Electronic Engineering degree</b>, with interests in Communication &amp; Network, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
+      a: "Next he's keen to take on an <b>engineering degree at university</b>, such as Electrical &amp; Electronic, Electronics or Computer Engineering, with interests in Communication &amp; Network, Data Analysis &amp; ML, and Micro &amp; Nano Electronics."
     },
     {
       id: "website", link: "#proj-website", label: "This website",
